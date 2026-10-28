@@ -1,0 +1,294 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Sticky Navigation Header */
+#sahyadri-header-mount {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  width: 100%;
+}
+
+/* Custom Forest Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #030805;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #143321;
+  border-radius: 4px;
+  border: 1px solid rgba(52, 211, 153, 0.2);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #1b422b;
+}
+
+/* ========================================================
+   SAVE THE SAHYADRI — UNIFIED CARD DESIGN SYSTEM
+   Standardized dark emerald-green card architecture,
+   subtle borders, 16–20px internal padding on mobile,
+   and 16px page margin / card spacing for all viewports.
+   ======================================================== */
+
+.sahyadri-card-base {
+  background-color: #06150E;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: 1rem; /* 16px on mobile */
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5);
+}
+
+@media (min-width: 640px) {
+  .sahyadri-card-base {
+    border-radius: 1.5rem; /* 24px on desktop */
+  }
+}
+
+.sahyadri-card-base:hover {
+  border-color: rgba(52, 211, 153, 0.4);
+}
+
+.sahyadri-card-highlight {
+  background-color: #071F11;
+  border: 2px solid rgba(52, 211, 153, 0.45);
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.2);
+}
+
+.sahyadri-card-highlight:hover {
+  border-color: rgba(0, 255, 135, 0.6);
+}
+
+/* Natural Mobile Word Wrapping & Touch Safeguards */
+.sahyadri-wrap-safe {
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+/* Subtle glow utility classes */
+.glow-border {
+  border: 1px solid rgba(52, 211, 153, 0.2);
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.08);
+}
+
+.glow-border-hover:hover {
+  border-color: rgba(52, 211, 153, 0.45);
+  box-shadow: 0 0 25px rgba(0, 255, 135, 0.15);
+}
+
+.text-gradient-emerald {
+  background: linear-gradient(135deg, #ffffff 30%, #34d399 75%, #00ff87 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-gold {
+  background: linear-gradient(135deg, #ffffff 40%, #fde047 80%, #ca8a04 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Custom Leaflet Map styling for Sahyadri Dark Theme */
+.leaflet-container {
+  background: #06130b !important;
+  font-family: inherit !important;
+}
+
+.dark-forest-tiles .leaflet-tile {
+  filter: brightness(0.65) invert(1) contrast(2.4) hue-rotate(185deg) saturate(0.4) brightness(0.75) !important;
+}
+
+/* Pulse effects */
+@keyframes emeraldPulse {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.25);
+  }
+  50% {
+    box-shadow: 0 0 35px rgba(0, 255, 135, 0.5);
+  }
+}
+
+.animate-emerald-pulse {
+  animation: emeraldPulse 2.5s infinite ease-in-out;
+}
+
+/* Leaflet Custom Marker & Tooltip styles */
+.leaflet-popup-content-wrapper {
+  background: #0a1910 !important;
+  color: #f1f5f9 !important;
+  border: 1px solid rgba(52, 211, 153, 0.3) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 20px rgba(16, 185, 129, 0.2) !important;
+  backdrop-filter: blur(12px) !important;
+}
+
+.leaflet-popup-tip {
+  background: #0a1910 !important;
+  border: 1px solid rgba(52, 211, 153, 0.3) !important;
+}
+
+.leaflet-tooltip {
+  background: #0a1910 !important;
+  color: #e2e8f0 !important;
+  border: 1px solid rgba(52, 211, 153, 0.3) !important;
+  border-radius: 6px !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5) !important;
+}
+
+/* Minimal Holographic Marker Pulse */
+.city-marker-pulse {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.city-marker-pulse::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 255, 135, 0.45);
+  background: rgba(0, 255, 135, 0.08);
+  animation: holoPulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes holoPulse {
+  0%, 100% {
+    transform: scale(0.8);
+    opacity: 0.65;
+  }
+  50% {
+    transform: scale(1.35);
+    opacity: 0.15;
+  }
+}
+
+/* Smooth Fade In Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Neon Cyan / Blue Glow Utilities */
+.shadow-cyan-glow-sm {
+  box-shadow: 0 0 12px rgba(0, 229, 255, 0.25);
+}
+
+.shadow-cyan-glow {
+  box-shadow: 0 0 25px rgba(0, 229, 255, 0.45);
+}
+
+.text-gradient-cyan {
+  background: linear-gradient(135deg, #ffffff 30%, #38bdf8 75%, #00e5ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Strictly disable Google Maps zoom/gesture overlay preview ("Use ctrl + scroll to zoom") */
+.gm-style-moc,
+.gm-style-pbc {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Strictly disable Microsoft Edge browser "Magnify Image" popup on Google Maps tiles */
+.gm-style img,
+#hero-google-map-target img,
+#google-maps-target img,
+.gm-style div img {
+  pointer-events: none !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  -webkit-user-drag: none !important;
+  -webkit-touch-callout: none !important;
+}
+
+/* Hide Google Maps POI infowindow & unwanted preview cards */
+.gm-style-iw-c,
+.gm-style-iw-tc,
+.gm-style-iw-t,
+.gm-style .gm-style-iw-d {
+  display: none !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+/* 3D Map Perspective Styles */
+.map-3d-viewport {
+  perspective: 1200px;
+  perspective-origin: 50% 65%;
+  overflow: hidden;
+}
+
+#hero-google-map-target.is-3d,
+#google-maps-target.is-3d {
+  transform: rotateX(24deg) scale(1.08);
+  transform-origin: 50% 65%;
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.85);
+}
+
+#hero-google-map-target:not(.is-3d),
+#google-maps-target:not(.is-3d) {
+  transform: rotateX(0deg) scale(1);
+  transform-origin: 50% 65%;
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Atmospheric Horizon Gradient in 3D Mode */
+.map-3d-horizon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 28%;
+  background: linear-gradient(to bottom, rgba(2, 7, 4, 0.82) 0%, rgba(2, 7, 4, 0.25) 60%, rgba(2, 7, 4, 0) 100%);
+  pointer-events: none;
+  z-index: 10;
+  transition: opacity 0.5s ease;
+}
