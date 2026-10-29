@@ -129,13 +129,6 @@ export function renderStorySection(container, onJoinClick) {
         
         <!-- Hero Section Header -->
         <div class="text-center max-w-3xl mx-auto space-y-3 sm:space-y-4">
-          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-950/70 border border-emerald-500/30 text-emerald-400 text-xs font-bold tracking-wider uppercase">
-            <svg class="w-3.5 h-3.5 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
-            </svg>
-            <span>ECOLOGICAL SIGNIFICANCE</span>
-          </div>
-
           <h2 class="font-heading font-black text-2xl sm:text-4xl lg:text-5xl text-white tracking-tight leading-tight">
             WHY THE SAHYADRI <span class="text-gradient-emerald">MATTERS</span>
           </h2>
