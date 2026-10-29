@@ -101,7 +101,18 @@ assert.ok(counterEl.innerHTML.includes('BIODIVERSITY HOTSPOTS'), 'Counter must f
 assert.ok(counterEl.innerHTML.includes('2012'), 'Counter must feature 2012 UNESCO World Heritage inscription year');
 assert.ok(counterEl.innerHTML.includes('UNESCO WORLD HERITAGE'), 'Counter must feature UNESCO WORLD HERITAGE label');
 assert.ok(counterEl.innerHTML.includes('https://whc.unesco.org/en/list/1342/'), 'Counter must include UNESCO source link');
-console.log('✓ Movement Counter rendered properly with UNESCO verified statistics');
+assert.ok(counterEl.innerHTML.includes('stats-carousel-track'), 'Counter must contain stats-carousel-track for mobile sliding');
+assert.ok(counterEl.innerHTML.includes('touch-action: pan-y;'), 'Carousel track must preserve vertical scrolling with pan-y');
+assert.ok(counterEl.innerHTML.includes('stats-carousel-dots'), 'Counter must contain mobile pagination dots container');
+assert.ok(counterEl.innerHTML.includes('stat-dot'), 'Counter must contain stat-dot pagination indicators');
+assert.ok(counterEl.innerHTML.includes('bg-[#00FF87]'), 'Active pagination dot must feature emerald #00FF87 highlight');
+assert.ok(
+  counterEl.innerHTML.includes('sm:grid') &&
+  counterEl.innerHTML.includes('sm:grid-cols-2') &&
+  counterEl.innerHTML.includes('lg:grid-cols-4'),
+  'Desktop & tablet grid layout must be preserved'
+);
+console.log('✓ Movement Counter rendered properly with UNESCO verified statistics and mobile auto-sliding carousel');
 
 // 4. Interactive Map
 const mapEl = createMockElement('map-mount');
