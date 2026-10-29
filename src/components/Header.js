@@ -65,7 +65,7 @@ ${siteUrl}
             Why Sahyadri
           </a>
           <a id="nav-news-link" href="#news" class="px-3 py-1.5 text-xs font-semibold text-slate-300 hover:text-emerald-400 transition-colors rounded-full hover:bg-emerald-950/40 focus-visible:ring-2 focus-visible:ring-emerald-400 cursor-pointer">
-            News & Sources
+            The Issue in Karjat
           </a>
         </nav>
 
@@ -126,7 +126,7 @@ ${siteUrl}
           Why Sahyadri Matters
         </a>
         <a id="mobile-nav-news-link" href="#news" class="mobile-nav-link block px-3 py-2 rounded-xl text-sm font-medium text-slate-200 hover:text-emerald-300 hover:bg-emerald-950/40 transition-colors cursor-pointer">
-          News & Official Sources
+          The Issue in Karjat
         </a>
         
         <div class="pt-2 border-t border-emerald-500/15 flex flex-col gap-2">
