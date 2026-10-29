@@ -31,6 +31,14 @@ export function renderIssueSection(container) {
           <!-- Wide Cinematic Image of a Person Hugging a Majestic Mature Tree in Lush Sahyadri Forest -->
           <div class="relative z-10 w-full overflow-hidden rounded-xl sm:rounded-2xl border border-emerald-500/25 shadow-xl group">
             <div class="relative aspect-[16/10] sm:aspect-[21/9] w-full overflow-hidden bg-black/60">
+              <!-- Location Badge (Safe from corner crop & responsive) -->
+              <div class="absolute top-3 left-3 sm:top-4 sm:left-4 z-10 inline-flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1 rounded-full bg-[#030905]/85 backdrop-blur-md text-[10px] sm:text-xs font-bold text-emerald-300 border border-emerald-500/40 shadow-lg pointer-events-none tracking-wider">
+                <svg class="w-3.5 h-3.5 text-emerald-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+                  <circle cx="12" cy="10" r="3"/>
+                </svg>
+                <span>SAHYADRI RANGE</span>
+              </div>
               <img 
                 src="/images/sahyadri-tree-hug.jpg" 
                 alt="A concerned citizen hugging an ancient mature tree in the lush misty canopy of the Sahyadri Western Ghats" 
