@@ -80,8 +80,10 @@ openMaharashtraFullView([{ city: 'Pune', state: 'Maharashtra' }]);
 assert.ok(appendedOverlay, 'Fullscreen overlay must be created');
 assert.ok(appendedOverlay.innerHTML.includes('PEOPLE UNITED FOR SAHYADRI'), 'Fullscreen map must feature live counter card');
 assert.ok(appendedOverlay.innerHTML.includes('MEMBERS JOINED'), 'Fullscreen map must feature MEMBERS JOINED');
+assert.ok(appendedOverlay.innerHTML.includes('32,490 TREES AT RISK?'), 'Fullscreen map must feature 32,490 TREES AT RISK? headline');
+assert.ok(appendedOverlay.innerHTML.includes('INDIA CONNECTS TO SAVE SAHYADRI.'), 'Fullscreen map must feature INDIA CONNECTS TO SAVE SAHYADRI. headline');
 closeMaharashtraFullView();
-console.log('✓ Fullscreen Map view properly displays the live counter card');
+console.log('✓ Fullscreen Map view properly displays the live counter card and campaign headline in the upper black horizon');
 
 // 3. Movement Counter
 const counterEl = createMockElement('counter-mount');

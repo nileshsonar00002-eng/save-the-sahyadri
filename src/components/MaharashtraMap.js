@@ -789,6 +789,18 @@ export function openMaharashtraFullView(supporters = []) {
       <!-- 3D Horizon Atmosphere Gradient -->
       <div id="fullview-map-3d-horizon" class="map-3d-horizon"></div>
 
+      <!-- Floating Campaign Headline in Upper Black Horizon -->
+      <div class="absolute top-4 sm:top-6 lg:top-7 inset-x-0 mx-auto w-full max-w-2xl px-4 z-30 pointer-events-none text-center select-none animate-fadeIn">
+        <div class="inline-flex flex-col items-center justify-center space-y-0.5 sm:space-y-1">
+          <div class="font-heading font-black text-sm sm:text-lg lg:text-xl text-white tracking-wider uppercase drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
+            32,490 TREES AT RISK?
+          </div>
+          <div class="font-heading font-black text-xs sm:text-sm lg:text-base text-[#00FF87] tracking-wider uppercase drop-shadow-[0_0_16px_rgba(0,255,135,0.45)]">
+            INDIA CONNECTS TO SAVE SAHYADRI.
+          </div>
+        </div>
+      </div>
+
       <!-- Google Maps Target Div -->
       <div id="google-maps-target" class="w-full h-full is-3d"></div>
 
