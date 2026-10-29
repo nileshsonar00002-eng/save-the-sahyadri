@@ -108,7 +108,7 @@ console.log('✓ Interactive Map rendered properly');
 const issueEl = createMockElement('issue-mount');
 renderIssueSection(issueEl);
 assert.ok(issueEl.innerHTML.includes('32,490 TREES'), 'Issue must contain 32,490 TREES headline');
-assert.ok(issueEl.innerHTML.includes('A reported figure of trees authorised for removal in connection with the Karjat project.'), 'Must contain factual description');
+assert.ok(issueEl.innerHTML.includes('A reported 32,490 trees were authorised for removal for the Saidongar-I Karjat pumped-storage project.'), 'Must contain factual description');
 assert.ok(issueEl.innerHTML.includes('sahyadri-tree-hero.jpg'), 'Must contain cinematic mature tree image');
 assert.ok(issueEl.innerHTML.includes('50–100 YEARS TO GROW.'), 'Must contain emotional headline part 1');
 assert.ok(issueEl.innerHTML.includes('JUST MINUTES TO CUT?'), 'Must contain emotional headline part 2');

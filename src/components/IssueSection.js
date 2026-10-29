@@ -18,7 +18,7 @@ export function renderIssueSection(container) {
           
           <!-- SHORT FACTUAL DESCRIPTION -->
           <p class="text-xs sm:text-base text-slate-200 leading-relaxed max-w-2xl mx-auto font-sans">
-            A reported figure of trees authorised for removal in connection with the Karjat project.
+            A reported 32,490 trees were authorised for removal for the Saidongar-I Karjat pumped-storage project.
           </p>
         </div>
 
