@@ -5,9 +5,11 @@
  * 
  * Mobile Experience:
  * - Premium auto-sliding horizontal carousel with touch swipe gestures (pan-y preserved).
+ * - Active card width: ~90–91% of available container with subtle 12–20px next-card preview.
+ * - Compact balanced vertical padding, 14px readable body text, and two-line clamped title.
+ * - Non-clipped, compact category badges and natural content-adaptive heights.
  * - Autoplay every 3.5s with pause on touch/interaction and automatic reset on manual swipe.
- * - Right-edge peek of next card, smooth infinite seamless looping.
- * - Interactive pagination dots with emerald glow.
+ * - Smooth infinite seamless looping and interactive pagination dots with emerald glow.
  * 
  * Desktop & Tablet Experience:
  * - 2-column grid layout preserved exactly as specified.
@@ -31,14 +33,14 @@ export function renderStorySection(container, onJoinClick) {
     if (pillar.icon === 'droplet') {
       // Lucide Droplet line icon
       iconSvg = `
-        <svg class="w-5 h-5 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg class="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z" />
         </svg>
       `;
     } else {
       // Lucide Mountain line icon
       iconSvg = `
-        <svg class="w-5 h-5 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg class="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
           <path d="m4.14 15 .86-1 2 2 4-4 2 2 3-3 2.14 4" />
         </svg>
@@ -49,10 +51,10 @@ export function renderStorySection(container, onJoinClick) {
     const staggerClass = index === 0 ? 'stagger-1' : 'stagger-2';
 
     return `
-      <div class="story-carousel-card w-[84%] sm:w-auto shrink-0 sm:shrink group relative rounded-2xl sm:rounded-3xl bg-[#06150E] border border-emerald-500/20 hover:border-emerald-400/40 transition-all duration-300 flex flex-col justify-between shadow-xl overflow-hidden hover-lift reveal-on-scroll ${staggerClass} cursor-pointer sm:cursor-default" data-card-index="${index}">
+      <div class="story-carousel-card w-[90%] xs:w-[91%] sm:w-auto shrink-0 sm:shrink group relative rounded-2xl sm:rounded-3xl bg-[#06150E] border border-emerald-500/20 hover:border-emerald-400/40 transition-all duration-300 flex flex-col justify-between shadow-xl overflow-hidden hover-lift reveal-on-scroll ${staggerClass} cursor-pointer sm:cursor-default h-auto sm:h-full" data-card-index="${index}">
         
-        <!-- Top Landscape Image Banner -->
-        <div class="relative w-full h-44 sm:h-52 overflow-hidden bg-emerald-950/40 border-b border-emerald-500/15">
+        <!-- Top Landscape Image Banner (Compact on mobile to avoid excessive card height) -->
+        <div class="relative w-full h-36 xs:h-40 sm:h-52 overflow-hidden bg-emerald-950/40 border-b border-emerald-500/15 shrink-0">
           <img 
             src="${imageSrc}" 
             alt="${pillar.title}" 
@@ -62,39 +64,39 @@ export function renderStorySection(container, onJoinClick) {
           <div class="absolute inset-0 bg-gradient-to-t from-[#06150E] via-[#06150E]/30 to-transparent"></div>
           
           <!-- Icon Floating Badge -->
-          <div class="absolute top-3 left-3 sm:top-4 sm:left-4 w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-black/70 backdrop-blur-md border border-emerald-500/30 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+          <div class="absolute top-2.5 left-2.5 sm:top-4 sm:left-4 w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-black/70 backdrop-blur-md border border-emerald-500/30 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
             ${iconSvg}
           </div>
 
-          <!-- Tagline Pill on Bottom -->
-          <div class="absolute bottom-2.5 left-3 right-3 sm:bottom-3 sm:left-4 sm:right-4 flex items-center justify-between">
-            <span class="text-[10px] sm:text-[11px] font-mono font-semibold text-emerald-300 tracking-wider uppercase bg-[#041209]/90 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full border border-emerald-500/30 backdrop-blur-sm truncate">
+          <!-- Category Tagline Badge (Compact font, unclipped text) -->
+          <div class="absolute bottom-2 left-2.5 right-2.5 sm:bottom-3 sm:left-4 sm:right-4 flex items-center">
+            <span class="inline-block text-[9px] xs:text-[10px] sm:text-[11px] font-mono font-semibold text-emerald-300 tracking-wide uppercase bg-[#041209]/95 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full border border-emerald-500/30 backdrop-blur-sm max-w-full leading-normal">
               ${pillar.tagline}
             </span>
           </div>
         </div>
 
-        <!-- Card Body (16px padding on mobile: p-4, 24px on desktop: sm:p-6 lg:p-7) -->
-        <div class="p-4 sm:p-6 lg:p-7 flex-1 flex flex-col justify-between space-y-4 sm:space-y-5">
-          <div class="space-y-2.5 sm:space-y-3">
-            <h3 class="font-heading font-black text-xl sm:text-2xl text-white group-hover:text-emerald-300 transition-colors tracking-tight">
+        <!-- Card Body (Reduced vertical padding: p-3.5 sm:p-6 lg:p-7) -->
+        <div class="p-3.5 sm:p-6 lg:p-7 flex-1 flex flex-col justify-between space-y-3 sm:space-y-5">
+          <div class="space-y-1.5 sm:space-y-3">
+            <h3 class="font-heading font-black text-[17px] xs:text-[18px] sm:text-2xl text-white group-hover:text-emerald-300 transition-colors tracking-tight leading-snug line-clamp-2">
               ${pillar.title}
             </h3>
-            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed font-sans">
+            <p class="text-[14px] sm:text-sm text-slate-300 leading-[1.6] sm:leading-relaxed font-sans">
               ${pillar.description}
             </p>
           </div>
 
-          <!-- 3 Concise Verified Facts with Green Check Icons -->
-          <div class="space-y-2 pt-3 sm:pt-4 border-t border-emerald-500/15">
+          <!-- 3 Concise Verified Facts with Green Check Icons (Tightened gaps) -->
+          <div class="space-y-1.5 sm:space-y-2 pt-2.5 sm:pt-4 border-t border-emerald-500/15">
             <div class="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-emerald-400 font-bold flex items-center gap-1.5">
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
               KEY ECOLOGICAL ATTRIBUTES
             </div>
-            <ul class="space-y-2">
+            <ul class="space-y-1.5 sm:space-y-2">
               ${pillar.keyPoints.map(kp => `
-                <li class="flex items-start gap-2.5 text-xs sm:text-[13px] text-slate-200 leading-relaxed">
-                  <span class="inline-flex items-center justify-center w-4 h-4 rounded-full bg-emerald-950/90 border border-emerald-400/50 text-emerald-400 font-bold text-[10px] shrink-0 mt-0.5">✓</span>
+                <li class="flex items-start gap-2 text-xs sm:text-[13px] text-slate-200 leading-relaxed">
+                  <span class="inline-flex items-center justify-center w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full bg-emerald-950/90 border border-emerald-400/50 text-emerald-400 font-bold text-[9px] sm:text-[10px] shrink-0 mt-0.5">✓</span>
                   <span>${kp}</span>
                 </li>
               `).join('')}
@@ -102,7 +104,7 @@ export function renderStorySection(container, onJoinClick) {
           </div>
 
           <!-- Card Footer with Accurate Natural Heritage Badge and Source Link -->
-          <div class="pt-3 sm:pt-4 border-t border-emerald-500/15 flex flex-wrap items-center justify-between gap-2 text-[10px] sm:text-[11px] font-mono">
+          <div class="pt-2.5 sm:pt-4 border-t border-emerald-500/15 flex flex-wrap items-center justify-between gap-1.5 sm:gap-2 text-[10px] sm:text-[11px] font-mono">
             <span class="text-emerald-400 font-semibold tracking-wider flex items-center gap-1.5">
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
               WESTERN GHATS · NATURAL HERITAGE
@@ -155,11 +157,11 @@ export function renderStorySection(container, onJoinClick) {
           </p>
         </div>
 
-        <!-- 2 Visually Balanced Responsive Cards (Mobile: Auto-Sliding Carousel, Desktop: 2 Col Grid) -->
+        <!-- 2 Visually Balanced Responsive Cards (Mobile: Auto-Sliding Carousel aligned top, Desktop: 2 Col Grid) -->
         <div class="relative w-full overflow-hidden sm:overflow-visible py-1">
           <div 
             id="story-carousel-track" 
-            class="relative flex sm:grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 items-stretch transition-transform duration-500 ease-out will-change-transform"
+            class="relative flex sm:grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 items-start sm:items-stretch transition-transform duration-500 ease-out will-change-transform"
             style="touch-action: pan-y;"
           >
             ${pillarCardsHtml}
@@ -270,7 +272,7 @@ function initStoryMobileCarousel(container) {
   function getCardOffset(index) {
     if (!cards[index]) return 0;
     const card0 = cards[0];
-    const cardWidth = card0 ? card0.offsetWidth : 280;
+    const cardWidth = card0 ? card0.offsetWidth : 300;
     const gap = 16; // 1rem gap (gap-4)
     if (cards[index].offsetLeft > 0 || index === 0) {
       return cards[index].offsetLeft;

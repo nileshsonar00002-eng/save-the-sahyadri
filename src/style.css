@@ -595,4 +595,9 @@ button svg {
     box-shadow: none !important;
     opacity: 0.92 !important;
   }
+
+  .story-carousel-card {
+    height: auto !important;
+    align-self: flex-start;
+  }
 }

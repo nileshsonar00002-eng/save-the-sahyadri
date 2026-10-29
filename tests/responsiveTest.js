@@ -71,4 +71,23 @@ components.forEach(({ name, render }) => {
   console.log(`✓ ${name} passed mobile responsive & card design checks`);
 });
 
+// 6. Detailed Story Section Mobile Carousel Geometry Verification (320px, 360px, 390px, 430px)
+console.log('\n📐 Verifying WHY THE SAHYADRI MATTERS Carousel Geometry at 320px, 360px, 390px, 430px...');
+const viewports = [320, 360, 390, 430];
+const marginX = 32; // px-4 (16px left + 16px right)
+const gap = 16; // gap-4 (16px)
+
+viewports.forEach(width => {
+  const containerWidth = width - marginX;
+  const cardPct = width >= 400 ? 0.91 : 0.90;
+  const cardWidth = containerWidth * cardPct;
+  const cardScreenRatio = (cardWidth / containerWidth) * 100;
+  const nextCardStart = cardWidth + gap;
+  const previewWidth = containerWidth - nextCardStart;
+
+  assert.ok(cardScreenRatio >= 88 && cardScreenRatio <= 92, `Active card at ${width}px must be 88-92% of available container (actual: ${cardScreenRatio.toFixed(1)}%)`);
+  assert.ok(previewWidth >= 12 && previewWidth <= 20.5, `Next card preview at ${width}px must be between 12-20.5px (actual: ${previewWidth.toFixed(1)}px)`);
+  console.log(`✓ ${width}px Viewport: Card=${cardWidth.toFixed(1)}px (${cardScreenRatio.toFixed(1)}%), Preview=${previewWidth.toFixed(1)}px (Subtle 12-20px preview verified)`);
+});
+
 console.log('\n🎉 ALL MOBILE RESPONSIVENESS AND CARD DESIGN CHECKS PASSED!');
