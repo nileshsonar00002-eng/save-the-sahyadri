@@ -790,7 +790,7 @@ export function openMaharashtraFullView(supporters = []) {
       <div id="fullview-map-3d-horizon" class="map-3d-horizon"></div>
 
       <!-- Floating Campaign Headline in Upper Black Horizon (Animated fade-and-slide entrance) -->
-      <div class="map-card-entrance absolute top-4 sm:top-6 lg:top-7 inset-x-0 mx-auto w-full max-w-2xl px-4 z-30 pointer-events-none text-center select-none">
+      <div id="fullview-headline-card" class="map-card-entrance absolute top-4 sm:top-6 lg:top-7 inset-x-0 mx-auto w-full max-w-2xl px-4 z-30 pointer-events-none text-center select-none">
         <div class="inline-flex flex-col items-center justify-center space-y-0.5 sm:space-y-1">
           <div class="font-heading font-black text-sm sm:text-lg lg:text-xl text-white tracking-wider uppercase drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
             32,490 TREES AT RISK?
@@ -877,6 +877,17 @@ export function openMaharashtraFullView(supporters = []) {
 
   document.body.appendChild(overlay);
   document.body.classList.add('overflow-hidden');
+
+  // Trigger smooth fade-and-slide card entrance animation cleanly
+  const headlineCard = overlay.querySelector('#fullview-headline-card');
+  if (headlineCard && typeof requestAnimationFrame !== 'undefined') {
+    headlineCard.classList.remove('map-card-entrance');
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        headlineCard.classList.add('map-card-entrance');
+      });
+    });
+  }
 
   const closeBtn = overlay.querySelector('#fullview-close-btn');
   if (closeBtn) {

@@ -382,7 +382,7 @@ html {
 @keyframes mapCardEntrance {
   0% {
     opacity: 0;
-    transform: translateY(-16px);
+    transform: translateY(-28px);
   }
   100% {
     opacity: 1;
@@ -391,7 +391,8 @@ html {
 }
 
 .map-card-entrance {
-  animation: mapCardEntrance 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: mapCardEntrance 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.18s both !important;
+  will-change: transform, opacity;
 }
 
 /* 3. Scroll-Based Section Reveals (Fade + 16px Upward Movement) */
