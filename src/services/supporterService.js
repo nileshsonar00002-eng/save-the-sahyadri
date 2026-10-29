@@ -25,6 +25,184 @@ export { sanitizeInput, countUniqueCities };
 const COLLECTION_NAME = 'sahyadri_supporters';
 const LOCAL_STORAGE_KEY = 'sahyadri_pledged_data';
 const DEDUP_CACHE_KEY = 'sahyadri_pledge_token';
+const DEVICE_ID_KEY = 'sahyadri_device_id';
+const DEVICE_PLEDGED_KEY = 'sahyadri_device_pledged';
+const PLEDGED_SUPPORTER_KEY = 'sahyadri_pledged_supporter';
+
+// Helper: safe cookie reader
+function getCookie(name) {
+  if (typeof document === 'undefined' || !document.cookie) return null;
+  try {
+    const match = document.cookie.match(new RegExp('(?:^|;\\s*)' + name.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&') + '=([^;]+)'));
+    return match ? decodeURIComponent(match[1]) : null;
+  } catch (_) {
+    return null;
+  }
+}
+
+// Helper: safe cookie writer (10-year persistence)
+function setCookie(name, value, days = 3650) {
+  if (typeof document === 'undefined') return;
+  try {
+    const maxAge = days * 24 * 60 * 60;
+    document.cookie = `${name}=${encodeURIComponent(value)}; max-age=${maxAge}; path=/; SameSite=Lax`;
+  } catch (_) {}
+}
+
+// Helper: browser & hardware fingerprint generator
+function getBrowserFingerprint() {
+  let fp = '';
+  try {
+    if (typeof navigator !== 'undefined') {
+      fp += `${navigator.userAgent || ''}|${navigator.language || ''}|${new Date().getTimezoneOffset()}|`;
+    }
+    if (typeof screen !== 'undefined') {
+      fp += `${screen.width}x${screen.height}|${screen.colorDepth}|`;
+    }
+  } catch (_) {}
+
+  let hash = 0;
+  for (let i = 0; i < fp.length; i++) {
+    hash = ((hash << 5) - hash) + fp.charCodeAt(i);
+    hash |= 0;
+  }
+  return 'fp_' + Math.abs(hash).toString(36);
+}
+
+/**
+ * Get or initialize persistent Device ID
+ */
+export function getDeviceId() {
+  let id = null;
+
+  // 1. Check localStorage
+  try {
+    if (typeof localStorage !== 'undefined') {
+      id = localStorage.getItem(DEVICE_ID_KEY);
+    }
+  } catch (_) {}
+
+  // 2. Check Cookie
+  if (!id) {
+    id = getCookie(DEVICE_ID_KEY);
+  }
+
+  // 3. Check sessionStorage
+  if (!id) {
+    try {
+      if (typeof sessionStorage !== 'undefined') {
+        id = sessionStorage.getItem(DEVICE_ID_KEY);
+      }
+    } catch (_) {}
+  }
+
+  // 4. Generate persistent ID if not found
+  if (!id) {
+    const fp = getBrowserFingerprint();
+    const random = (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function')
+      ? crypto.randomUUID()
+      : ('r_' + Math.random().toString(36).substring(2, 12) + '_' + Date.now().toString(36));
+    id = `${fp}_${random}`;
+  }
+
+  // Sync to all available layers
+  try {
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem(DEVICE_ID_KEY, id);
+    }
+  } catch (_) {}
+  try {
+    if (typeof sessionStorage !== 'undefined') {
+      sessionStorage.setItem(DEVICE_ID_KEY, id);
+    }
+  } catch (_) {}
+  setCookie(DEVICE_ID_KEY, id);
+
+  return id;
+}
+
+/**
+ * Check if current device has already joined the movement
+ */
+export function hasDeviceJoined() {
+  // 1. Check localStorage
+  try {
+    if (typeof localStorage !== 'undefined') {
+      if (localStorage.getItem(DEVICE_PLEDGED_KEY) === 'true') return true;
+      if (localStorage.getItem(PLEDGED_SUPPORTER_KEY)) return true;
+      if (localStorage.getItem(DEDUP_CACHE_KEY)) return true;
+    }
+  } catch (_) {}
+
+  // 2. Check Cookie
+  if (getCookie(DEVICE_PLEDGED_KEY) === 'true') return true;
+
+  // 3. Check sessionStorage
+  try {
+    if (typeof sessionStorage !== 'undefined' && sessionStorage.getItem(DEVICE_PLEDGED_KEY) === 'true') {
+      return true;
+    }
+  } catch (_) {}
+
+  // 4. Check active memory cache against device ID
+  const devId = getDeviceId();
+  if (devId && activeSupporters && activeSupporters.length > 0) {
+    const matched = activeSupporters.find(s => s.deviceId === devId);
+    if (matched) {
+      markDeviceAsJoined(matched);
+      return true;
+    }
+  }
+
+  return false;
+}
+
+/**
+ * Mark this device as permanently joined
+ */
+export function markDeviceAsJoined(supporterData = null) {
+  const devId = getDeviceId();
+  try {
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem(DEVICE_PLEDGED_KEY, 'true');
+      localStorage.setItem(DEVICE_ID_KEY, devId);
+      if (supporterData) {
+        localStorage.setItem(PLEDGED_SUPPORTER_KEY, JSON.stringify({
+          id: supporterData.id || '',
+          displayName: supporterData.displayName || 'Concerned Citizen',
+          city: supporterData.city || 'Maharashtra',
+          state: supporterData.state || 'India',
+          lat: supporterData.lat,
+          lng: supporterData.lng,
+          joinedAt: supporterData.joinedAt || new Date().toISOString()
+        }));
+      }
+    }
+  } catch (_) {}
+
+  try {
+    if (typeof sessionStorage !== 'undefined') {
+      sessionStorage.setItem(DEVICE_PLEDGED_KEY, 'true');
+      sessionStorage.setItem(DEVICE_ID_KEY, devId);
+    }
+  } catch (_) {}
+
+  setCookie(DEVICE_PLEDGED_KEY, 'true');
+  setCookie(DEVICE_ID_KEY, devId);
+}
+
+/**
+ * Retrieve saved supporter details for this device (if available)
+ */
+export function getDevicePledgedSupporter() {
+  try {
+    if (typeof localStorage !== 'undefined') {
+      const raw = localStorage.getItem(PLEDGED_SUPPORTER_KEY);
+      if (raw) return JSON.parse(raw);
+    }
+  } catch (_) {}
+  return null;
+}
 
 // Simple in-memory supporters cache
 let activeSupporters = [];
@@ -57,12 +235,23 @@ export function subscribeToSupporters(onUpdate, onError) {
               state: data.state || 'India',
               lat: typeof data.lat === 'number' ? data.lat : SAHYADRI_HUB.lat,
               lng: typeof data.lng === 'number' ? data.lng : SAHYADRI_HUB.lng,
+              deviceId: data.deviceId || null,
               joinedAt: data.joinedAt?.toDate ? data.joinedAt.toDate().toISOString() : new Date().toISOString()
             });
           }
         });
 
         activeSupporters = list;
+
+        // Auto-check if current device already has a registered supporter
+        const currentDevId = getDeviceId();
+        if (currentDevId) {
+          const matchedPledge = list.find(s => s.deviceId === currentDevId);
+          if (matchedPledge) {
+            markDeviceAsJoined(matchedPledge);
+          }
+        }
+
         onUpdate({
           supporters: list,
           total: list.length,
@@ -121,11 +310,35 @@ export async function registerSupporter({ displayName, city = 'Maharashtra', sta
     throw new Error('Please confirm consent for public awareness display.');
   }
 
-  // Deduplication check: Has this browser already pledged with this name?
-  const existingToken = localStorage.getItem(DEDUP_CACHE_KEY);
+  // Strict 1-pledge-per-device check: local storage, cookies & memory
+  if (hasDeviceJoined()) {
+    throw new Error('Aapke is device se pehle hi movement join kiya ja chuka hai. Spam rokne ke liye ek device se sirf ek hi registration allowed hai.');
+  }
+
+  const deviceId = getDeviceId();
   const submissionKey = `${cleanName.toLowerCase()}_${cleanCity.toLowerCase()}`;
-  if (existingToken === submissionKey) {
-    throw new Error('You have already pledged support from this browser. Thank you for standing with Sahyadri!');
+
+  // Database verification: Ensure this deviceId does not already exist in Firestore
+  if (isFirebaseAvailable) {
+    try {
+      const colRef = collection(db, COLLECTION_NAME);
+      const q = query(colRef, where('deviceId', '==', deviceId));
+      const snap = await getDocs(q);
+      const existingDoc = snap.docs.find(d => {
+        const dData = d.data();
+        return dData && dData.status !== 'removed';
+      });
+      if (existingDoc) {
+        const existingData = existingDoc.data();
+        markDeviceAsJoined({ id: existingDoc.id, ...existingData });
+        throw new Error('Aapke is device se pehle hi movement join kiya ja chuka hai. Spam rokne ke liye ek device se sirf ek hi registration allowed hai.');
+      }
+    } catch (err) {
+      if (err.message && err.message.includes('pehle hi movement join')) {
+        throw err;
+      }
+      // Firestore query error (index or permissions) — local check already enforced
+    }
   }
 
   // Map to GPS coordinates if provided, else city centroid
@@ -144,6 +357,7 @@ export async function registerSupporter({ displayName, city = 'Maharashtra', sta
     state: cleanState,
     lat,
     lng,
+    deviceId,
     consented: true,
     hasEmail: Boolean(cleanEmail),
     // Email stored privately for updates only if requested, never exposed publicly
@@ -156,17 +370,27 @@ export async function registerSupporter({ displayName, city = 'Maharashtra', sta
     const colRef = collection(db, COLLECTION_NAME);
     const docRef = await addDoc(colRef, newDoc);
     
-    // Save token in localStorage
-    localStorage.setItem(DEDUP_CACHE_KEY, submissionKey);
-
-    return {
-      success: true,
+    const record = {
       id: docRef.id,
       displayName: cleanName,
       city: cleanCity,
       state: cleanState,
       lat,
-      lng
+      lng,
+      deviceId
+    };
+
+    // Mark device as joined across localStorage, sessionStorage, and cookie
+    markDeviceAsJoined(record);
+    try {
+      if (typeof localStorage !== 'undefined') {
+        localStorage.setItem(DEDUP_CACHE_KEY, submissionKey);
+      }
+    } catch (_) {}
+
+    return {
+      success: true,
+      ...record
     };
   } catch (err) {
     console.warn('[SupporterService] Firestore write note:', err.message);
@@ -180,20 +404,21 @@ export async function registerSupporter({ displayName, city = 'Maharashtra', sta
       state: cleanState,
       lat,
       lng,
+      deviceId,
       joinedAt: new Date().toISOString()
     };
     
     saveLocalSupporter(fallbackRecord);
-    localStorage.setItem(DEDUP_CACHE_KEY, submissionKey);
+    markDeviceAsJoined(fallbackRecord);
+    try {
+      if (typeof localStorage !== 'undefined') {
+        localStorage.setItem(DEDUP_CACHE_KEY, submissionKey);
+      }
+    } catch (_) {}
 
     return {
       success: true,
-      id: localId,
-      displayName: cleanName,
-      city: cleanCity,
-      state: cleanState,
-      lat,
-      lng,
+      ...fallbackRecord,
       isLocalFallback: true
     };
   }

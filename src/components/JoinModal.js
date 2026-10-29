@@ -9,7 +9,12 @@
  * - Zero Silent Tracking: If user clicks "Don't Allow", GPS is never touched.
  */
 
-import { registerSupporter } from '../services/supporterService.js';
+import {
+  registerSupporter,
+  hasDeviceJoined,
+  getDevicePledgedSupporter,
+  markDeviceAsJoined
+} from '../services/supporterService.js';
 import { escapeHtml } from '../utils/sanitize.js';
 import { openShareCardModal } from './ShareCardModal.js';
 
@@ -24,6 +29,12 @@ let activeLocation = {
 
 export function openJoinModal(onSuccessCallback) {
   closeJoinModal();
+
+  // Strict 1-pledge-per-device rule: If already joined, show verified status modal directly
+  if (hasDeviceJoined()) {
+    showAlreadyJoinedModal(onSuccessCallback);
+    return;
+  }
 
   // Reset active location state for fresh pledge - GPS permission mandatory
   activeLocation = {
@@ -363,6 +374,12 @@ export function openJoinModal(onSuccessCallback) {
   });
 
   async function finalizePledge(name) {
+    // 1-Pledge-Per-Device enforcement check
+    if (hasDeviceJoined()) {
+      showError('Aapke is device se pehle hi movement join kiya ja chuka hai. Spam rokne ke liye ek device se sirf ek hi registration allowed hai.');
+      return;
+    }
+
     // Strictly verify GPS permission before recording
     if (!activeLocation.isDetected || activeLocation.permissionChoice !== 'allowed' || typeof activeLocation.lat !== 'number' || typeof activeLocation.lng !== 'number') {
       showError('GPS location permission is required to join. Please click "Allow GPS" first.');
@@ -383,6 +400,9 @@ export function openJoinModal(onSuccessCallback) {
         lng: activeLocation.lng,
         consented: true
       });
+
+      // Mark this device as permanently joined
+      markDeviceAsJoined(result);
 
       // Call success callback to optimistically update map & counts immediately
       if (typeof onSuccessCallback === 'function') {
@@ -410,6 +430,129 @@ export function openJoinModal(onSuccessCallback) {
     errorBanner.textContent = msg;
     errorBanner.classList.remove('hidden');
   }
+}
+
+/**
+ * Render Already-Joined Modal for devices that have already registered
+ */
+function showAlreadyJoinedModal(onSuccessCallback) {
+  const modalContainer = document.createElement('div');
+  modalContainer.id = 'sahyadri-join-modal-root';
+  modalContainer.className = 'fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-fadeIn';
+
+  const saved = getDevicePledgedSupporter() || {
+    displayName: 'Concerned Citizen',
+    city: 'Maharashtra',
+    state: 'India'
+  };
+
+  modalContainer.innerHTML = `
+    <!-- Backdrop Blur Overlay -->
+    <div id="join-modal-backdrop" class="fixed inset-0 bg-black/85 backdrop-blur-md transition-opacity"></div>
+
+    <!-- Modal Box -->
+    <div 
+      class="relative w-full max-w-md rounded-2xl sm:rounded-3xl bg-[#06150E] border border-emerald-500/25 shadow-2xl p-4 sm:p-7 z-10 space-y-4 sm:space-y-5 my-auto text-center transform transition-all"
+      role="dialog" 
+      aria-modal="true" 
+      aria-labelledby="already-joined-title"
+    >
+      <!-- Close Button -->
+      <button 
+        id="join-modal-close-btn" 
+        aria-label="Close modal" 
+        class="absolute top-3.5 right-3.5 sm:top-5 sm:right-5 p-1.5 sm:p-2 rounded-lg sm:rounded-xl text-slate-400 hover:text-white bg-emerald-950/50 hover:bg-emerald-900/60 border border-emerald-500/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 cursor-pointer"
+      >
+        <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      <!-- Animated Green Verified Badge -->
+      <div class="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full bg-emerald-500/20 border-2 border-emerald-400 flex items-center justify-center text-emerald-400 shadow-emerald-glow">
+        <svg class="w-8 h-8 sm:w-10 sm:h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <path d="m9 12 2 2 4-4"/>
+        </svg>
+      </div>
+
+      <!-- Heading & Text -->
+      <div class="space-y-1.5 px-2">
+        <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-950 text-emerald-400 text-[10px] sm:text-xs font-bold border border-emerald-500/30 mx-auto">
+          <span>✓</span>
+          <span>DEVICE ALREADY REGISTERED</span>
+        </div>
+        <h2 id="already-joined-title" class="font-heading font-black text-xl sm:text-2xl text-white tracking-tight">
+          Already Part Of The <span class="text-gradient-emerald">Movement!</span>
+        </h2>
+        <p class="text-[11px] sm:text-xs text-slate-300 leading-relaxed max-w-sm mx-auto">
+          Aap is device se pehle hi Sahyadri movement ko support kar chuke hain. Spam aur duplicate entries rokne ke liye ek device se sirf ek hi registration allowed hai.
+        </p>
+      </div>
+
+      <!-- Verified Supporter Details Card -->
+      <div class="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-[#030905] border border-emerald-500/20 text-center space-y-1">
+        <div class="text-[10px] font-mono text-emerald-400 uppercase tracking-widest font-bold">
+          Verified Supporter
+        </div>
+        <div class="text-sm sm:text-base font-heading font-black text-white truncate">
+          ${escapeHtml(saved.displayName || 'Concerned Citizen')}
+        </div>
+        <div class="text-[11px] sm:text-xs text-slate-400 font-sans truncate">
+          📍 ${escapeHtml(saved.city || 'Maharashtra')}, ${escapeHtml(saved.state || 'India')}
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="space-y-2 pt-1">
+        <button 
+          id="btn-open-my-share-card" 
+          class="w-full py-2.5 sm:py-3 px-4 rounded-full font-heading font-extrabold text-xs sm:text-sm text-black bg-gradient-to-r from-emerald-400 via-emerald-300 to-emerald-400 hover:from-emerald-300 hover:to-emerald-200 shadow-emerald-glow transition-all flex items-center justify-center gap-2 cursor-pointer"
+        >
+          <svg class="w-4 h-4 text-black shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m3 11 18-5v12L3 14v-3z" />
+            <path d="M11.6 16.8a3 3 0 1 1-5.8-1.6" />
+          </svg>
+          <span>VIEW / SHARE YOUR SUPPORT CARD</span>
+        </button>
+
+        <button 
+          id="btn-close-already-joined" 
+          class="w-full py-2 px-4 rounded-xl text-xs font-semibold text-slate-400 hover:text-white bg-slate-900/60 hover:bg-slate-800/80 border border-slate-700/60 transition-colors cursor-pointer"
+        >
+          Close
+        </button>
+      </div>
+
+    </div>
+  `;
+
+  document.body.appendChild(modalContainer);
+  document.body.classList.add('overflow-hidden');
+
+  const closeBtn = modalContainer.querySelector('#join-modal-close-btn');
+  const backdrop = modalContainer.querySelector('#join-modal-backdrop');
+  const bottomCloseBtn = modalContainer.querySelector('#btn-close-already-joined');
+  const viewCardBtn = modalContainer.querySelector('#btn-open-my-share-card');
+
+  closeBtn?.addEventListener('click', closeJoinModal);
+  backdrop?.addEventListener('click', closeJoinModal);
+  bottomCloseBtn?.addEventListener('click', closeJoinModal);
+
+  viewCardBtn?.addEventListener('click', () => {
+    closeJoinModal();
+    if (typeof window !== 'undefined' && window.__sahyadriOpenShareCard) {
+      window.__sahyadriOpenShareCard(saved);
+    } else {
+      openShareCardModal(saved);
+    }
+  });
+
+  const onKeyDown = (e) => {
+    if (e.key === 'Escape') closeJoinModal();
+  };
+  window.addEventListener('keydown', onKeyDown);
+  modalContainer._escListener = onKeyDown;
 }
 
 /**
