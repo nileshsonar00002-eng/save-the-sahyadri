@@ -9,7 +9,7 @@ export function renderHowItWorks(container, onJoinClick, onShareClick) {
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12">
         
         <!-- Section Header -->
-        <div class="text-center max-w-3xl mx-auto space-y-3 sm:space-y-4">
+        <div class="text-center max-w-3xl mx-auto space-y-3 sm:space-y-4 reveal-on-scroll">
           <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-950/70 border border-emerald-500/30 text-emerald-400 text-xs font-bold tracking-wider uppercase">
             <svg class="w-3.5 h-3.5 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
@@ -28,7 +28,7 @@ export function renderHowItWorks(container, onJoinClick, onShareClick) {
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 items-stretch">
           
           <!-- Step 01: LEARN -->
-          <a href="#issue" class="p-4 sm:p-6 lg:p-7 rounded-2xl sm:rounded-3xl bg-[#06150E] border border-emerald-500/20 hover:border-emerald-400/40 transition-all duration-300 space-y-3.5 sm:space-y-4 group hover:-translate-y-0.5 block shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400">
+          <a href="#issue" class="p-4 sm:p-6 lg:p-7 rounded-2xl sm:rounded-3xl bg-[#06150E] border border-emerald-500/20 hover:border-emerald-400/40 transition-all duration-300 space-y-3.5 sm:space-y-4 group hover-lift reveal-on-scroll stagger-1 block shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400">
             <div class="flex items-center justify-between">
               <span class="font-mono text-xl sm:text-2xl font-black text-emerald-400">01</span>
               <span class="w-10 h-10 rounded-xl bg-emerald-950/70 border border-emerald-500/30 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
@@ -55,7 +55,7 @@ export function renderHowItWorks(container, onJoinClick, onShareClick) {
           </a>
 
           <!-- Step 02: JOIN -->
-          <div id="step-join-card" class="p-4 sm:p-6 lg:p-7 rounded-2xl sm:rounded-3xl bg-[#06150E] border border-emerald-500/20 hover:border-emerald-400/40 transition-all duration-300 space-y-3.5 sm:space-y-4 group hover:-translate-y-0.5 cursor-pointer shadow-md">
+          <div id="step-join-card" class="p-4 sm:p-6 lg:p-7 rounded-2xl sm:rounded-3xl bg-[#06150E] border border-emerald-500/20 hover:border-emerald-400/40 transition-all duration-300 space-y-3.5 sm:space-y-4 group hover-lift reveal-on-scroll stagger-2 cursor-pointer shadow-md">
             <div class="flex items-center justify-between">
               <span class="font-mono text-xl sm:text-2xl font-black text-emerald-400">02</span>
               <span class="w-10 h-10 rounded-xl bg-emerald-950/70 border border-emerald-500/30 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
@@ -82,7 +82,7 @@ export function renderHowItWorks(container, onJoinClick, onShareClick) {
           </div>
 
           <!-- Step 03: SHARE -->
-          <div id="step-share-card" class="p-4 sm:p-6 lg:p-7 rounded-2xl sm:rounded-3xl bg-[#06150E] border border-emerald-500/20 hover:border-emerald-400/40 transition-all duration-300 space-y-3.5 sm:space-y-4 group hover:-translate-y-0.5 cursor-pointer shadow-md">
+          <div id="step-share-card" class="p-4 sm:p-6 lg:p-7 rounded-2xl sm:rounded-3xl bg-[#06150E] border border-emerald-500/20 hover:border-emerald-400/40 transition-all duration-300 space-y-3.5 sm:space-y-4 group hover-lift reveal-on-scroll stagger-3 cursor-pointer shadow-md">
             <div class="flex items-center justify-between">
               <span class="font-mono text-xl sm:text-2xl font-black text-emerald-400">03</span>
               <span class="w-10 h-10 rounded-xl bg-emerald-950/70 border border-emerald-500/30 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
@@ -109,20 +109,9 @@ export function renderHowItWorks(container, onJoinClick, onShareClick) {
           </div>
 
         </div>
-                Help others discover the campaign with verified graphic cards for WhatsApp and social media.
-              </p>
-            </div>
-
-            <div class="pt-2 text-xs font-semibold text-emerald-400 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-              <span>Generate shareable card</span>
-              <span>→</span>
-            </div>
-          </div>
-
-        </div>
 
         <!-- Peaceful Movement Scope Statement -->
-        <div class="max-w-3xl mx-auto p-4 sm:p-5 rounded-2xl bg-[#030905] border border-emerald-500/20 text-center text-xs text-slate-400 space-y-1.5">
+        <div class="max-w-3xl mx-auto p-4 sm:p-5 rounded-2xl bg-[#030905] border border-emerald-500/20 text-center text-xs text-slate-400 space-y-1.5 reveal-on-scroll hover-lift">
           <div class="font-semibold text-slate-200 flex items-center justify-center gap-1.5">
             <svg class="w-4 h-4 text-emerald-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />

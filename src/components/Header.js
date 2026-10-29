@@ -95,7 +95,7 @@ ${siteUrl}
             id="header-join-btn" 
             aria-label="I STAND WITH SAHYADRI - JOIN"
             title="Join the movement"
-            class="inline-flex items-center justify-center px-2.5 sm:px-5 py-1 sm:py-2 rounded-full font-heading font-black text-[11px] sm:text-sm tracking-wider uppercase text-black bg-gradient-to-r from-emerald-400 via-emerald-300 to-emerald-400 hover:from-emerald-300 hover:to-emerald-200 shadow-emerald-glow hover:shadow-emerald-glow-lg transition-all transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 shrink-0"
+            class="btn-nature-cta inline-flex items-center justify-center px-2.5 sm:px-5 py-1 sm:py-2 rounded-full font-heading font-black text-[11px] sm:text-sm tracking-wider uppercase text-black bg-gradient-to-r from-emerald-400 via-emerald-300 to-emerald-400 hover:from-emerald-300 hover:to-emerald-200 shadow-emerald-glow hover:shadow-emerald-glow-lg transition-all transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 shrink-0"
           >
             <span class="hidden sm:inline">I STAND WITH SAHYADRI</span>
             <span class="sm:hidden font-black">JOIN</span>

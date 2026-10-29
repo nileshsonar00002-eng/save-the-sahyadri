@@ -10,10 +10,10 @@ export function renderIssueSection(container) {
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12">
         
         <!-- Section Header -->
-        <div class="relative text-center max-w-3xl mx-auto space-y-3 sm:space-y-4">
+        <div class="relative text-center max-w-3xl mx-auto space-y-3 sm:space-y-4 reveal-on-scroll">
           <!-- HEADING -->
           <h2 class="font-heading font-black text-2xl sm:text-4xl lg:text-5xl text-white tracking-tight leading-tight">
-            32,490 TREES <span class="text-gradient-emerald">AT RISK</span>
+            <span id="issue-tree-counter" data-target="32490">32,490</span> TREES <span class="text-gradient-emerald">AT RISK</span>
           </h2>
           
           <!-- SHORT FACTUAL DESCRIPTION -->
@@ -23,7 +23,7 @@ export function renderIssueSection(container) {
         </div>
 
         <!-- Cohesive Editorial-Style Panel -->
-        <div id="news" class="relative p-5 sm:p-8 lg:p-12 rounded-2xl sm:rounded-3xl bg-[#06150E] border border-emerald-500/20 text-center space-y-6 sm:space-y-8 overflow-hidden shadow-2xl">
+        <div id="news" class="relative p-5 sm:p-8 lg:p-12 rounded-2xl sm:rounded-3xl bg-[#06150E] border border-emerald-500/20 text-center space-y-6 sm:space-y-8 overflow-hidden shadow-2xl reveal-on-scroll hover-lift">
           
           <!-- Ambient Radial Emerald Lighting -->
           <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,255,135,0.06)_0,transparent_70%)] pointer-events-none"></div>
@@ -94,7 +94,7 @@ export function renderIssueSection(container) {
         </div>
 
         <!-- Regional Ecological Watershed Context -->
-        <div class="p-4 sm:p-6 lg:p-7 rounded-2xl sm:rounded-3xl bg-[#06150E] border border-emerald-500/20 space-y-2.5 shadow-lg">
+        <div class="p-4 sm:p-6 lg:p-7 rounded-2xl sm:rounded-3xl bg-[#06150E] border border-emerald-500/20 space-y-2.5 shadow-lg reveal-on-scroll hover-lift">
           <div class="flex items-center gap-2 text-emerald-400 font-bold text-xs sm:text-sm tracking-wider uppercase">
             <svg class="w-4 h-4 text-emerald-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>

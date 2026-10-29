@@ -10,6 +10,7 @@ import { renderFooter } from './components/Footer';
 import { openJoinModal } from './components/JoinModal';
 import { openShareCardModal } from './components/ShareCardModal';
 import { subscribeToSupporters } from './services/supporterService';
+import { initNatureAnimations } from './utils/natureAnimations';
 
 class SahyadriApp {
   constructor() {
@@ -123,6 +124,9 @@ class SahyadriApp {
     renderIssueSection(mounts.issue);
     renderStorySection(mounts.story, handleOpenJoin);
     renderFooter(mounts.footer, handleOpenJoin);
+
+    // Initialize subtle nature animations & scroll reveals
+    initNatureAnimations();
 
     // Subscribe to real-time Firestore database
     this.unsubscribeSupporters = subscribeToSupporters(

@@ -760,7 +760,7 @@ export function openMaharashtraFullView(supporters = []) {
         <!-- Pledge Action Button (Always Visible) -->
         <button 
           id="fullview-join-btn"
-          class="inline-flex items-center gap-1.5 px-4 sm:px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-400 hover:from-emerald-400 hover:to-emerald-300 text-black font-heading font-extrabold text-xs tracking-wider uppercase shadow-emerald-glow-sm transition-all cursor-pointer active:scale-95"
+          class="btn-nature-cta inline-flex items-center gap-1.5 px-4 sm:px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-400 hover:from-emerald-400 hover:to-emerald-300 text-black font-heading font-extrabold text-xs tracking-wider uppercase shadow-emerald-glow-sm transition-all cursor-pointer active:scale-95"
         >
           <svg class="w-3.5 h-3.5 text-black shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
@@ -789,8 +789,8 @@ export function openMaharashtraFullView(supporters = []) {
       <!-- 3D Horizon Atmosphere Gradient -->
       <div id="fullview-map-3d-horizon" class="map-3d-horizon"></div>
 
-      <!-- Floating Campaign Headline in Upper Black Horizon -->
-      <div class="absolute top-4 sm:top-6 lg:top-7 inset-x-0 mx-auto w-full max-w-2xl px-4 z-30 pointer-events-none text-center select-none animate-fadeIn">
+      <!-- Floating Campaign Headline in Upper Black Horizon (Animated fade-and-slide entrance) -->
+      <div class="map-card-entrance absolute top-4 sm:top-6 lg:top-7 inset-x-0 mx-auto w-full max-w-2xl px-4 z-30 pointer-events-none text-center select-none">
         <div class="inline-flex flex-col items-center justify-center space-y-0.5 sm:space-y-1">
           <div class="font-heading font-black text-sm sm:text-lg lg:text-xl text-white tracking-wider uppercase drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
             32,490 TREES AT RISK?

@@ -111,7 +111,8 @@ console.log('✓ Interactive Map rendered properly');
 // 5. Issue Section
 const issueEl = createMockElement('issue-mount');
 renderIssueSection(issueEl);
-assert.ok(issueEl.innerHTML.includes('32,490 TREES'), 'Issue must contain 32,490 TREES headline');
+assert.ok(issueEl.innerHTML.includes('32,490') && issueEl.innerHTML.includes('TREES'), 'Issue must contain 32,490 TREES headline');
+assert.ok(issueEl.innerHTML.includes('issue-tree-counter'), 'Issue must contain animated tree counter element');
 assert.ok(issueEl.innerHTML.includes('A reported 32,490 trees were authorised for removal for the Saidongar-I Karjat pumped-storage project.'), 'Must contain factual description');
 assert.ok(issueEl.innerHTML.includes('sahyadri-tree-hug.jpg'), 'Must contain person hugging tree image');
 assert.ok(issueEl.innerHTML.includes('SAHYADRI RANGE'), 'Must contain responsive SAHYADRI RANGE badge');

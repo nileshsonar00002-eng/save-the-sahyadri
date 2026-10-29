@@ -20,7 +20,7 @@ export function renderInteractiveMap(container, supporters = [], onJoinClick) {
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-10">
         
         <!-- Section Header -->
-        <div class="text-center max-w-3xl mx-auto space-y-4">
+        <div class="text-center max-w-3xl mx-auto space-y-4 reveal-on-scroll">
           <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-emerald-400 text-xs font-bold tracking-wider uppercase">
             <svg class="w-3.5 h-3.5 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21" />
@@ -38,7 +38,7 @@ export function renderInteractiveMap(container, supporters = [], onJoinClick) {
         </div>
 
         <!-- Map Container & Controls Wrapper -->
-        <div class="relative rounded-2xl sm:rounded-3xl bg-[#06150E] border border-emerald-500/20 shadow-xl overflow-hidden">
+        <div class="relative rounded-2xl sm:rounded-3xl bg-[#06150E] border border-emerald-500/20 shadow-xl overflow-hidden reveal-on-scroll hover-lift">
           
           <!-- Top Floating Action Toolbar -->
           <div class="p-3 sm:p-4 bg-[#05110B]/90 backdrop-blur-md border-b border-emerald-500/20 flex flex-wrap items-center justify-between gap-3 text-xs z-10">

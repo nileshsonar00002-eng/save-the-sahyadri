@@ -10,7 +10,7 @@ export function renderStorySection(container, onJoinClick) {
   // Focus on the core pillars: Water, Rivers & Catchments and Natural & Cultural Heritage
   const activePillars = SAHYADRI_PILLARS.slice(2);
   
-  const pillarCardsHtml = activePillars.map((pillar) => {
+  const pillarCardsHtml = activePillars.map((pillar, index) => {
     let iconSvg = '';
     if (pillar.icon === 'droplet') {
       // Lucide Droplet line icon
@@ -30,9 +30,10 @@ export function renderStorySection(container, onJoinClick) {
     }
 
     const imageSrc = pillar.image || (pillar.id === 'pillar-water' ? '/images/story/sahyadri-river.jpg' : '/images/story/sahyadri-heritage-fort.jpg');
+    const staggerClass = index === 0 ? 'stagger-1' : 'stagger-2';
 
     return `
-      <div class="group relative rounded-2xl sm:rounded-3xl bg-[#06150E] border border-emerald-500/20 hover:border-emerald-400/40 transition-all duration-300 flex flex-col justify-between shadow-xl overflow-hidden hover:-translate-y-0.5">
+      <div class="group relative rounded-2xl sm:rounded-3xl bg-[#06150E] border border-emerald-500/20 hover:border-emerald-400/40 transition-all duration-300 flex flex-col justify-between shadow-xl overflow-hidden hover-lift reveal-on-scroll ${staggerClass}">
         
         <!-- Top Landscape Image Banner -->
         <div class="relative w-full h-44 sm:h-52 overflow-hidden bg-emerald-950/40 border-b border-emerald-500/15">
@@ -128,7 +129,7 @@ export function renderStorySection(container, onJoinClick) {
       <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12">
         
         <!-- Hero Section Header -->
-        <div class="text-center max-w-3xl mx-auto space-y-3 sm:space-y-4">
+        <div class="text-center max-w-3xl mx-auto space-y-3 sm:space-y-4 reveal-on-scroll">
           <h2 class="font-heading font-black text-2xl sm:text-4xl lg:text-5xl text-white tracking-tight leading-tight">
             WHY THE SAHYADRI <span class="text-gradient-emerald">MATTERS</span>
           </h2>
@@ -144,7 +145,7 @@ export function renderStorySection(container, onJoinClick) {
         </div>
 
         <!-- Full-Width Atmospheric Visual Banner with Pledge Quote -->
-        <div class="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-emerald-500/25 shadow-xl bg-gradient-to-r from-[#030905] via-[#081B10] to-[#030905] min-h-[300px] sm:min-h-[360px] flex items-center justify-center p-6 sm:p-10 lg:p-14 text-center">
+        <div class="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-emerald-500/25 shadow-xl bg-gradient-to-r from-[#030905] via-[#081B10] to-[#030905] min-h-[300px] sm:min-h-[360px] flex items-center justify-center p-6 sm:p-10 lg:p-14 text-center reveal-on-scroll hover-lift">
           
           <!-- Forest / Mountain Background Overlay Pattern -->
           <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(16,185,129,0.12)_0,transparent_75%)] pointer-events-none"></div>
@@ -174,7 +175,7 @@ export function renderStorySection(container, onJoinClick) {
             <div class="pt-2">
               <button 
                 id="story-stand-btn" 
-                class="w-full sm:w-auto px-6 sm:px-8 py-3.5 rounded-full font-heading font-extrabold text-sm sm:text-base text-black bg-gradient-to-r from-emerald-400 via-emerald-300 to-emerald-400 hover:from-emerald-300 hover:to-emerald-200 shadow-emerald-glow hover:shadow-emerald-glow-lg transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 min-h-[44px]"
+                class="btn-nature-cta w-full sm:w-auto px-6 sm:px-8 py-3.5 rounded-full font-heading font-extrabold text-sm sm:text-base text-black bg-gradient-to-r from-emerald-400 via-emerald-300 to-emerald-400 hover:from-emerald-300 hover:to-emerald-200 shadow-emerald-glow hover:shadow-emerald-glow-lg transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 min-h-[44px]"
               >
                 STAND FOR THE SAHYADRI
               </button>

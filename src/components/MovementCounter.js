@@ -20,7 +20,7 @@ export function renderMovementCounter(container, stats = {}) {
       <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-10">
         
         <!-- Section Header -->
-        <div class="text-center max-w-3xl mx-auto space-y-3 sm:space-y-4">
+        <div class="text-center max-w-3xl mx-auto space-y-3 sm:space-y-4 reveal-on-scroll">
           <h2 class="font-heading font-black text-2xl sm:text-4xl lg:text-5xl text-white tracking-tight leading-tight">
             ONE MOVEMENT. <span class="text-gradient-emerald">MANY VOICES.</span>
           </h2>
@@ -34,7 +34,7 @@ export function renderMovementCounter(container, stats = {}) {
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 items-stretch">
           
           <!-- Card 1: 325+ Threatened Species -->
-          <div class="p-4 sm:p-5 rounded-2xl bg-[#06150E] border border-emerald-500/20 hover:border-emerald-400/40 hover:bg-[#07190F] transition-all duration-300 text-left group shadow-md flex flex-col justify-between h-full">
+          <div class="p-4 sm:p-5 rounded-2xl bg-[#06150E] border border-emerald-500/20 hover:border-emerald-400/40 hover:bg-[#07190F] transition-all duration-300 text-left group shadow-md flex flex-col justify-between h-full reveal-on-scroll stagger-1 hover-lift">
             <div class="space-y-3.5">
               <!-- Photo Container -->
               <div class="relative w-full aspect-[16/9] sm:aspect-[5/3] overflow-hidden rounded-xl border border-emerald-500/15 bg-emerald-950/60">
@@ -64,7 +64,7 @@ export function renderMovementCounter(container, stats = {}) {
           </div>
 
           <!-- Card 2: 54% Endemic Tree Species -->
-          <div class="p-4 sm:p-5 rounded-2xl bg-[#06150E] border border-emerald-500/20 hover:border-emerald-400/40 hover:bg-[#07190F] transition-all duration-300 text-left group shadow-md flex flex-col justify-between h-full">
+          <div class="p-4 sm:p-5 rounded-2xl bg-[#06150E] border border-emerald-500/20 hover:border-emerald-400/40 hover:bg-[#07190F] transition-all duration-300 text-left group shadow-md flex flex-col justify-between h-full reveal-on-scroll stagger-2 hover-lift">
             <div class="space-y-3.5">
               <!-- Photo Container -->
               <div class="relative w-full aspect-[16/9] sm:aspect-[5/3] overflow-hidden rounded-xl border border-emerald-500/15 bg-emerald-950/60">
@@ -94,7 +94,7 @@ export function renderMovementCounter(container, stats = {}) {
           </div>
 
           <!-- Card 3: 8 Biodiversity Hotspots -->
-          <div class="p-4 sm:p-5 rounded-2xl bg-[#06150E] border border-emerald-500/20 hover:border-emerald-400/40 hover:bg-[#07190F] transition-all duration-300 text-left group shadow-md flex flex-col justify-between h-full">
+          <div class="p-4 sm:p-5 rounded-2xl bg-[#06150E] border border-emerald-500/20 hover:border-emerald-400/40 hover:bg-[#07190F] transition-all duration-300 text-left group shadow-md flex flex-col justify-between h-full reveal-on-scroll stagger-3 hover-lift">
             <div class="space-y-3.5">
               <!-- Photo Container -->
               <div class="relative w-full aspect-[16/9] sm:aspect-[5/3] overflow-hidden rounded-xl border border-emerald-500/15 bg-emerald-950/60">
@@ -124,7 +124,7 @@ export function renderMovementCounter(container, stats = {}) {
           </div>
 
           <!-- Card 4: 2012 UNESCO World Heritage -->
-          <div class="p-4 sm:p-5 rounded-2xl bg-[#06150E] border border-emerald-500/20 hover:border-emerald-400/40 hover:bg-[#07190F] transition-all duration-300 text-left group shadow-md flex flex-col justify-between h-full">
+          <div class="p-4 sm:p-5 rounded-2xl bg-[#06150E] border border-emerald-500/20 hover:border-emerald-400/40 hover:bg-[#07190F] transition-all duration-300 text-left group shadow-md flex flex-col justify-between h-full reveal-on-scroll stagger-4 hover-lift">
             <div class="space-y-3.5">
               <!-- Photo Container -->
               <div class="relative w-full aspect-[16/9] sm:aspect-[5/3] overflow-hidden rounded-xl border border-emerald-500/15 bg-emerald-950/60">

@@ -56,6 +56,19 @@ export function renderHero(container, onJoinClick, supportersData = {}) {
 
         <!-- 5. Seamless top fade from navigation bar -->
         <div class="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#030805]/80 to-transparent"></div>
+
+        <!-- Living Forest Atmospheric Effects: Drifting mist, sunlight shimmer, floating nature spores -->
+        <div class="forest-mist-layer forest-mist-1"></div>
+        <div class="forest-mist-layer forest-mist-2"></div>
+        <div class="forest-sun-shimmer"></div>
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+          <div class="nature-spore w-1.5 h-1.5 top-[25%] left-[20%] [animation-delay:0s]"></div>
+          <div class="nature-spore w-2 h-2 top-[55%] left-[45%] [animation-delay:3s]"></div>
+          <div class="nature-spore w-1 h-1 top-[40%] left-[75%] [animation-delay:7s]"></div>
+          <div class="nature-spore w-1.5 h-1.5 top-[70%] left-[30%] [animation-delay:11s]"></div>
+          <div class="nature-spore w-2 h-2 top-[35%] left-[60%] [animation-delay:5s]"></div>
+          <div class="nature-spore w-1 h-1 top-[65%] left-[85%] [animation-delay:9s]"></div>
+        </div>
       </div>
 
       <!-- Ambient Deep Forest Gradient & Glow -->
@@ -96,7 +109,7 @@ export function renderHero(container, onJoinClick, supportersData = {}) {
             </div>
 
             <!-- Real Movement Summary Badges (Shifted on mobile: directly below map & Join Movement button; Order-3 on desktop) -->
-            <div class="order-1 lg:order-3 inline-flex flex-wrap items-center justify-center lg:justify-start gap-2 sm:gap-3 p-3 rounded-2xl bg-[#06150E] border border-emerald-500/20 text-xs text-slate-300 backdrop-blur-md">
+            <div class="order-1 lg:order-3 hover-lift inline-flex flex-wrap items-center justify-center lg:justify-start gap-2 sm:gap-3 p-3 rounded-2xl bg-[#06150E] border border-emerald-500/20 text-xs text-slate-300 backdrop-blur-md">
               <div class="flex items-center gap-1.5">
                 <svg class="w-3.5 h-3.5 text-emerald-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
@@ -124,7 +137,7 @@ export function renderHero(container, onJoinClick, supportersData = {}) {
             <div class="order-3 lg:order-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-1 w-full sm:w-auto">
               <button 
                 id="hero-primary-cta" 
-                class="w-full sm:w-auto px-8 py-3.5 rounded-full font-heading font-extrabold text-base tracking-wide text-black bg-gradient-to-r from-emerald-400 via-emerald-300 to-emerald-400 hover:from-emerald-300 hover:to-emerald-200 shadow-emerald-glow hover:shadow-emerald-glow-lg transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer flex items-center justify-center gap-2.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
+                class="btn-nature-cta w-full sm:w-auto px-8 py-3.5 rounded-full font-heading font-extrabold text-base tracking-wide text-black bg-gradient-to-r from-emerald-400 via-emerald-300 to-emerald-400 hover:from-emerald-300 hover:to-emerald-200 shadow-emerald-glow hover:shadow-emerald-glow-lg transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer flex items-center justify-center gap-2.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
               >
                 <svg class="w-4 h-4 text-black shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
@@ -205,7 +218,7 @@ export function renderHero(container, onJoinClick, supportersData = {}) {
                 <div class="hidden sm:block absolute bottom-4 left-1/2 -translate-x-1/2 z-20 pointer-events-auto w-auto max-w-[90%]">
                   <button 
                     id="hero-map-join-cta"
-                    class="hero-map-join-cta px-6 sm:px-8 py-2.5 sm:py-3 rounded-full bg-[#09221B]/95 hover:bg-[#0E342A] border-2 border-[#00FF87] hover:border-emerald-300 text-white font-heading font-extrabold text-xs sm:text-sm tracking-wider uppercase shadow-emerald-glow hover:shadow-emerald-glow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 cursor-pointer flex items-center justify-center gap-2 whitespace-nowrap"
+                    class="hero-map-join-cta btn-nature-cta px-6 sm:px-8 py-2.5 sm:py-3 rounded-full bg-[#09221B]/95 hover:bg-[#0E342A] border-2 border-[#00FF87] hover:border-emerald-300 text-white font-heading font-extrabold text-xs sm:text-sm tracking-wider uppercase shadow-emerald-glow hover:shadow-emerald-glow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 cursor-pointer flex items-center justify-center gap-2 whitespace-nowrap"
                   >
                     <svg class="w-4 h-4 text-[#00FF87] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                       <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
@@ -221,7 +234,7 @@ export function renderHero(container, onJoinClick, supportersData = {}) {
               <div class="sm:hidden mt-3">
                 <button 
                   id="hero-map-join-cta-mobile"
-                  class="hero-map-join-cta w-full min-h-[44px] py-3 rounded-xl bg-[#09221B]/95 hover:bg-[#0E342A] border-2 border-[#00FF87] hover:border-emerald-300 text-white font-heading font-extrabold text-xs tracking-wider uppercase shadow-emerald-glow hover:shadow-emerald-glow-lg transition-all duration-300 active:scale-[0.98] cursor-pointer flex items-center justify-center gap-2"
+                  class="hero-map-join-cta btn-nature-cta w-full min-h-[44px] py-3 rounded-xl bg-[#09221B]/95 hover:bg-[#0E342A] border-2 border-[#00FF87] hover:border-emerald-300 text-white font-heading font-extrabold text-xs tracking-wider uppercase shadow-emerald-glow hover:shadow-emerald-glow-lg transition-all duration-300 active:scale-[0.98] cursor-pointer flex items-center justify-center gap-2"
                 >
                   <svg class="w-4 h-4 text-[#00FF87] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="m8 3 4 8 5-5 5 15H2L8 3z" />

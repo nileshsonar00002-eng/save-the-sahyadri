@@ -292,3 +292,260 @@ html {
   z-index: 10;
   transition: opacity 0.5s ease;
 }
+
+/* ========================================================
+   SAVE THE SAHYADRI — LIVING FOREST & NATURE ANIMATIONS
+   Subtle, premium, hardware-accelerated micro-interactions
+   ======================================================== */
+
+/* 1. Hero Living Forest — Animated Mist / Fog Layers */
+.forest-mist-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  will-change: transform, opacity;
+  mix-blend-mode: screen;
+}
+
+.forest-mist-1 {
+  background: radial-gradient(ellipse 90% 55% at 48% 65%, rgba(16, 185, 129, 0.08) 0%, rgba(255, 255, 255, 0.035) 45%, transparent 75%);
+  opacity: 0.65;
+  animation: mistDrift1 44s ease-in-out infinite alternate;
+}
+
+.forest-mist-2 {
+  background: radial-gradient(ellipse 80% 45% at 55% 72%, rgba(0, 255, 135, 0.06) 0%, rgba(180, 245, 210, 0.03) 50%, transparent 80%);
+  opacity: 0.5;
+  animation: mistDrift2 58s ease-in-out infinite alternate;
+}
+
+@keyframes mistDrift1 {
+  0% { transform: translate3d(-3%, 0, 0); }
+  50% { transform: translate3d(3%, -6px, 0); }
+  100% { transform: translate3d(4%, 3px, 0); }
+}
+
+@keyframes mistDrift2 {
+  0% { transform: translate3d(3%, 0, 0); }
+  50% { transform: translate3d(-3%, 5px, 0); }
+  100% { transform: translate3d(-4%, -3px, 0); }
+}
+
+/* Hero Living Forest — Gentle Sunlight Shimmer */
+.forest-sun-shimmer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(135deg, rgba(254, 240, 138, 0.045) 0%, rgba(52, 211, 153, 0.035) 35%, transparent 70%);
+  mix-blend-mode: screen;
+  animation: sunShimmer 14s ease-in-out infinite alternate;
+  will-change: opacity, transform;
+}
+
+@keyframes sunShimmer {
+  0% { opacity: 0.35; transform: scale(1); }
+  50% { opacity: 0.68; transform: scale(1.015); }
+  100% { opacity: 0.42; transform: scale(1.008); }
+}
+
+/* Hero Living Forest — Minimal Floating Nature Spores */
+.nature-spore {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform, opacity;
+  background: radial-gradient(circle, rgba(0, 255, 135, 0.75) 0%, rgba(254, 240, 138, 0.5) 50%, transparent 100%);
+  box-shadow: 0 0 8px rgba(0, 255, 135, 0.55);
+  animation: sporeFloat 18s ease-in-out infinite;
+}
+
+@keyframes sporeFloat {
+  0% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0.15;
+  }
+  30% {
+    opacity: 0.7;
+    transform: translate3d(8px, -22px, 0);
+  }
+  70% {
+    opacity: 0.85;
+    transform: translate3d(-10px, -48px, 0);
+  }
+  100% {
+    transform: translate3d(4px, -70px, 0);
+    opacity: 0;
+  }
+}
+
+/* 2. Fullscreen Map — “32,490 TREES AT RISK?” Card Entrance */
+@keyframes mapCardEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.map-card-entrance {
+  animation: mapCardEntrance 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* 3. Scroll-Based Section Reveals (Fade + 16px Upward Movement) */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-on-scroll.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger Delays (80–120ms intervals) */
+.stagger-1 { transition-delay: 80ms; }
+.stagger-2 { transition-delay: 180ms; }
+.stagger-3 { transition-delay: 280ms; }
+.stagger-4 { transition-delay: 380ms; }
+
+/* 4. Cards — Desktop Hover Lift (3-5px) & Border Brightening */
+@media (hover: hover) and (pointer: fine) {
+  .sahyadri-card-base,
+  .hover-lift {
+    transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.32s ease,
+                box-shadow 0.32s ease;
+  }
+
+  .sahyadri-card-base:hover,
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    border-color: rgba(52, 211, 153, 0.45) !important;
+    box-shadow: 0 16px 36px -6px rgba(0, 0, 0, 0.65), 0 0 22px rgba(16, 185, 129, 0.16) !important;
+  }
+}
+
+/* Cards & Buttons — Touchscreen Tap Feedback */
+@media (hover: none) and (pointer: coarse) {
+  .sahyadri-card-base:active,
+  .hover-lift:active {
+    transform: scale(0.985);
+    opacity: 0.94;
+    transition: transform 0.12s ease, opacity 0.12s ease;
+  }
+}
+
+/* 5. Buttons — Light Sweep & Press Interaction */
+.btn-nature-cta {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.25s ease,
+              background 0.25s ease;
+}
+
+.btn-nature-cta::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -75%;
+  width: 50%;
+  height: 200%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.25) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(25deg);
+  pointer-events: none;
+  opacity: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn-nature-cta:hover::after {
+    opacity: 1;
+    animation: btnLightSweep 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .btn-nature-cta:hover {
+    transform: translateY(-2px);
+  }
+
+  .btn-nature-cta:hover svg:not(.animate-spin) {
+    transform: scale(1.12) translateY(-1px);
+  }
+}
+
+@keyframes btnLightSweep {
+  0% { left: -75%; opacity: 0; }
+  25% { opacity: 1; }
+  100% { left: 140%; opacity: 0; }
+}
+
+/* Button Press Interaction (Subtle scale press) */
+.btn-nature-cta:active,
+button:active,
+.btn-press:active {
+  transform: scale(0.97) !important;
+  transition: transform 0.1s ease !important;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .btn-nature-cta:active {
+    transform: scale(0.96) !important;
+    opacity: 0.92;
+  }
+}
+
+/* Smooth Icon Transitions */
+.btn-nature-cta svg,
+button svg {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 6. Performance & Accessibility (Prefers-Reduced-Motion & Mobile Optimizations) */
+@media (prefers-reduced-motion: reduce) {
+  .forest-mist-1,
+  .forest-mist-2,
+  .forest-sun-shimmer,
+  .nature-spore,
+  .map-card-entrance {
+    animation: none !important;
+    opacity: 0.3 !important;
+    transform: none !important;
+  }
+
+  .reveal-on-scroll {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .btn-nature-cta::after {
+    display: none !important;
+  }
+
+  .sahyadri-card-base,
+  .hover-lift,
+  .btn-nature-cta {
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* Mobile & Low-Power Screen Optimizations */
+@media (max-width: 640px) {
+  .forest-mist-2 {
+    display: none;
+  }
+  .nature-spore:nth-child(n+4) {
+    display: none;
+  }
+}
