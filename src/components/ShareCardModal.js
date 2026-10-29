@@ -279,11 +279,25 @@ export function openShareCardModal(supporter = {}) {
 
   // WhatsApp Handler
   btnWhatsApp.addEventListener('click', () => {
+    const siteUrl = (typeof window !== 'undefined' && window.location)
+      ? (window.location.origin + window.location.pathname)
+      : 'https://savethesahyadri.org/';
+
     const text = encodeURIComponent(
-      `🌿 I STAND WITH SAHYADRI!\n\n` +
-      `I have pledged my support from ${city}, ${state} to protect Maharashtra's Western Ghats and Sahyadri forests.\n\n` +
-      `Stand with our rivers, wildlife, and natural heritage. Add your voice to the movement:\n` +
-      `👉 ${window.location.origin}`
+      `💔🌳 *सह्याद्री के जंगलों पर संकट है… क्या हम चुप रहेंगे?*\n\n` +
+      `महाराष्ट्र के कर्जत में 32,490 पेड़ों को हटाने की खबर ने हर प्रकृति प्रेमी को सोचने पर मजबूर कर दिया है। 💔\n\n` +
+      `ये सिर्फ पेड़ों की गिनती नहीं है…\n` +
+      `🌳 ये किसी पक्षी का घर है।\n` +
+      `🐾 ये बेज़ुबान जानवरों का आशियाना है।\n` +
+      `💧 ये हमारी नदियों और पानी के भविष्य का सवाल है।\n` +
+      `🌱 और ये हमारी आने वाली पीढ़ियों की विरासत है।\n\n` +
+      `🙏 *विकास ज़रूरी है, लेकिन प्रकृति की कीमत पर हर फैसला सवालों से परे नहीं हो सकता।* 💚\n\n` +
+      `🌿 *Save the Sahyadri*\n` +
+      `🤝 आइए, जागरूकता फैलाएँ। इस आवाज़ को और लोगों तक पहुँचाएँ।\n\n` +
+      `💚 *मैं सह्याद्री के साथ खड़ा हूँ… क्या आप भी?*\n` +
+      `🌐 हमारी मुहिम से जुड़ें:\n` +
+      `${siteUrl}\n\n` +
+      `📢 *इस संदेश को शेयर करें। सह्याद्री की आवाज़ दूर तक पहुँचनी चाहिए।*`
     );
     window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
   });

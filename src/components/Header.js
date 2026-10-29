@@ -9,12 +9,32 @@
 
 export function renderHeader(container, onJoinClick) {
   const getShareUrl = () => {
-    if (typeof window !== 'undefined') {
-      const base = window.location.origin + window.location.pathname;
-      const text = `🌿 *SAVE THE SAHYADRI* ⛰️\n\nI stand with Maharashtra's Western Ghats. Join this nationwide public awareness movement to protect our pristine forests and natural heritage:\n\n👉 ${base}`;
-      return `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
-    }
-    return 'https://api.whatsapp.com/send?text=Save%20the%20Sahyadri';
+    const siteUrl = (typeof window !== 'undefined' && window.location)
+      ? (window.location.origin + window.location.pathname)
+      : 'https://savethesahyadri.org/';
+
+    const text = `💔🌳 *सह्याद्री के जंगलों पर संकट है… क्या हम चुप रहेंगे?*
+
+महाराष्ट्र के कर्जत में 32,490 पेड़ों को हटाने की खबर ने हर प्रकृति प्रेमी को सोचने पर मजबूर कर दिया है। 💔
+
+ये सिर्फ पेड़ों की गिनती नहीं है…
+🌳 ये किसी पक्षी का घर है।
+🐾 ये बेज़ुबान जानवरों का आशियाना है।
+💧 ये हमारी नदियों और पानी के भविष्य का सवाल है।
+🌱 और ये हमारी आने वाली पीढ़ियों की विरासत है।
+
+🙏 *विकास ज़रूरी है, लेकिन प्रकृति की कीमत पर हर फैसला सवालों से परे नहीं हो सकता।* 💚
+
+🌿 *Save the Sahyadri*
+🤝 आइए, जागरूकता फैलाएँ। इस आवाज़ को और लोगों तक पहुँचाएँ।
+
+💚 *मैं सह्याद्री के साथ खड़ा हूँ… क्या आप भी?*
+🌐 हमारी मुहिम से जुड़ें:
+${siteUrl}
+
+📢 *इस संदेश को शेयर करें। सह्याद्री की आवाज़ दूर तक पहुँचनी चाहिए।*`;
+
+    return `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
   };
 
   container.innerHTML = `
