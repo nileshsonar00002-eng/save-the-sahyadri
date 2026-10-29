@@ -71,8 +71,8 @@ components.forEach(({ name, render }) => {
   console.log(`✓ ${name} passed mobile responsive & card design checks`);
 });
 
-// 6. Detailed Story Section Mobile Carousel Geometry Verification (320px, 360px, 390px, 430px)
-console.log('\n📐 Verifying WHY THE SAHYADRI MATTERS Carousel Geometry at 320px, 360px, 390px, 430px...');
+// 6. Detailed Mobile Carousel Geometry Verification (MovementCounter & StorySection at 320px, 360px, 390px, 430px)
+console.log('\n📐 Verifying Mobile Carousel Geometry (ONE MOVEMENT. MANY VOICES. & WHY THE SAHYADRI MATTERS) at 320px, 360px, 390px, 430px...');
 const viewports = [320, 360, 390, 430];
 const marginX = 32; // px-4 (16px left + 16px right)
 const gap = 16; // gap-4 (16px)

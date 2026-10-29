@@ -596,6 +596,7 @@ button svg {
     opacity: 0.92 !important;
   }
 
+  .stat-carousel-card,
   .story-carousel-card {
     height: auto !important;
     align-self: flex-start;

@@ -4,9 +4,11 @@
  * 
  * Mobile Experience:
  * - Premium auto-sliding horizontal carousel with touch swipe gestures (pan-y preserved).
+ * - Active card width: ~90–91% of available container with subtle 12–20px next-card preview.
+ * - Compact balanced vertical padding, 14px readable body text, and clamped titles.
+ * - Top-aligned cards with natural content-adaptive heights.
  * - Autoplay every 3.5s with pause on touch/interaction and automatic reset on manual swipe.
- * - Right-edge peek of next card, smooth infinite seamless looping.
- * - 4 interactive pagination dots with emerald glow.
+ * - Smooth infinite seamless looping and 4 interactive pagination dots with emerald glow.
  * 
  * Desktop & Tablet Experience:
  * - 4-column desktop layout & 2-column tablet layout preserved exactly as specified.
@@ -50,15 +52,15 @@ export function renderMovementCounter(container, stats = {}) {
         <div class="relative w-full overflow-hidden sm:overflow-visible py-1">
           <div 
             id="stats-carousel-track" 
-            class="relative flex sm:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 items-stretch transition-transform duration-500 ease-out will-change-transform"
+            class="relative flex sm:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 items-start sm:items-stretch transition-transform duration-500 ease-out will-change-transform"
             style="touch-action: pan-y;"
           >
             
             <!-- Card 1: 325+ Threatened Species -->
-            <div class="stat-carousel-card w-[84%] sm:w-auto shrink-0 sm:shrink p-4 sm:p-5 rounded-2xl bg-[#06150E] border border-emerald-500/20 hover:border-emerald-400/40 hover:bg-[#07190F] transition-all duration-300 text-left group shadow-md flex flex-col justify-between h-full reveal-on-scroll stagger-1 hover-lift cursor-pointer sm:cursor-default" data-card-index="0">
-              <div class="space-y-3.5">
+            <div class="stat-carousel-card w-[90%] xs:w-[91%] sm:w-auto shrink-0 sm:shrink p-3.5 sm:p-5 rounded-2xl bg-[#06150E] border border-emerald-500/20 hover:border-emerald-400/40 hover:bg-[#07190F] transition-all duration-300 text-left group shadow-md flex flex-col justify-between h-auto sm:h-full reveal-on-scroll stagger-1 hover-lift cursor-pointer sm:cursor-default" data-card-index="0">
+              <div class="space-y-2.5 sm:space-y-3.5">
                 <!-- Photo Container -->
-                <div class="relative w-full aspect-[16/9] sm:aspect-[5/3] overflow-hidden rounded-xl border border-emerald-500/15 bg-emerald-950/60">
+                <div class="relative w-full aspect-[16/9] sm:aspect-[5/3] overflow-hidden rounded-xl border border-emerald-500/15 bg-emerald-950/60 shrink-0">
                   <img 
                     src="/images/unesco/threatened-species.png" 
                     alt="Lion-tailed Macaque - Globally Threatened Species in Western Ghats" 
@@ -68,27 +70,27 @@ export function renderMovementCounter(container, stats = {}) {
                 </div>
 
                 <!-- Stat Number -->
-                <div class="font-heading font-black text-3xl sm:text-4xl text-emerald-400 tracking-tight leading-none">
+                <div class="font-heading font-black text-2xl xs:text-3xl sm:text-4xl text-emerald-400 tracking-tight leading-none">
                   325+
                 </div>
 
                 <!-- Stat Title -->
-                <div class="text-xs sm:text-sm font-bold text-white uppercase tracking-wider">
+                <div class="text-[11px] xs:text-xs sm:text-sm font-bold text-white uppercase tracking-wider leading-snug line-clamp-2">
                   THREATENED SPECIES
                 </div>
 
-                <!-- Description -->
-                <p class="text-xs sm:text-sm text-slate-300 leading-relaxed pt-1">
+                <!-- Description (14px comfortable reading on mobile) -->
+                <p class="text-[13.5px] xs:text-[14px] sm:text-sm text-slate-300 leading-[1.6] sm:leading-relaxed pt-0.5 sm:pt-1 font-sans">
                   Globally threatened species recorded in the Western Ghats, according to UNESCO's listing information.
                 </p>
               </div>
             </div>
 
             <!-- Card 2: 54% Endemic Tree Species -->
-            <div class="stat-carousel-card w-[84%] sm:w-auto shrink-0 sm:shrink p-4 sm:p-5 rounded-2xl bg-[#06150E] border border-emerald-500/20 hover:border-emerald-400/40 hover:bg-[#07190F] transition-all duration-300 text-left group shadow-md flex flex-col justify-between h-full reveal-on-scroll stagger-2 hover-lift cursor-pointer sm:cursor-default" data-card-index="1">
-              <div class="space-y-3.5">
+            <div class="stat-carousel-card w-[90%] xs:w-[91%] sm:w-auto shrink-0 sm:shrink p-3.5 sm:p-5 rounded-2xl bg-[#06150E] border border-emerald-500/20 hover:border-emerald-400/40 hover:bg-[#07190F] transition-all duration-300 text-left group shadow-md flex flex-col justify-between h-auto sm:h-full reveal-on-scroll stagger-2 hover-lift cursor-pointer sm:cursor-default" data-card-index="1">
+              <div class="space-y-2.5 sm:space-y-3.5">
                 <!-- Photo Container -->
-                <div class="relative w-full aspect-[16/9] sm:aspect-[5/3] overflow-hidden rounded-xl border border-emerald-500/15 bg-emerald-950/60">
+                <div class="relative w-full aspect-[16/9] sm:aspect-[5/3] overflow-hidden rounded-xl border border-emerald-500/15 bg-emerald-950/60 shrink-0">
                   <img 
                     src="/images/unesco/endemic-trees.png" 
                     alt="Ancient Rainforest Canopy - Endemic Tree Species in Sahyadri" 
@@ -98,27 +100,27 @@ export function renderMovementCounter(container, stats = {}) {
                 </div>
 
                 <!-- Stat Number -->
-                <div class="font-heading font-black text-3xl sm:text-4xl text-emerald-400 tracking-tight leading-none">
+                <div class="font-heading font-black text-2xl xs:text-3xl sm:text-4xl text-emerald-400 tracking-tight leading-none">
                   54%
                 </div>
 
                 <!-- Stat Title -->
-                <div class="text-xs sm:text-sm font-bold text-white uppercase tracking-wider">
+                <div class="text-[11px] xs:text-xs sm:text-sm font-bold text-white uppercase tracking-wider leading-snug line-clamp-2">
                   ENDEMIC TREE SPECIES
                 </div>
 
-                <!-- Description -->
-                <p class="text-xs sm:text-sm text-slate-300 leading-relaxed pt-1">
+                <!-- Description (14px comfortable reading on mobile) -->
+                <p class="text-[13.5px] xs:text-[14px] sm:text-sm text-slate-300 leading-[1.6] sm:leading-relaxed pt-0.5 sm:pt-1 font-sans">
                   352 of nearly 650 tree species cited by UNESCO's description are endemic.
                 </p>
               </div>
             </div>
 
             <!-- Card 3: 8 Biodiversity Hotspots -->
-            <div class="stat-carousel-card w-[84%] sm:w-auto shrink-0 sm:shrink p-4 sm:p-5 rounded-2xl bg-[#06150E] border border-emerald-500/20 hover:border-emerald-400/40 hover:bg-[#07190F] transition-all duration-300 text-left group shadow-md flex flex-col justify-between h-full reveal-on-scroll stagger-3 hover-lift cursor-pointer sm:cursor-default" data-card-index="2">
-              <div class="space-y-3.5">
+            <div class="stat-carousel-card w-[90%] xs:w-[91%] sm:w-auto shrink-0 sm:shrink p-3.5 sm:p-5 rounded-2xl bg-[#06150E] border border-emerald-500/20 hover:border-emerald-400/40 hover:bg-[#07190F] transition-all duration-300 text-left group shadow-md flex flex-col justify-between h-auto sm:h-full reveal-on-scroll stagger-3 hover-lift cursor-pointer sm:cursor-default" data-card-index="2">
+              <div class="space-y-2.5 sm:space-y-3.5">
                 <!-- Photo Container -->
-                <div class="relative w-full aspect-[16/9] sm:aspect-[5/3] overflow-hidden rounded-xl border border-emerald-500/15 bg-emerald-950/60">
+                <div class="relative w-full aspect-[16/9] sm:aspect-[5/3] overflow-hidden rounded-xl border border-emerald-500/15 bg-emerald-950/60 shrink-0">
                   <img 
                     src="/images/unesco/biodiversity-hotspots.png" 
                     alt="Misty Mountain Forest - World Biodiversity Hotspots" 
@@ -128,27 +130,27 @@ export function renderMovementCounter(container, stats = {}) {
                 </div>
 
                 <!-- Stat Number -->
-                <div class="font-heading font-black text-3xl sm:text-4xl text-emerald-400 tracking-tight leading-none">
+                <div class="font-heading font-black text-2xl xs:text-3xl sm:text-4xl text-emerald-400 tracking-tight leading-none">
                   8
                 </div>
 
                 <!-- Stat Title -->
-                <div class="text-xs sm:text-sm font-bold text-white uppercase tracking-wider">
+                <div class="text-[11px] xs:text-xs sm:text-sm font-bold text-white uppercase tracking-wider leading-snug line-clamp-2">
                   BIODIVERSITY HOTSPOTS
                 </div>
 
-                <!-- Description -->
-                <p class="text-xs sm:text-sm text-slate-300 leading-relaxed pt-1">
+                <!-- Description (14px comfortable reading on mobile) -->
+                <p class="text-[13.5px] xs:text-[14px] sm:text-sm text-slate-300 leading-[1.6] sm:leading-relaxed pt-0.5 sm:pt-1 font-sans">
                   The Western Ghats–Sri Lanka region is recognised as one of the world's eight biodiversity hotspots.
                 </p>
               </div>
             </div>
 
             <!-- Card 4: 2012 UNESCO World Heritage -->
-            <div class="stat-carousel-card w-[84%] sm:w-auto shrink-0 sm:shrink p-4 sm:p-5 rounded-2xl bg-[#06150E] border border-emerald-500/20 hover:border-emerald-400/40 hover:bg-[#07190F] transition-all duration-300 text-left group shadow-md flex flex-col justify-between h-full reveal-on-scroll stagger-4 hover-lift cursor-pointer sm:cursor-default" data-card-index="3">
-              <div class="space-y-3.5">
+            <div class="stat-carousel-card w-[90%] xs:w-[91%] sm:w-auto shrink-0 sm:shrink p-3.5 sm:p-5 rounded-2xl bg-[#06150E] border border-emerald-500/20 hover:border-emerald-400/40 hover:bg-[#07190F] transition-all duration-300 text-left group shadow-md flex flex-col justify-between h-auto sm:h-full reveal-on-scroll stagger-4 hover-lift cursor-pointer sm:cursor-default" data-card-index="3">
+              <div class="space-y-2.5 sm:space-y-3.5">
                 <!-- Photo Container -->
-                <div class="relative w-full aspect-[16/9] sm:aspect-[5/3] overflow-hidden rounded-xl border border-emerald-500/15 bg-emerald-950/60">
+                <div class="relative w-full aspect-[16/9] sm:aspect-[5/3] overflow-hidden rounded-xl border border-emerald-500/15 bg-emerald-950/60 shrink-0">
                   <img 
                     src="/images/unesco/unesco-heritage.png" 
                     alt="Western Ghats River Valley Gorge - UNESCO World Heritage Site" 
@@ -158,17 +160,17 @@ export function renderMovementCounter(container, stats = {}) {
                 </div>
 
                 <!-- Stat Number -->
-                <div class="font-heading font-black text-3xl sm:text-4xl text-emerald-400 tracking-tight leading-none">
+                <div class="font-heading font-black text-2xl xs:text-3xl sm:text-4xl text-emerald-400 tracking-tight leading-none">
                   2012
                 </div>
 
                 <!-- Stat Title -->
-                <div class="text-xs sm:text-sm font-bold text-white uppercase tracking-wider">
+                <div class="text-[11px] xs:text-xs sm:text-sm font-bold text-white uppercase tracking-wider leading-snug line-clamp-2">
                   UNESCO WORLD HERITAGE
                 </div>
 
-                <!-- Description -->
-                <p class="text-xs sm:text-sm text-slate-300 leading-relaxed pt-1">
+                <!-- Description (14px comfortable reading on mobile) -->
+                <p class="text-[13.5px] xs:text-[14px] sm:text-sm text-slate-300 leading-[1.6] sm:leading-relaxed pt-0.5 sm:pt-1 font-sans">
                   The Western Ghats property was inscribed on the UNESCO World Heritage List in 2012.
                 </p>
               </div>
@@ -269,7 +271,7 @@ function initMobileCarousel(container) {
   function getCardOffset(index) {
     if (!cards[index]) return 0;
     const card0 = cards[0];
-    const cardWidth = card0 ? card0.offsetWidth : 280;
+    const cardWidth = card0 ? card0.offsetWidth : 300;
     const gap = 16; // 1rem gap (gap-4)
     if (cards[index].offsetLeft > 0 || index === 0) {
       return cards[index].offsetLeft;
