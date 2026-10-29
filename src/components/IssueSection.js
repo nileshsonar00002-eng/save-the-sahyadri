@@ -28,23 +28,17 @@ export function renderIssueSection(container) {
           <!-- Ambient Radial Emerald Lighting -->
           <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,255,135,0.06)_0,transparent_70%)] pointer-events-none"></div>
 
-          <!-- Wide Cinematic Image of a Majestic Mature Tree in Lush Sahyadri Forest -->
+          <!-- Wide Cinematic Image of a Person Hugging a Majestic Mature Tree in Lush Sahyadri Forest -->
           <div class="relative z-10 w-full overflow-hidden rounded-xl sm:rounded-2xl border border-emerald-500/25 shadow-xl group">
             <div class="relative aspect-[16/10] sm:aspect-[21/9] w-full overflow-hidden bg-black/60">
               <img 
-                src="/images/sahyadri-tree-hero.jpg" 
-                alt="Majestic ancient mature tree standing tall in the lush misty canopy of the Sahyadri Western Ghats" 
+                src="/images/sahyadri-tree-hug.jpg" 
+                alt="A concerned citizen hugging an ancient mature tree in the lush misty canopy of the Sahyadri Western Ghats" 
                 class="w-full h-full object-cover object-center transform transition-transform duration-700 group-hover:scale-105"
                 loading="lazy"
               />
               <!-- Cinematic Vignette & Bottom Shadow Overlay -->
-              <div class="absolute inset-0 bg-gradient-to-t from-[#06150E] via-transparent to-black/30 pointer-events-none"></div>
-              
-              <!-- Subtle Image Badge -->
-              <div class="absolute top-3 left-3 sm:top-4 sm:left-4 z-10 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#030905]/85 backdrop-blur-md text-[10px] sm:text-xs font-bold text-emerald-300 border border-emerald-500/30">
-                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span>SAHYADRI ANCIENT CANOPY</span>
-              </div>
+              <div class="absolute inset-0 bg-gradient-to-t from-[#06150E] via-transparent to-black/20 pointer-events-none"></div>
             </div>
           </div>
 
@@ -66,24 +60,26 @@ export function renderIssueSection(container) {
               A tree is more than timber. It can be a home for wildlife, part of a living ecosystem, and a legacy for generations to come.
             </p>
 
+            <!-- Subtle Leaf Divider -->
+            <div class="flex items-center justify-center gap-3 pt-1">
+              <div class="h-px bg-emerald-500/30 w-16 sm:w-24"></div>
+              <svg class="w-4 h-4 text-emerald-400 shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 0 0 8 20C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/>
+              </svg>
+              <div class="h-px bg-emerald-500/30 w-16 sm:w-24"></div>
+            </div>
+
             <!-- Strong Closing Statement in Neon Green -->
-            <div class="pt-2 sm:pt-4">
-              <div class="inline-block px-4 py-2 sm:px-6 sm:py-2.5 rounded-full bg-emerald-950/60 border border-emerald-400/30 shadow-[0_0_25px_rgba(0,255,135,0.15)]">
-                <span class="font-heading font-extrabold text-xs sm:text-base lg:text-lg text-[#00FF87] tracking-wider uppercase">
-                  WHAT WE PROTECT TODAY, TOMORROW WILL INHERIT.
-                </span>
-              </div>
+            <div class="pt-1">
+              <span class="font-heading font-black text-xs sm:text-base lg:text-lg text-[#00FF87] tracking-wider uppercase drop-shadow-[0_0_15px_rgba(0,255,135,0.25)]">
+                WHAT WE PROTECT TODAY, TOMORROW WILL INHERIT.
+              </span>
             </div>
 
           </div>
 
           <!-- Readable Factual Disclaimer Footnote -->
-          <div class="relative z-10 pt-4 sm:pt-6 border-t border-emerald-500/15 flex items-center justify-center gap-2 text-[11px] sm:text-xs text-slate-400 max-w-2xl mx-auto text-center leading-normal">
-            <svg class="w-4 h-4 text-emerald-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10" />
-              <path d="M12 16v-4" />
-              <path d="M12 8h.01" />
-            </svg>
+          <div class="relative z-10 pt-3 sm:pt-4 flex items-center justify-center gap-2 text-[11px] sm:text-xs text-slate-400 max-w-2xl mx-auto text-center leading-normal">
             <span>Reported figure. The current on-ground status and the age of affected trees require independent confirmation.</span>
           </div>
 

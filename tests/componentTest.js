@@ -109,7 +109,7 @@ const issueEl = createMockElement('issue-mount');
 renderIssueSection(issueEl);
 assert.ok(issueEl.innerHTML.includes('32,490 TREES'), 'Issue must contain 32,490 TREES headline');
 assert.ok(issueEl.innerHTML.includes('A reported 32,490 trees were authorised for removal for the Saidongar-I Karjat pumped-storage project.'), 'Must contain factual description');
-assert.ok(issueEl.innerHTML.includes('sahyadri-tree-hero.jpg'), 'Must contain cinematic mature tree image');
+assert.ok(issueEl.innerHTML.includes('sahyadri-tree-hug.jpg'), 'Must contain person hugging tree image');
 assert.ok(issueEl.innerHTML.includes('50–100 YEARS TO GROW.'), 'Must contain emotional headline part 1');
 assert.ok(issueEl.innerHTML.includes('JUST MINUTES TO CUT?'), 'Must contain emotional headline part 2');
 assert.ok(issueEl.innerHTML.includes('A tree is more than timber. It can be a home for wildlife, part of a living ecosystem, and a legacy for generations to come.'), 'Must contain supporting message');
