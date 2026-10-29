@@ -789,13 +789,13 @@ export function openMaharashtraFullView(supporters = []) {
       <!-- 3D Horizon Atmosphere Gradient -->
       <div id="fullview-map-3d-horizon" class="map-3d-horizon"></div>
 
-      <!-- Floating Campaign Headline in Upper Black Horizon (Animated fade-and-slide entrance) -->
-      <div id="fullview-headline-card" class="map-card-entrance absolute top-4 sm:top-6 lg:top-7 inset-x-0 mx-auto w-full max-w-2xl px-4 z-30 pointer-events-none text-center select-none">
+      <!-- Floating Campaign Headline in Upper Black Horizon (Line 1 from Left, Line 2 from Right) -->
+      <div id="fullview-headline-card" class="absolute top-4 sm:top-6 lg:top-7 inset-x-0 mx-auto w-full max-w-2xl px-4 z-30 pointer-events-none text-center select-none overflow-hidden">
         <div class="inline-flex flex-col items-center justify-center space-y-0.5 sm:space-y-1">
-          <div class="font-heading font-black text-sm sm:text-lg lg:text-xl text-white tracking-wider uppercase drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
+          <div class="map-headline-left font-heading font-black text-sm sm:text-lg lg:text-xl text-white tracking-wider uppercase drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
             32,490 TREES AT RISK?
           </div>
-          <div class="font-heading font-black text-xs sm:text-sm lg:text-base text-[#00FF87] tracking-wider uppercase drop-shadow-[0_0_16px_rgba(0,255,135,0.45)]">
+          <div class="map-headline-right font-heading font-black text-xs sm:text-sm lg:text-base text-[#00FF87] tracking-wider uppercase drop-shadow-[0_0_16px_rgba(0,255,135,0.45)]">
             INDIA CONNECTS TO SAVE SAHYADRI.
           </div>
         </div>
@@ -878,13 +878,16 @@ export function openMaharashtraFullView(supporters = []) {
   document.body.appendChild(overlay);
   document.body.classList.add('overflow-hidden');
 
-  // Trigger smooth fade-and-slide card entrance animation cleanly
-  const headlineCard = overlay.querySelector('#fullview-headline-card');
-  if (headlineCard && typeof requestAnimationFrame !== 'undefined') {
-    headlineCard.classList.remove('map-card-entrance');
+  // Trigger smooth left/right entrance animations cleanly on mount
+  const lineLeft = overlay.querySelector('.map-headline-left');
+  const lineRight = overlay.querySelector('.map-headline-right');
+  if (lineLeft && lineRight && typeof requestAnimationFrame !== 'undefined') {
+    lineLeft.classList.remove('map-headline-left');
+    lineRight.classList.remove('map-headline-right');
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        headlineCard.classList.add('map-card-entrance');
+        lineLeft.classList.add('map-headline-left');
+        lineRight.classList.add('map-headline-right');
       });
     });
   }

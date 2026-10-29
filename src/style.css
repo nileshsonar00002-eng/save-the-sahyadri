@@ -378,20 +378,38 @@ html {
   }
 }
 
-/* 2. Fullscreen Map — “32,490 TREES AT RISK?” Card Entrance */
-@keyframes mapCardEntrance {
+/* 2. Fullscreen Map — Smooth Two-Line Opposing Slide Entrance */
+/* Line 1 (32,490 TREES AT RISK?) slides in smoothly from the Left */
+@keyframes slideInFromLeft {
   0% {
     opacity: 0;
-    transform: translateY(-28px);
+    transform: translate3d(-45px, 0, 0);
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
-.map-card-entrance {
-  animation: mapCardEntrance 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.18s both !important;
+/* Line 2 (INDIA CONNECTS TO SAVE SAHYADRI.) slides in smoothly from the Right */
+@keyframes slideInFromRight {
+  0% {
+    opacity: 0;
+    transform: translate3d(45px, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.map-headline-left {
+  animation: slideInFromLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both !important;
+  will-change: transform, opacity;
+}
+
+.map-headline-right {
+  animation: slideInFromRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.22s both !important;
   will-change: transform, opacity;
 }
 
@@ -517,9 +535,10 @@ button svg {
   .forest-mist-2,
   .forest-sun-shimmer,
   .nature-spore,
-  .map-card-entrance {
+  .map-headline-left,
+  .map-headline-right {
     animation: none !important;
-    opacity: 0.3 !important;
+    opacity: 1 !important;
     transform: none !important;
   }
 

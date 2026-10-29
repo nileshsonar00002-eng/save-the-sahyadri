@@ -84,6 +84,8 @@ assert.ok(appendedOverlay.innerHTML.includes('PEOPLE UNITED FOR SAHYADRI'), 'Ful
 assert.ok(appendedOverlay.innerHTML.includes('MEMBERS JOINED'), 'Fullscreen map must feature MEMBERS JOINED');
 assert.ok(appendedOverlay.innerHTML.includes('32,490 TREES AT RISK?'), 'Fullscreen map must feature 32,490 TREES AT RISK? headline');
 assert.ok(appendedOverlay.innerHTML.includes('INDIA CONNECTS TO SAVE SAHYADRI.'), 'Fullscreen map must feature INDIA CONNECTS TO SAVE SAHYADRI. headline');
+assert.ok(appendedOverlay.innerHTML.includes('map-headline-left'), 'Line 1 must have map-headline-left class for left entrance');
+assert.ok(appendedOverlay.innerHTML.includes('map-headline-right'), 'Line 2 must have map-headline-right class for right entrance');
 closeMaharashtraFullView();
 console.log('✓ Fullscreen Map view properly displays the live counter card and campaign headline in the upper black horizon');
 

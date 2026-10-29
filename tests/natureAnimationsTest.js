@@ -21,10 +21,12 @@ assert.ok(cssContent.includes('@keyframes sunShimmer'), 'Must contain sunShimmer
 assert.ok(cssContent.includes('@keyframes sporeFloat'), 'Must contain sporeFloat keyframe');
 console.log('✓ Test 1: Living Forest mist, shimmer & spore CSS keyframes verified');
 
-// Satellite Map Entrance
-assert.ok(cssContent.includes('.map-card-entrance'), 'Must contain map-card-entrance class');
-assert.ok(cssContent.includes('@keyframes mapCardEntrance'), 'Must contain mapCardEntrance keyframe');
-console.log('✓ Test 2: Fullscreen map card fade-and-slide entrance keyframe verified');
+// Satellite Map Entrance (Line 1 from Left, Line 2 from Right)
+assert.ok(cssContent.includes('.map-headline-left'), 'Must contain map-headline-left class');
+assert.ok(cssContent.includes('.map-headline-right'), 'Must contain map-headline-right class');
+assert.ok(cssContent.includes('@keyframes slideInFromLeft'), 'Must contain slideInFromLeft keyframe');
+assert.ok(cssContent.includes('@keyframes slideInFromRight'), 'Must contain slideInFromRight keyframe');
+console.log('✓ Test 2: Fullscreen map dual line opposing entrance keyframes (left & right) verified');
 
 // Scroll Reveals & Stagger
 assert.ok(cssContent.includes('.reveal-on-scroll'), 'Must contain reveal-on-scroll class');
