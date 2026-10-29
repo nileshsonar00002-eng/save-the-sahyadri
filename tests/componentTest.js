@@ -107,14 +107,17 @@ console.log('✓ Interactive Map rendered properly');
 // 5. Issue Section
 const issueEl = createMockElement('issue-mount');
 renderIssueSection(issueEl);
-assert.ok(issueEl.innerHTML.includes('THE 32,490 TREES'), 'Issue must contain redesigned header');
-assert.ok(!issueEl.innerHTML.includes('OFFICIAL ORDER REPORTED · STATUS DEVELOPING'), 'Status badge must be removed from Issue header');
-assert.ok(!issueEl.innerHTML.includes('close-news-top-btn'), 'Top close button must be removed');
-assert.ok(issueEl.innerHTML.includes('Saidongar-I Karjat pumped-storage project'), 'Must contain exact project context');
-assert.ok(issueEl.innerHTML.includes('PROPOSED'), 'Must have PROPOSED card');
-assert.ok(issueEl.innerHTML.includes('AUTHORISED'), 'Must have AUTHORISED card');
-assert.ok(issueEl.innerHTML.includes('FELLING STATUS'), 'Must have FELLING STATUS card');
-console.log('✓ Issue & Fact Card component rendered properly');
+assert.ok(issueEl.innerHTML.includes('32,490 TREES'), 'Issue must contain 32,490 TREES headline');
+assert.ok(issueEl.innerHTML.includes('A reported figure of trees authorised for removal in connection with the Karjat project.'), 'Must contain factual description');
+assert.ok(issueEl.innerHTML.includes('sahyadri-tree-hero.jpg'), 'Must contain cinematic mature tree image');
+assert.ok(issueEl.innerHTML.includes('50–100 YEARS TO GROW.'), 'Must contain emotional headline part 1');
+assert.ok(issueEl.innerHTML.includes('JUST MINUTES TO CUT?'), 'Must contain emotional headline part 2');
+assert.ok(issueEl.innerHTML.includes('A tree is more than timber. It can be a home for wildlife, part of a living ecosystem, and a legacy for generations to come.'), 'Must contain supporting message');
+assert.ok(issueEl.innerHTML.includes('WHAT WE PROTECT TODAY, TOMORROW WILL INHERIT.'), 'Must contain neon green closing statement');
+assert.ok(issueEl.innerHTML.includes('Reported figure. The current on-ground status and the age of affected trees require independent confirmation.'), 'Must contain factual disclaimer');
+assert.ok(!issueEl.innerHTML.includes('STAGE 01'), 'Technical stage cards must be completely removed');
+assert.ok(!issueEl.innerHTML.includes('FELLING STATUS'), 'Felling status card must be completely removed');
+console.log('✓ Issue & Fact Card component rendered properly with emotional tree-age editorial layout');
 
 // 6. Story Section
 const storyEl = createMockElement('story-mount');

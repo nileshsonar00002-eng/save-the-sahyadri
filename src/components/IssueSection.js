@@ -1,6 +1,7 @@
 /**
- * SAVE THE SAHYADRI — ISSUE & FACT-CHECK SECTION
- * Redesigned neutral, factual breakdown of the 32,490 trees figure in Karjat.
+ * SAVE THE SAHYADRI — THE 32,490 TREES AT RISK (EDITORIAL FEATURE)
+ * Redesigned single-panel editorial feature combining the emotional tree-age concept
+ * with forest protection, cinematic imagery, and verified context.
  */
 
 export function renderIssueSection(container) {
@@ -12,102 +13,78 @@ export function renderIssueSection(container) {
         <div class="relative text-center max-w-3xl mx-auto space-y-3 sm:space-y-4">
           <!-- HEADING -->
           <h2 class="font-heading font-black text-2xl sm:text-4xl lg:text-5xl text-white tracking-tight leading-tight">
-            THE 32,490 TREES <span class="text-gradient-emerald">AT RISK</span>
+            32,490 TREES <span class="text-gradient-emerald">AT RISK</span>
           </h2>
           
-          <!-- INTRODUCTION -->
+          <!-- SHORT FACTUAL DESCRIPTION -->
           <p class="text-xs sm:text-base text-slate-200 leading-relaxed max-w-2xl mx-auto font-sans">
-            News reports cite a Forest Department order dated 14 October 2026 authorising the removal of 32,490 trees for the Saidongar-I Karjat pumped-storage project. The latest on-ground status requires confirmation from official sources.
+            A reported figure of trees authorised for removal in connection with the Karjat project.
           </p>
         </div>
 
-        <!-- Prominent 32,490 Hero Number & Status Cards Block -->
-        <div id="news" class="relative p-4 sm:p-8 lg:p-10 rounded-2xl sm:rounded-3xl bg-[#06150E] border border-emerald-500/25 text-center space-y-6 sm:space-y-8 overflow-hidden shadow-xl">
+        <!-- Cohesive Editorial-Style Panel -->
+        <div id="news" class="relative p-5 sm:p-8 lg:p-12 rounded-2xl sm:rounded-3xl bg-[#06150E] border border-emerald-500/20 text-center space-y-6 sm:space-y-8 overflow-hidden shadow-2xl">
           
           <!-- Ambient Radial Emerald Lighting -->
-          <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,255,135,0.08)_0,transparent_70%)] pointer-events-none"></div>
+          <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,255,135,0.06)_0,transparent_70%)] pointer-events-none"></div>
 
-          <div class="relative z-10 flex flex-col items-center justify-center space-y-2">
-            <!-- Subtle Tree Icon -->
-            <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-emerald-950/80 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-1 shadow-emerald-glow-sm shrink-0">
-              <svg class="w-6 h-6 sm:w-7 sm:h-7 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 19V22" />
-                <path d="m8 14-4 5h16l-4-5h2l-4-5h2L12 2 8 9h2l-4 5h2z" />
-              </svg>
-            </div>
-
-            <!-- Large Prominent 32,490 Number -->
-            <div class="font-heading font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-white tracking-tight drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)] leading-none">
-              32,490
-            </div>
-
-            <div class="text-[11px] sm:text-sm font-bold text-emerald-400 uppercase tracking-widest pt-1">
-              REPORTED TREES AUTHORISED FOR REMOVAL
+          <!-- Wide Cinematic Image of a Majestic Mature Tree in Lush Sahyadri Forest -->
+          <div class="relative z-10 w-full overflow-hidden rounded-xl sm:rounded-2xl border border-emerald-500/25 shadow-xl group">
+            <div class="relative aspect-[16/10] sm:aspect-[21/9] w-full overflow-hidden bg-black/60">
+              <img 
+                src="/images/sahyadri-tree-hero.jpg" 
+                alt="Majestic ancient mature tree standing tall in the lush misty canopy of the Sahyadri Western Ghats" 
+                class="w-full h-full object-cover object-center transform transition-transform duration-700 group-hover:scale-105"
+                loading="lazy"
+              />
+              <!-- Cinematic Vignette & Bottom Shadow Overlay -->
+              <div class="absolute inset-0 bg-gradient-to-t from-[#06150E] via-transparent to-black/30 pointer-events-none"></div>
+              
+              <!-- Subtle Image Badge -->
+              <div class="absolute top-3 left-3 sm:top-4 sm:left-4 z-10 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#030905]/85 backdrop-blur-md text-[10px] sm:text-xs font-bold text-emerald-300 border border-emerald-500/30">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>SAHYADRI ANCIENT CANOPY</span>
+              </div>
             </div>
           </div>
 
-          <!-- Three Compact Status Cards (Stacked single-column on mobile, 3-column on desktop) -->
-          <div class="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 text-left items-stretch">
+          <!-- Emotional Message Block -->
+          <div class="relative z-10 max-w-3xl mx-auto space-y-4 sm:space-y-5">
             
-            <!-- Card 1: PROPOSED -->
-            <div class="p-4 sm:p-5 rounded-2xl bg-[#07190F] border border-emerald-500/20 hover:border-emerald-500/40 transition-all flex flex-col justify-between space-y-3 shadow-md">
-              <div class="space-y-1">
-                <div class="flex items-center justify-between gap-2">
-                  <span class="text-[10px] sm:text-[11px] font-bold text-slate-400 tracking-wider uppercase font-mono">STAGE 01</span>
-                  <span class="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-slate-900/90 text-slate-300 border border-slate-700">Project Scope</span>
-                </div>
-                <h3 class="font-heading font-black text-lg sm:text-xl text-white tracking-tight">
-                  PROPOSED
-                </h3>
+            <!-- Emotional Headline -->
+            <div class="space-y-1 sm:space-y-2">
+              <div class="font-heading font-black text-xl sm:text-3xl lg:text-4xl text-white tracking-tight leading-tight">
+                50–100 YEARS TO GROW.
               </div>
-              <p class="text-xs sm:text-sm text-slate-300 leading-relaxed pt-2 border-t border-emerald-500/10">
-                Trees covered by the project proposal.
-              </p>
+              <div class="font-heading font-black text-xl sm:text-3xl lg:text-4xl text-[#00FF87] tracking-tight leading-tight drop-shadow-[0_0_20px_rgba(0,255,135,0.35)]">
+                JUST MINUTES TO CUT?
+              </div>
             </div>
 
-            <!-- Card 2: AUTHORISED -->
-            <div class="p-4 sm:p-5 rounded-2xl bg-[#071F11] border-2 border-emerald-400/50 shadow-emerald-glow-sm hover:border-emerald-300 transition-all flex flex-col justify-between space-y-3">
-              <div class="space-y-1">
-                <div class="flex items-center justify-between gap-2">
-                  <span class="text-[10px] sm:text-[11px] font-bold text-emerald-400 tracking-wider uppercase font-mono">STAGE 02</span>
-                  <span class="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-950 text-emerald-300 border border-emerald-400/50">Official Order</span>
-                </div>
-                <h3 class="font-heading font-black text-lg sm:text-xl text-emerald-300 tracking-tight flex items-baseline gap-2">
-                  <span>AUTHORISED</span>
-                  <span class="text-xs sm:text-sm font-bold text-white">(32,490)</span>
-                </h3>
-              </div>
-              <p class="text-xs sm:text-sm text-slate-200 leading-relaxed pt-2 border-t border-emerald-500/20 font-medium">
-                32,490 trees, as reported from the Forest Department order.
-              </p>
-            </div>
+            <!-- Supporting Message -->
+            <p class="text-xs sm:text-base lg:text-lg text-slate-200 leading-relaxed max-w-2xl mx-auto font-sans">
+              A tree is more than timber. It can be a home for wildlife, part of a living ecosystem, and a legacy for generations to come.
+            </p>
 
-            <!-- Card 3: FELLING STATUS -->
-            <div class="p-4 sm:p-5 rounded-2xl bg-[#07190F] border border-emerald-500/20 hover:border-emerald-500/40 transition-all flex flex-col justify-between space-y-3 shadow-md">
-              <div class="space-y-1">
-                <div class="flex items-center justify-between gap-2">
-                  <span class="text-[10px] sm:text-[11px] font-bold text-amber-400 tracking-wider uppercase font-mono">STAGE 03</span>
-                  <span class="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-amber-950/70 text-amber-300 border border-amber-500/30">Ground Scrutiny</span>
-                </div>
-                <h3 class="font-heading font-black text-lg sm:text-xl text-white tracking-tight">
-                  FELLING STATUS
-                </h3>
+            <!-- Strong Closing Statement in Neon Green -->
+            <div class="pt-2 sm:pt-4">
+              <div class="inline-block px-4 py-2 sm:px-6 sm:py-2.5 rounded-full bg-emerald-950/60 border border-emerald-400/30 shadow-[0_0_25px_rgba(0,255,135,0.15)]">
+                <span class="font-heading font-extrabold text-xs sm:text-base lg:text-lg text-[#00FF87] tracking-wider uppercase">
+                  WHAT WE PROTECT TODAY, TOMORROW WILL INHERIT.
+                </span>
               </div>
-              <p class="text-xs sm:text-sm text-amber-200/90 leading-relaxed pt-2 border-t border-emerald-500/10">
-                Conflicting reports; awaiting official confirmation.
-              </p>
             </div>
 
           </div>
 
-          <!-- Trust & Neutrality Verification Footnote -->
-          <div class="relative z-10 pt-2 flex items-center justify-center gap-2 text-[11px] sm:text-xs text-slate-400">
-            <svg class="w-4 h-4 text-emerald-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <!-- Readable Factual Disclaimer Footnote -->
+          <div class="relative z-10 pt-4 sm:pt-6 border-t border-emerald-500/15 flex items-center justify-center gap-2 text-[11px] sm:text-xs text-slate-400 max-w-2xl mx-auto text-center leading-normal">
+            <svg class="w-4 h-4 text-emerald-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="10" />
               <path d="M12 16v-4" />
               <path d="M12 8h.01" />
             </svg>
-            <span>This platform publishes figures strictly as reported in public records, reserving definitive on-ground validation for official Forest Department ground audits.</span>
+            <span>Reported figure. The current on-ground status and the age of affected trees require independent confirmation.</span>
           </div>
 
         </div>
@@ -129,13 +106,6 @@ export function renderIssueSection(container) {
       </div>
     </section>
   `;
-
-  // Attach event listeners for close buttons (if present)
-  const closeTopBtn = container.querySelector('#close-news-top-btn');
-  const closeBottomBtn = container.querySelector('#close-news-bottom-btn');
-
-  if (closeTopBtn) closeTopBtn.addEventListener('click', closeNewsSection);
-  if (closeBottomBtn) closeBottomBtn.addEventListener('click', closeNewsSection);
 }
 
 export function openNewsSection() {
