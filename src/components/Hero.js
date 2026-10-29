@@ -80,10 +80,10 @@ export function renderHero(container, onJoinClick, supportersData = {}) {
         <div class="flex flex-col lg:grid lg:grid-cols-12 gap-6 lg:gap-10 items-center">
           
           <!-- Left Column on Desktop / Below Map on Mobile (lg:col-span-5 lg:order-1 order-2) -->
-          <div class="w-full lg:col-span-5 lg:order-1 order-2 text-center lg:text-left space-y-6">
+          <div class="w-full lg:col-span-5 lg:order-1 order-2 text-center lg:text-left flex flex-col items-center lg:items-start gap-5 sm:gap-6">
             
             <!-- Desktop Eyebrow Badge & Main Headline (Hidden on mobile because mobile headline is at the top) -->
-            <div class="hidden lg:block space-y-4">
+            <div class="hidden lg:block space-y-4 lg:order-1 w-full">
               <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-emerald-300 text-xs sm:text-sm font-semibold tracking-wider uppercase shadow-emerald-glow-sm">
                 <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                 <span>A MOVEMENT FOR OUR NATURAL HERITAGE</span>
@@ -95,13 +95,8 @@ export function renderHero(container, onJoinClick, supportersData = {}) {
               </h1>
             </div>
 
-            <!-- Supporting Text -->
-            <p class="text-base sm:text-lg lg:text-xl text-slate-300 font-normal leading-relaxed max-w-xl mx-auto lg:mx-0">
-              “From every corner of India, we can stand together for the future of our forests.”
-            </p>
-
-            <!-- Real Movement Summary Badges -->
-            <div class="inline-flex flex-wrap items-center justify-center lg:justify-start gap-2 sm:gap-3 p-3 rounded-2xl bg-[#06150E] border border-emerald-500/20 text-xs text-slate-300 backdrop-blur-md">
+            <!-- Real Movement Summary Badges (Shifted on mobile: directly below map & Join Movement button; Order-3 on desktop) -->
+            <div class="order-1 lg:order-3 inline-flex flex-wrap items-center justify-center lg:justify-start gap-2 sm:gap-3 p-3 rounded-2xl bg-[#06150E] border border-emerald-500/20 text-xs text-slate-300 backdrop-blur-md">
               <div class="flex items-center gap-1.5">
                 <svg class="w-3.5 h-3.5 text-emerald-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
@@ -120,8 +115,13 @@ export function renderHero(container, onJoinClick, supportersData = {}) {
               </div>
             </div>
 
-            <!-- Action CTAs -->
-            <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-1">
+            <!-- Supporting Text (Order-2 on both mobile and desktop) -->
+            <p class="order-2 lg:order-2 text-base sm:text-lg lg:text-xl text-slate-300 font-normal leading-relaxed max-w-xl mx-auto lg:mx-0">
+              “From every corner of India, we can stand together for the future of our forests.”
+            </p>
+
+            <!-- Action CTAs (Order-3 on mobile, Order-4 on desktop) -->
+            <div class="order-3 lg:order-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-1 w-full sm:w-auto">
               <button 
                 id="hero-primary-cta" 
                 class="w-full sm:w-auto px-8 py-3.5 rounded-full font-heading font-extrabold text-base tracking-wide text-black bg-gradient-to-r from-emerald-400 via-emerald-300 to-emerald-400 hover:from-emerald-300 hover:to-emerald-200 shadow-emerald-glow hover:shadow-emerald-glow-lg transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer flex items-center justify-center gap-2.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
@@ -134,8 +134,8 @@ export function renderHero(container, onJoinClick, supportersData = {}) {
               </button>
             </div>
 
-            <!-- Trust Note -->
-            <div class="flex items-center justify-center lg:justify-start gap-2 text-xs text-slate-400 pt-1">
+            <!-- Trust Note (Order-4 on mobile, Order-5 on desktop) -->
+            <div class="order-4 lg:order-5 flex items-center justify-center lg:justify-start gap-2 text-xs text-slate-400 pt-1">
               <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
               </svg>
