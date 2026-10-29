@@ -2,11 +2,27 @@
  * SAVE THE SAHYADRI — WHY THE SAHYADRI MATTERS
  * Refined ecological pillars highlighting hydrology, biodiversity, and cultural heritage
  * with verified facts, elegant landscape banners, and responsive equal-height cards.
+ * 
+ * Mobile Experience:
+ * - Premium auto-sliding horizontal carousel with touch swipe gestures (pan-y preserved).
+ * - Autoplay every 3.5s with pause on touch/interaction and automatic reset on manual swipe.
+ * - Right-edge peek of next card, smooth infinite seamless looping.
+ * - Interactive pagination dots with emerald glow.
+ * 
+ * Desktop & Tablet Experience:
+ * - 2-column grid layout preserved exactly as specified.
+ * - Zero autoplay on desktop/tablet.
  */
 
 import { SAHYADRI_PILLARS } from '../data/sahyadriData.js';
 
 export function renderStorySection(container, onJoinClick) {
+  // Cleanup any previous carousel instance if container is re-rendered
+  if (container._cleanupStoryCarousel) {
+    try { container._cleanupStoryCarousel(); } catch (_) {}
+    container._cleanupStoryCarousel = null;
+  }
+
   // Focus on the core pillars: Water, Rivers & Catchments and Natural & Cultural Heritage
   const activePillars = SAHYADRI_PILLARS.slice(2);
   
@@ -33,7 +49,7 @@ export function renderStorySection(container, onJoinClick) {
     const staggerClass = index === 0 ? 'stagger-1' : 'stagger-2';
 
     return `
-      <div class="group relative rounded-2xl sm:rounded-3xl bg-[#06150E] border border-emerald-500/20 hover:border-emerald-400/40 transition-all duration-300 flex flex-col justify-between shadow-xl overflow-hidden hover-lift reveal-on-scroll ${staggerClass}">
+      <div class="story-carousel-card w-[84%] sm:w-auto shrink-0 sm:shrink group relative rounded-2xl sm:rounded-3xl bg-[#06150E] border border-emerald-500/20 hover:border-emerald-400/40 transition-all duration-300 flex flex-col justify-between shadow-xl overflow-hidden hover-lift reveal-on-scroll ${staggerClass} cursor-pointer sm:cursor-default" data-card-index="${index}">
         
         <!-- Top Landscape Image Banner -->
         <div class="relative w-full h-44 sm:h-52 overflow-hidden bg-emerald-950/40 border-b border-emerald-500/15">
@@ -139,9 +155,32 @@ export function renderStorySection(container, onJoinClick) {
           </p>
         </div>
 
-        <!-- 2 Visually Balanced Responsive Cards (1 column mobile, 2 column desktop) -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 items-stretch">
-          ${pillarCardsHtml}
+        <!-- 2 Visually Balanced Responsive Cards (Mobile: Auto-Sliding Carousel, Desktop: 2 Col Grid) -->
+        <div class="relative w-full overflow-hidden sm:overflow-visible py-1">
+          <div 
+            id="story-carousel-track" 
+            class="relative flex sm:grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 items-stretch transition-transform duration-500 ease-out will-change-transform"
+            style="touch-action: pan-y;"
+          >
+            ${pillarCardsHtml}
+          </div>
+        </div>
+
+        <!-- Mobile Pagination Dots (sm:hidden) -->
+        <div 
+          id="story-carousel-dots" 
+          class="flex sm:hidden items-center justify-center gap-2 pt-2"
+          aria-label="Story cards pagination"
+        >
+          ${activePillars.map((pillar, i) => `
+            <button 
+              type="button" 
+              data-index="${i}" 
+              class="story-dot h-2 rounded-full transition-all duration-300 ${i === 0 ? 'w-6 bg-[#00FF87] shadow-[0_0_10px_rgba(0,255,135,0.4)]' : 'w-2 bg-emerald-950/80 border border-emerald-500/30 hover:border-emerald-400/60'}" 
+              aria-label="Go to card ${i + 1}: ${pillar.title}"
+              ${i === 0 ? 'aria-current="true"' : ''}
+            ></button>
+          `).join('')}
         </div>
 
         <!-- Full-Width Atmospheric Visual Banner with Pledge Quote -->
@@ -194,4 +233,266 @@ export function renderStorySection(container, onJoinClick) {
       if (onJoinClick) onJoinClick();
     });
   }
+
+  // Initialize mobile auto-sliding carousel & touch handlers
+  initStoryMobileCarousel(container);
+}
+
+/**
+ * Mobile Auto-Sliding Carousel Controller for Story Section
+ */
+function initStoryMobileCarousel(container) {
+  if (typeof window === 'undefined' || typeof document === 'undefined' || !container || !container.querySelector) {
+    return;
+  }
+
+  const track = container.querySelector('#story-carousel-track');
+  const dotsContainer = container.querySelector('#story-carousel-dots');
+  if (!track) return;
+
+  const cards = Array.from(track.querySelectorAll('.story-carousel-card'));
+  const dots = dotsContainer ? Array.from(dotsContainer.querySelectorAll('.story-dot')) : [];
+  const totalCards = cards.length;
+  if (totalCards === 0) return;
+
+  const AUTOPLAY_INTERVAL = 3500;
+  let currentIndex = 0;
+  let autoplayTimer = null;
+  let isTouching = false;
+  let startX = 0;
+  let startY = 0;
+  let currentX = 0;
+  let isSwiping = false;
+  let isVerticalScroll = false;
+
+  const isMobile = () => window.innerWidth < 640;
+
+  function getCardOffset(index) {
+    if (!cards[index]) return 0;
+    const card0 = cards[0];
+    const cardWidth = card0 ? card0.offsetWidth : 280;
+    const gap = 16; // 1rem gap (gap-4)
+    if (cards[index].offsetLeft > 0 || index === 0) {
+      return cards[index].offsetLeft;
+    }
+    return index * (cardWidth + gap);
+  }
+
+  function updateCarousel(index, withTransition = true) {
+    if (!isMobile()) {
+      track.style.transform = '';
+      track.style.transition = '';
+      cards.forEach((card) => {
+        card.classList.remove('is-active-card', 'is-inactive-card');
+      });
+      return;
+    }
+
+    const offset = getCardOffset(index);
+    track.style.transition = withTransition ? 'transform 500ms cubic-bezier(0.22, 1, 0.36, 1)' : 'none';
+    track.style.transform = `translateX(-${offset}px)`;
+
+    // Update active card subtle glow
+    cards.forEach((card, i) => {
+      if (i === index) {
+        card.classList.add('is-active-card');
+        card.classList.remove('is-inactive-card');
+      } else {
+        card.classList.remove('is-active-card');
+        card.classList.add('is-inactive-card');
+      }
+    });
+
+    // Update pagination dots (animate active indicator smoothly)
+    dots.forEach((dot, i) => {
+      if (i === index) {
+        dot.className = 'story-dot h-2 rounded-full transition-all duration-300 w-6 bg-[#00FF87] shadow-[0_0_10px_rgba(0,255,135,0.4)]';
+        dot.setAttribute('aria-current', 'true');
+      } else {
+        dot.className = 'story-dot h-2 rounded-full transition-all duration-300 w-2 bg-emerald-950/80 border border-emerald-500/30 hover:border-emerald-400/60';
+        dot.removeAttribute('aria-current');
+      }
+    });
+  }
+
+  function goToCard(index, withTransition = true) {
+    currentIndex = ((index % totalCards) + totalCards) % totalCards;
+    updateCarousel(currentIndex, withTransition);
+  }
+
+  function nextCard() {
+    goToCard(currentIndex + 1);
+  }
+
+  function prevCard() {
+    goToCard(currentIndex - 1);
+  }
+
+  function startAutoplay() {
+    stopAutoplay();
+    if (!isMobile()) return;
+
+    const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) return;
+
+    autoplayTimer = setInterval(() => {
+      if (!isTouching) {
+        nextCard();
+      }
+    }, AUTOPLAY_INTERVAL);
+  }
+
+  function stopAutoplay() {
+    if (autoplayTimer) {
+      clearInterval(autoplayTimer);
+      autoplayTimer = null;
+    }
+  }
+
+  function resetAutoplay() {
+    stopAutoplay();
+    if (isMobile()) {
+      startAutoplay();
+    }
+  }
+
+  // --- Touch Gesture Handling without interfering with vertical scroll ---
+  const handleTouchStart = (e) => {
+    if (!isMobile() || e.touches.length > 1) return;
+    isTouching = true;
+    stopAutoplay();
+    const touch = e.touches[0];
+    startX = touch.clientX;
+    startY = touch.clientY;
+    currentX = startX;
+    isSwiping = false;
+    isVerticalScroll = false;
+  };
+
+  const handleTouchMove = (e) => {
+    if (!isMobile() || !isTouching || isVerticalScroll) return;
+    const touch = e.touches[0];
+    currentX = touch.clientX;
+    const deltaX = currentX - startX;
+    const deltaY = touch.clientY - startY;
+
+    if (!isSwiping) {
+      if (Math.abs(deltaY) > 7 && Math.abs(deltaY) >= Math.abs(deltaX)) {
+        isVerticalScroll = true;
+        return;
+      }
+      if (Math.abs(deltaX) > 7 && Math.abs(deltaX) > Math.abs(deltaY)) {
+        isSwiping = true;
+      }
+    }
+
+    if (isSwiping) {
+      const currentOffset = getCardOffset(currentIndex);
+      const dragTranslate = -currentOffset + (deltaX * 0.9);
+      track.style.transition = 'none';
+      track.style.transform = `translateX(${dragTranslate}px)`;
+    }
+  };
+
+  const handleTouchEnd = () => {
+    if (!isTouching) return;
+    isTouching = false;
+
+    if (isSwiping) {
+      const deltaX = currentX - startX;
+      const swipeThreshold = 40;
+      if (deltaX < -swipeThreshold) {
+        nextCard();
+      } else if (deltaX > swipeThreshold) {
+        prevCard();
+      } else {
+        goToCard(currentIndex);
+      }
+    }
+
+    isSwiping = false;
+    isVerticalScroll = false;
+    resetAutoplay();
+  };
+
+  track.addEventListener('touchstart', handleTouchStart, { passive: true });
+  track.addEventListener('touchmove', handleTouchMove, { passive: true });
+  track.addEventListener('touchend', handleTouchEnd, { passive: true });
+  track.addEventListener('touchcancel', handleTouchEnd, { passive: true });
+
+  track.addEventListener('mouseenter', stopAutoplay);
+  track.addEventListener('mouseleave', () => {
+    if (isMobile()) startAutoplay();
+  });
+
+  cards.forEach((card, idx) => {
+    card.addEventListener('click', () => {
+      if (isMobile() && idx !== currentIndex && !isSwiping) {
+        goToCard(idx);
+        resetAutoplay();
+      }
+    });
+  });
+
+  dots.forEach((dot) => {
+    dot.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetIdx = parseInt(dot.getAttribute('data-index'), 10);
+      if (!isNaN(targetIdx)) {
+        goToCard(targetIdx);
+        resetAutoplay();
+      }
+    });
+  });
+
+  let resizeTimeout = null;
+  const onResize = () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      if (isMobile()) {
+        updateCarousel(currentIndex, false);
+        resetAutoplay();
+      } else {
+        stopAutoplay();
+        track.style.transform = '';
+        track.style.transition = '';
+        cards.forEach((card) => {
+          card.classList.remove('is-active-card', 'is-inactive-card');
+        });
+      }
+    }, 150);
+  };
+  window.addEventListener('resize', onResize);
+
+  const onVisibilityChange = () => {
+    if (document.hidden) {
+      stopAutoplay();
+    } else if (isMobile()) {
+      startAutoplay();
+    }
+  };
+  document.addEventListener('visibilitychange', onVisibilityChange);
+
+  if (isMobile()) {
+    if (typeof requestAnimationFrame !== 'undefined') {
+      requestAnimationFrame(() => {
+        updateCarousel(0, false);
+        startAutoplay();
+      });
+    } else {
+      updateCarousel(0, false);
+      startAutoplay();
+    }
+  }
+
+  container._cleanupStoryCarousel = () => {
+    stopAutoplay();
+    track.removeEventListener('touchstart', handleTouchStart);
+    track.removeEventListener('touchmove', handleTouchMove);
+    track.removeEventListener('touchend', handleTouchEnd);
+    track.removeEventListener('touchcancel', handleTouchEnd);
+    track.removeEventListener('mouseenter', stopAutoplay);
+    window.removeEventListener('resize', onResize);
+    document.removeEventListener('visibilitychange', onVisibilityChange);
+  };
 }

@@ -151,7 +151,17 @@ assert.ok(storyEl.innerHTML.includes('sahyadri-heritage-fort.jpg'), 'Must featur
 assert.ok(storyEl.innerHTML.includes('https://whc.unesco.org/en/list/1342/'), 'Must link to official UNESCO source');
 assert.ok(storyEl.innerHTML.includes('Protecting nature is not just about today. It is about what we leave behind.'), 'Must contain required pledge quote');
 assert.ok(storyEl.innerHTML.includes('STAND FOR THE SAHYADRI'), 'Must contain CTA button');
-console.log('✓ Story Section component rendered properly with refined verified facts, banners, and layout');
+assert.ok(storyEl.innerHTML.includes('story-carousel-track'), 'Story must contain story-carousel-track for mobile sliding');
+assert.ok(storyEl.innerHTML.includes('touch-action: pan-y;'), 'Story track must preserve vertical scrolling with pan-y');
+assert.ok(storyEl.innerHTML.includes('story-carousel-dots'), 'Story must contain mobile pagination dots container');
+assert.ok(storyEl.innerHTML.includes('story-dot'), 'Story must contain story-dot pagination indicators');
+assert.ok(storyEl.innerHTML.includes('bg-[#00FF87]'), 'Active story dot must feature emerald #00FF87 highlight');
+assert.ok(
+  storyEl.innerHTML.includes('sm:grid') &&
+  storyEl.innerHTML.includes('md:grid-cols-2'),
+  'Desktop & tablet grid layout must be preserved for Story'
+);
+console.log('✓ Story Section component rendered properly with refined verified facts, banners, and mobile auto-sliding carousel');
 
 // 7. How It Works
 const howEl = createMockElement('how-mount');

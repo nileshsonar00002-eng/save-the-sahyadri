@@ -570,23 +570,27 @@ button svg {
   }
 }
 
-/* 7. Mobile Statistics Carousel & Active Card Glow */
+/* 7. Mobile Statistics & Story Carousels & Active Card Glow */
 @media (max-width: 639px) {
-  #stats-carousel-track {
+  #stats-carousel-track,
+  #story-carousel-track {
     -webkit-overflow-scrolling: touch;
   }
 
-  .stat-carousel-card {
+  .stat-carousel-card,
+  .story-carousel-card {
     transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease, opacity 0.35s ease;
   }
 
-  .stat-carousel-card.is-active-card {
+  .stat-carousel-card.is-active-card,
+  .story-carousel-card.is-active-card {
     border-color: rgba(52, 211, 153, 0.45) !important;
     box-shadow: 0 0 20px rgba(0, 255, 135, 0.12), inset 0 0 15px rgba(0, 255, 135, 0.03) !important;
     opacity: 1 !important;
   }
 
-  .stat-carousel-card.is-inactive-card {
+  .stat-carousel-card.is-inactive-card,
+  .story-carousel-card.is-inactive-card {
     border-color: rgba(16, 185, 129, 0.2) !important;
     box-shadow: none !important;
     opacity: 0.92 !important;
