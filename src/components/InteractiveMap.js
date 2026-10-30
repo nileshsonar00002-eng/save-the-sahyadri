@@ -97,11 +97,8 @@ export function renderInteractiveMap(container, supporters = [], onJoinClick) {
 
             <!-- Empty State Overlay (When 0 supporters yet) -->
             <div id="map-empty-state" class="${supporterCount === 0 ? 'flex' : 'hidden'} absolute inset-0 bg-[#030805]/80 backdrop-blur-sm flex-col items-center justify-center p-6 text-center z-10 space-y-4">
-              <div class="w-16 h-16 rounded-2xl bg-emerald-950/80 border border-emerald-500/30 flex items-center justify-center shadow-emerald-glow">
-                <svg class="w-8 h-8 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
-                  <path d="m4.14 15 .86-1 2 2 4-4 2 2 3-3 2.14 4" />
-                </svg>
+              <div class="w-16 h-16 rounded-2xl overflow-hidden bg-[#05392e] border border-emerald-500/30 flex items-center justify-center shadow-emerald-glow">
+                <img src="/images/logo.png" alt="Save the Sahyadri Logo" class="w-full h-full object-cover" />
               </div>
               <div class="max-w-md space-y-2">
                 <h3 class="font-heading font-black text-xl sm:text-2xl text-white">

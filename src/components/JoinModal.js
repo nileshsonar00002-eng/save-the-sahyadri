@@ -568,11 +568,8 @@ function showSuccessView(modalContainer, supporterData, onSuccessCallback) {
     <div class="text-center space-y-6 py-2">
       
       <!-- Animated Green Success Mountain Badge -->
-      <div class="w-20 h-20 mx-auto rounded-full bg-emerald-500/20 border-2 border-emerald-400 flex items-center justify-center text-emerald-400 shadow-emerald-glow animate-bounce">
-        <svg class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
-          <path d="m4.14 15 .86-1 2 2 4-4 2 2 3-3 2.14 4" />
-        </svg>
+      <div class="w-20 h-20 mx-auto rounded-full overflow-hidden bg-[#05392e] border-2 border-emerald-400 flex items-center justify-center shadow-emerald-glow animate-bounce">
+        <img src="/images/logo.png" alt="Save the Sahyadri Verified Badge" class="w-full h-full object-cover" />
       </div>
 
       <div class="space-y-2">
@@ -605,11 +602,9 @@ function showSuccessView(modalContainer, supporterData, onSuccessCallback) {
             </svg>
             <span>${escapeHtml(supporterData.city)}, ${escapeHtml(supporterData.state)}</span>
           </span>
-          <span class="text-emerald-400 flex items-center gap-1">
+          <span class="text-emerald-400 flex items-center gap-1.5">
             <span>Connected to Hub</span>
-            <svg class="w-3.5 h-3.5 text-emerald-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
-            </svg>
+            <img src="/images/logo.png" alt="" class="w-4 h-4 rounded-full object-cover border border-emerald-500/40 inline shrink-0" />
           </span>
         </div>
       </div>

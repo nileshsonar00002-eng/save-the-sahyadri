@@ -16,11 +16,13 @@ export function renderFooter(container, onJoinClick) {
           <!-- Column 1: Brand & Manifesto (2 cols wide on desktop) -->
           <div class="lg:col-span-2 space-y-4">
             <div class="flex items-center gap-3">
-              <div class="w-9 h-9 rounded-xl bg-emerald-950/80 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
-                <svg class="w-5 h-5 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
-                  <path d="m4.14 15 .86-1 2 2 4-4 2 2 3-3 2.14 4" />
-                </svg>
+              <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl overflow-hidden bg-[#05392e] border border-emerald-500/30 flex items-center justify-center shrink-0 shadow-emerald-glow-sm">
+                <img 
+                  src="/images/logo.png" 
+                  alt="Save the Sahyadri Logo" 
+                  class="w-full h-full object-cover" 
+                  loading="lazy"
+                />
               </div>
               <span class="font-heading font-black text-xl text-white tracking-tight">
                 SAVE THE SAHYADRI

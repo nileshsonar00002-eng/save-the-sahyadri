@@ -198,11 +198,8 @@ export function renderStorySection(container, onJoinClick) {
           </svg>
 
           <div class="relative z-10 max-w-3xl space-y-4 sm:space-y-6">
-            <div class="w-12 h-12 sm:w-14 sm:h-14 mx-auto rounded-2xl bg-emerald-950/80 border border-emerald-500/30 flex items-center justify-center shadow-emerald-glow">
-              <svg class="w-6 h-6 sm:w-7 sm:h-7 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
-                <path d="m4.14 15 .86-1 2 2 4-4 2 2 3-3 2.14 4" />
-              </svg>
+            <div class="w-12 h-12 sm:w-14 sm:h-14 mx-auto rounded-2xl overflow-hidden bg-[#05392e] border border-emerald-500/30 flex items-center justify-center shadow-emerald-glow">
+              <img src="/images/logo.png" alt="Save the Sahyadri Logo" class="w-full h-full object-cover" />
             </div>
             
             <blockquote class="font-heading font-extrabold text-xl sm:text-3xl lg:text-4xl text-white tracking-tight leading-snug">

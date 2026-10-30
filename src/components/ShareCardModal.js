@@ -122,6 +122,13 @@ export function openShareCardModal(supporter = {}) {
 
   let currentFormat = 'square'; // 'square' (1080x1080) or 'story' (1080x1920)
 
+  // Preload official logo image for the canvas card
+  const logoImage = new Image();
+  logoImage.src = '/images/logo.png';
+  logoImage.onload = () => {
+    renderCard();
+  };
+
   closeBtn.addEventListener('click', closeShareCardModal);
   backdrop.addEventListener('click', closeShareCardModal);
 
@@ -174,9 +181,31 @@ export function openShareCardModal(supporter = {}) {
     const headerY = isSquare ? 160 : 260;
     ctx.textAlign = 'center';
     
-    // Leaf Icon
-    ctx.font = '64px sans-serif';
-    ctx.fillText('🌿', width / 2, headerY - 30);
+    // Official Mountain Logo Emblem
+    const logoSize = isSquare ? 96 : 120;
+    const logoCenterY = headerY - 40;
+    if (logoImage.complete && logoImage.naturalWidth > 0) {
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(width / 2, logoCenterY, logoSize / 2, 0, Math.PI * 2);
+      ctx.closePath();
+      ctx.clip();
+      ctx.drawImage(logoImage, width / 2 - logoSize / 2, logoCenterY - logoSize / 2, logoSize, logoSize);
+      ctx.restore();
+
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(width / 2, logoCenterY, logoSize / 2, 0, Math.PI * 2);
+      ctx.strokeStyle = '#00FF87';
+      ctx.lineWidth = 4;
+      ctx.shadowColor = '#00FF87';
+      ctx.shadowBlur = 15;
+      ctx.stroke();
+      ctx.restore();
+    } else {
+      ctx.font = '64px sans-serif';
+      ctx.fillText('🌿', width / 2, headerY - 30);
+    }
 
     // Brand Name
     ctx.font = 'bold 38px Outfit, Inter, sans-serif';

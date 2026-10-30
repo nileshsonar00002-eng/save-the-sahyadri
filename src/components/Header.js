@@ -43,11 +43,13 @@ ${siteUrl}
         
         <!-- Brand Identity -->
         <a href="#hero" class="flex items-center gap-1.5 sm:gap-2.5 group focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 rounded-full py-0.5 pr-1 sm:pr-2">
-          <div class="relative w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-gradient-to-br from-emerald-500/25 to-emerald-950 border border-emerald-500/40 flex items-center justify-center shadow-emerald-glow-sm group-hover:border-emerald-300 transition-all duration-300 shrink-0">
-            <!-- Sleek Minimalist Mountain Peaks Icon (Sahyadri Western Ghats) -->
-            <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
-            </svg>
+          <div class="relative w-7 h-7 sm:w-9 sm:h-9 rounded-full overflow-hidden bg-[#05392e] border border-emerald-500/40 flex items-center justify-center shadow-emerald-glow-sm group-hover:border-emerald-300 transition-all duration-300 shrink-0">
+            <img 
+              src="/images/logo.png" 
+              alt="Save the Sahyadri Logo" 
+              class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300"
+              loading="eager"
+            />
           </div>
           <div class="flex items-center gap-2">
             <span class="font-heading font-black text-xs sm:text-base tracking-tight text-white group-hover:text-emerald-300 transition-colors whitespace-nowrap">
