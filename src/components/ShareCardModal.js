@@ -129,6 +129,13 @@ export function openShareCardModal(supporter = {}) {
     renderCard();
   };
 
+  // Preload tree of life illustration for the supporter card box
+  const treeImage = new Image();
+  treeImage.src = '/images/tree-of-life.png';
+  treeImage.onload = () => {
+    renderCard();
+  };
+
   closeBtn.addEventListener('click', closeShareCardModal);
   backdrop.addEventListener('click', closeShareCardModal);
 
@@ -178,12 +185,9 @@ export function openShareCardModal(supporter = {}) {
     drawCornerBrackets(ctx, 40, 40, width - 80, height - 80);
 
     // 5. Header Branding
-    const headerY = isSquare ? 160 : 260;
-    ctx.textAlign = 'center';
-    
-    // Official Mountain Logo Emblem
-    const logoSize = isSquare ? 96 : 120;
-    const logoCenterY = headerY - 40;
+    // Official Mountain Logo Emblem (Enlarged & border removed per user request)
+    const logoSize = isSquare ? 135 : 160;
+    const logoCenterY = isSquare ? 120 : 190;
     if (logoImage.complete && logoImage.naturalWidth > 0) {
       ctx.save();
       ctx.beginPath();
@@ -192,84 +196,174 @@ export function openShareCardModal(supporter = {}) {
       ctx.clip();
       ctx.drawImage(logoImage, width / 2 - logoSize / 2, logoCenterY - logoSize / 2, logoSize, logoSize);
       ctx.restore();
-
-      ctx.save();
-      ctx.beginPath();
-      ctx.arc(width / 2, logoCenterY, logoSize / 2, 0, Math.PI * 2);
-      ctx.strokeStyle = '#00FF87';
-      ctx.lineWidth = 4;
-      ctx.shadowColor = '#00FF87';
-      ctx.shadowBlur = 15;
-      ctx.stroke();
-      ctx.restore();
     } else {
-      ctx.font = '64px sans-serif';
-      ctx.fillText('⛰️', width / 2, headerY - 30);
+      ctx.font = '72px sans-serif';
+      ctx.fillText('⛰️', width / 2, logoCenterY + 20);
     }
 
     // Brand Name
-    ctx.font = 'bold 38px Outfit, Inter, sans-serif';
+    const brandNameY = isSquare ? 222 : 316;
+    ctx.textAlign = 'center';
+    ctx.font = 'bold 36px Outfit, Inter, sans-serif';
     ctx.fillStyle = '#6EE7B7';
     ctx.letterSpacing = '4px';
-    ctx.fillText('SAVE THE SAHYADRI', width / 2, headerY + 40);
+    ctx.fillText('SAVE THE SAHYADRI', width / 2, brandNameY);
 
-    ctx.font = '500 22px Inter, sans-serif';
+    ctx.font = '500 20px Inter, sans-serif';
     ctx.fillStyle = '#94A3B8';
     ctx.letterSpacing = '2px';
-    ctx.fillText('MAHARASHTRA WESTERN GHATS INITIATIVE', width / 2, headerY + 80);
+    ctx.fillText('MAHARASHTRA WESTERN GHATS INITIATIVE', width / 2, brandNameY + 36);
 
     // 6. Main Bold Headline
-    const headlineY = isSquare ? 420 : 640;
-    ctx.font = '900 76px Outfit, Inter, sans-serif';
+    const headlineY = isSquare ? 342 : 496;
+    ctx.font = '900 66px Outfit, Inter, sans-serif';
     ctx.fillStyle = '#FFFFFF';
     ctx.letterSpacing = '-1px';
     ctx.fillText('I STAND WITH', width / 2, headlineY);
 
-    ctx.font = '900 84px Outfit, Inter, sans-serif';
+    ctx.font = '900 80px Outfit, Inter, sans-serif';
     ctx.fillStyle = '#00FF87';
     ctx.shadowColor = '#00FF87';
-    ctx.shadowBlur = 25;
-    ctx.fillText('SAHYADRI', width / 2, headlineY + 95);
+    ctx.shadowBlur = 24;
+    ctx.fillText('SAHYADRI', width / 2, headlineY + 84);
     ctx.shadowBlur = 0; // reset
 
-    // 7. Supporter Card Box
-    const boxY = isSquare ? 630 : 960;
-    const boxW = width - 200;
-    const boxH = isSquare ? 230 : 280;
-    const boxX = (width - boxW) / 2;
+    // 7. Supporter Card Box (Updated to Attached Image Style)
+    const boxY = isSquare ? 476 : 716;
+    const boxW = width - 160; // 920px wide
+    const boxH = isSquare ? 360 : 430;
+    const boxX = (width - boxW) / 2; // 80px
 
     // Box Background
-    ctx.fillStyle = 'rgba(4, 15, 8, 0.85)';
+    ctx.fillStyle = 'rgba(4, 18, 11, 0.9)';
     roundRect(ctx, boxX, boxY, boxW, boxH, 24);
     ctx.fill();
-    ctx.strokeStyle = 'rgba(52, 211, 153, 0.4)';
-    ctx.lineWidth = 3;
+    ctx.strokeStyle = 'rgba(52, 211, 153, 0.45)';
+    ctx.lineWidth = 2.5;
     ctx.stroke();
 
-    // Supporter Name
-    ctx.font = 'bold 44px Outfit, Inter, sans-serif';
+    const innerLeft = boxX + 44;
+    const maxTextWidth = isSquare ? 530 : 540;
+
+    // A. PROUD SUPPORTER Pill Badge
+    const badgeY = boxY + 32;
+    const badgeW = 236;
+    const badgeH = 38;
+    const badgeR = 19;
+    
+    // Pill background & border
+    ctx.fillStyle = 'rgba(6, 32, 22, 0.95)';
+    roundRect(ctx, innerLeft, badgeY, badgeW, badgeH, badgeR);
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(0, 255, 135, 0.55)';
+    ctx.lineWidth = 1.8;
+    ctx.stroke();
+
+    // User Profile Icon
+    ctx.save();
+    ctx.strokeStyle = '#00FF87';
+    ctx.lineWidth = 2;
+    ctx.lineCap = 'round';
+    // Head circle
+    ctx.beginPath();
+    ctx.arc(innerLeft + 22, badgeY + 14, 5.5, 0, Math.PI * 2);
+    ctx.stroke();
+    // Shoulder curve
+    ctx.beginPath();
+    ctx.arc(innerLeft + 22, badgeY + 28, 9, Math.PI * 1.25, Math.PI * 1.75);
+    ctx.stroke();
+    ctx.restore();
+
+    // Badge Text
+    ctx.textAlign = 'left';
+    ctx.font = 'bold 15px Outfit, Inter, sans-serif';
+    ctx.fillStyle = '#00FF87';
+    ctx.letterSpacing = '1.8px';
+    ctx.fillText('PROUD SUPPORTER', innerLeft + 44, badgeY + 24);
+
+    // B. Supporter Name (Large bold white)
+    const nameY = badgeY + 84;
+    ctx.textAlign = 'left';
+    ctx.font = '900 52px Outfit, Inter, sans-serif';
     ctx.fillStyle = '#FFFFFF';
-    ctx.fillText(displayName, width / 2, boxY + 75);
+    ctx.letterSpacing = '-0.5px';
 
-    // City & State
-    ctx.font = '600 30px Inter, sans-serif';
-    ctx.fillStyle = '#34D399';
-    ctx.fillText(`Standing from ${city}, ${state}`, width / 2, boxY + 130);
+    let renderedName = displayName;
+    if (ctx.measureText(renderedName).width > maxTextWidth) {
+      while (renderedName.length > 3 && ctx.measureText(renderedName + '...').width > maxTextWidth) {
+        renderedName = renderedName.slice(0, -1);
+      }
+      renderedName += '...';
+    }
+    ctx.fillText(renderedName, innerLeft, nameY);
 
-    // Verified citizen badge
-    ctx.font = '500 20px Inter, sans-serif';
-    ctx.fillStyle = '#94A3B8';
-    ctx.fillText('✓ Verified Citizen Awareness Supporter', width / 2, boxY + 180);
+    // C. Location Line with Pin Icon
+    const locY = nameY + 40;
+    
+    // Green Location Pin Icon
+    ctx.save();
+    ctx.fillStyle = '#00FF87';
+    ctx.beginPath();
+    ctx.arc(innerLeft + 7, locY - 14, 6, Math.PI * 0.8, Math.PI * 0.2, true);
+    ctx.lineTo(innerLeft + 7, locY - 3);
+    ctx.closePath();
+    ctx.fill();
+    // Pin center dot
+    ctx.fillStyle = '#04180F';
+    ctx.beginPath();
+    ctx.arc(innerLeft + 7, locY - 14, 2.5, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+
+    // Location Text
+    ctx.textAlign = 'left';
+    ctx.font = '600 24px Inter, sans-serif';
+    ctx.fillStyle = '#00FF87';
+    ctx.letterSpacing = '0.5px';
+    ctx.fillText(`${city}, ${state}`, innerLeft + 24, locY - 5);
+
+    // D. Horizontal Divider Line
+    const divY = locY + 18;
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(innerLeft, divY);
+    ctx.lineTo(innerLeft + maxTextWidth, divY);
+    ctx.strokeStyle = 'rgba(52, 211, 153, 0.35)';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+    ctx.restore();
+
+    // E. Pledge Statement Quote
+    const quoteY = divY + 30;
+    ctx.textAlign = 'left';
+    ctx.font = '400 19px Inter, sans-serif';
+    ctx.fillStyle = '#CBD5E1';
+    ctx.letterSpacing = '0.3px';
+    ctx.fillText('I stand for the protection of forests,', innerLeft, quoteY);
+    ctx.fillText('wildlife and biodiversity of the Western Ghats.', innerLeft, quoteY + 28);
+
+    // F. Tree of Life Illustration on Right Side
+    const treeW = isSquare ? 280 : 300;
+    const treeH = isSquare ? 262 : 281;
+    const treeX = boxX + boxW - treeW - 25;
+    const treeY = boxY + (boxH - treeH) / 2;
+
+    if (treeImage.complete && treeImage.naturalWidth > 0) {
+      ctx.save();
+      ctx.drawImage(treeImage, treeX, treeY, treeW, treeH);
+      ctx.restore();
+    }
 
     // 8. Key Quote & Website URL Footer
-    const footerY = isSquare ? 960 : 1650;
+    const footerY = isSquare ? 950 : 1620;
+    ctx.textAlign = 'center';
     
     if (!isSquare) {
       // Extra Quote for Story format
-      ctx.font = 'italic 30px Inter, sans-serif';
+      ctx.font = 'italic 28px Inter, sans-serif';
       ctx.fillStyle = '#E2E8F0';
-      ctx.fillText('“Protecting nature is not just about today.', width / 2, footerY - 140);
-      ctx.fillText('It is about what we leave behind.”', width / 2, footerY - 95);
+      ctx.fillText('“Protecting nature is not just about today.', width / 2, footerY - 130);
+      ctx.fillText('It is about what we leave behind.”', width / 2, footerY - 88);
     }
 
     ctx.font = 'bold 30px Outfit, Inter, sans-serif';
