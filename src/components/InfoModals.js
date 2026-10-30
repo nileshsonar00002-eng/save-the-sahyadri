@@ -63,7 +63,7 @@ export function openPrivacyModal() {
 
         <h4 class="font-heading font-bold text-sm sm:text-base text-white pt-2 text-emerald-400">6. Your Choices and Contact Details:</h4>
         <p>
-          Since we do not store emails or precise identities, we have no personal data profiles to modify or sell. If you wish to withdraw your generalized node from the map counter or have questions about our structural encryption setup, you may reach out to our privacy management team (or submit an online <button id="btn-switch-to-removal" class="text-emerald-400 underline font-semibold hover:text-emerald-300 cursor-pointer">Removal Request</button>):
+          Since we do not store emails or precise identities, we have no personal data profiles to modify or sell. If you wish to withdraw your generalized node from the map counter or have questions about our structural encryption setup, you may reach out to our privacy management team:
         </p>
         <div class="p-3.5 rounded-xl bg-emerald-950/40 border border-emerald-500/20 text-slate-300 space-y-1.5 font-sans text-xs">
           <div><span class="text-slate-400">Website URL:</span> <a href="https://savesahyadri.online" target="_blank" rel="noopener noreferrer" class="text-emerald-400 hover:text-emerald-300 underline font-mono">savesahyadri.online</a></div>
@@ -72,14 +72,6 @@ export function openPrivacyModal() {
       </div>
     `
   });
-
-  const removalBtn = document.getElementById('btn-switch-to-removal');
-  if (removalBtn) {
-    removalBtn.addEventListener('click', () => {
-      closeInfoModal();
-      openDataRemovalModal();
-    });
-  }
 }
 
 export function openTermsModal() {
