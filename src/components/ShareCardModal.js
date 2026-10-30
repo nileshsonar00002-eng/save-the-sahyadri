@@ -21,22 +21,36 @@ export function openShareCardModal(supporter = {}) {
 
     <!-- Modal Dialog (Compact on Mobile) -->
     <div 
-      class="relative w-full max-w-xl rounded-2xl sm:rounded-3xl bg-[#06150E] border border-emerald-500/25 shadow-2xl p-4 sm:p-8 z-10 space-y-3.5 sm:space-y-6 my-auto text-left transform transition-all"
+      class="relative w-full max-w-xl rounded-2xl sm:rounded-3xl bg-[#06150E] border border-emerald-500/30 shadow-2xl p-4 sm:p-8 z-10 my-auto text-left transform transition-all overflow-hidden"
       role="dialog"
       aria-modal="true"
       aria-labelledby="share-modal-title"
     >
+      <!-- Premium Tree Background Layer with Deep Forest Vignette -->
+      <div class="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden">
+        <img 
+          src="/images/sahyadri-tree-hero.jpg" 
+          alt="" 
+          class="w-full h-full object-cover object-center opacity-30 transform scale-105 filter brightness-95 contrast-125" 
+          loading="eager"
+        />
+        <div class="absolute inset-0 bg-gradient-to-b from-[#06150E]/85 via-[#06150E]/90 to-[#06150E]/98"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(16,185,129,0.15)_0%,transparent_70%)]"></div>
+        <div class="absolute inset-0 ring-1 ring-inset ring-emerald-500/20 rounded-2xl sm:rounded-3xl pointer-events-none"></div>
+      </div>
       
       <!-- Close Button -->
       <button 
         id="share-modal-close-btn" 
         aria-label="Close modal" 
-        class="absolute top-3.5 right-3.5 sm:top-5 sm:right-5 p-1.5 sm:p-2 rounded-lg sm:rounded-xl text-slate-400 hover:text-white bg-emerald-950/50 hover:bg-emerald-900/60 border border-emerald-500/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 cursor-pointer"
+        class="absolute top-3.5 right-3.5 sm:top-5 sm:right-5 p-1.5 sm:p-2 rounded-lg sm:rounded-xl text-slate-400 hover:text-white bg-emerald-950/60 hover:bg-emerald-900/80 border border-emerald-500/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 cursor-pointer z-20 transition-colors"
       >
         <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>
+
+      <div class="relative z-10 space-y-3.5 sm:space-y-6">
 
       <!-- Modal Header -->
       <div class="space-y-1 pr-8">
@@ -90,6 +104,8 @@ export function openShareCardModal(supporter = {}) {
         </div>
       </div>
 
+      </div>
+
     </div>
   `;
 
@@ -103,6 +119,13 @@ export function openShareCardModal(supporter = {}) {
   const btnWhatsApp = modalContainer.querySelector('#btn-whatsapp-share');
 
   const currentFormat = 'square'; // Always default square 1:1 format
+
+  // Preload atmospheric tree photo background for the canvas card
+  const bgTreeImage = new Image();
+  bgTreeImage.src = '/images/sahyadri-tree-hero.jpg';
+  bgTreeImage.onload = () => {
+    renderCard();
+  };
 
   // Preload transparent mountain peaks emblem for the canvas card
   const mountainImage = new Image();
@@ -138,12 +161,40 @@ export function openShareCardModal(supporter = {}) {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // 1. Deep Forest Gradient Background
+    // 1. Deep Forest Base Fill
+    ctx.fillStyle = '#030805';
+    ctx.fillRect(0, 0, width, height);
+
+    // 1b. Atmospheric Tree Photo Background (Cover scaling adjusted to card)
+    if (bgTreeImage.complete && bgTreeImage.naturalWidth > 0) {
+      ctx.save();
+      const imgRatio = bgTreeImage.naturalWidth / bgTreeImage.naturalHeight;
+      const canvasRatio = width / height;
+      let drawW, drawH, drawX, drawY;
+
+      if (imgRatio > canvasRatio) {
+        drawH = height;
+        drawW = height * imgRatio;
+        drawX = (width - drawW) / 2;
+        drawY = 0;
+      } else {
+        drawW = width;
+        drawH = width / imgRatio;
+        drawX = 0;
+        drawY = (height - drawH) / 2;
+      }
+
+      ctx.globalAlpha = 0.35;
+      ctx.drawImage(bgTreeImage, drawX, drawY, drawW, drawH);
+      ctx.restore();
+    }
+
+    // 1c. Deep Forest Tint Overlay with Atmospheric Vignette
     const bgGrad = ctx.createLinearGradient(0, 0, width, height);
-    bgGrad.addColorStop(0, '#030805');
-    bgGrad.addColorStop(0.35, '#071A0E');
-    bgGrad.addColorStop(0.7, '#0C2B18');
-    bgGrad.addColorStop(1, '#020704');
+    bgGrad.addColorStop(0, 'rgba(3, 8, 5, 0.72)');
+    bgGrad.addColorStop(0.35, 'rgba(7, 26, 14, 0.76)');
+    bgGrad.addColorStop(0.7, 'rgba(12, 43, 24, 0.78)');
+    bgGrad.addColorStop(1, 'rgba(2, 7, 4, 0.88)');
     ctx.fillStyle = bgGrad;
     ctx.fillRect(0, 0, width, height);
 
