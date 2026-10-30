@@ -78,15 +78,24 @@ export function renderFooter(container, onJoinClick) {
           </p>
         </div>
 
-        <!-- Bottom Copyright, Live Total Visitors & Credit -->
+        <!-- Desktop Total Visitors Counter (Shifted above copyright line, faint/subtle) -->
+        <div class="hidden md:flex items-center justify-center -mb-2">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-950/25 border border-emerald-500/15 text-[11px] text-slate-400/80 hover:text-slate-300 opacity-65 hover:opacity-90 transition-all">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400/60 animate-pulse"></span>
+            <span class="font-heading font-medium text-[9px] tracking-wider uppercase text-slate-400/70">TOTAL VISITORS:</span>
+            <strong id="footer-total-visitors-desktop" class="footer-total-visitors-val text-emerald-400/75 font-mono font-medium text-xs">...</strong>
+          </div>
+        </div>
+
+        <!-- Bottom Copyright, Mobile Visitors & Credit -->
         <div class="pt-6 border-t border-emerald-500/15 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <p>© ${new Date().getFullYear()} Save the Sahyadri • Dedicated to the living forests of the Western Ghats.</p>
 
-          <!-- Live Dynamic Total Visitors Counter -->
-          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#06150E] border border-emerald-500/30 text-xs shadow-sm hover:border-emerald-400/50 transition-colors">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span class="text-slate-400 font-heading font-bold text-[10px] tracking-wider uppercase">TOTAL VISITORS:</span>
-            <strong id="footer-total-visitors" class="text-emerald-400 font-mono font-bold text-xs">...</strong>
+          <!-- Mobile Live Total Visitors Counter (Position preserved for mobile view, faint/subtle) -->
+          <div class="md:hidden inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-950/25 border border-emerald-500/15 text-[11px] text-slate-400/80 opacity-65">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400/60 animate-pulse"></span>
+            <span class="font-heading font-medium text-[9px] tracking-wider uppercase text-slate-400/70">TOTAL VISITORS:</span>
+            <strong id="footer-total-visitors" class="footer-total-visitors-val text-emerald-400/75 font-mono font-medium text-xs">...</strong>
           </div>
 
           <p class="text-emerald-500/70 font-mono text-[11px]">Earth • Forests • Water • Future</p>
@@ -120,9 +129,14 @@ export function renderFooter(container, onJoinClick) {
  * Dynamically updates the Total Visitors counter in the footer
  */
 export function updateFooterVisitorCount(container, count) {
-  if (!container) return;
-  const el = container.querySelector('#footer-total-visitors') || (typeof document !== 'undefined' ? document.getElementById('footer-total-visitors') : null);
-  if (el) {
-    el.textContent = typeof count === 'number' ? count.toLocaleString('en-IN') : String(count);
-  }
+  if (!container && typeof document === 'undefined') return;
+  const formatted = typeof count === 'number' ? count.toLocaleString('en-IN') : String(count);
+  const elements = [
+    ...(container && container.querySelectorAll ? container.querySelectorAll('.footer-total-visitors-val, #footer-total-visitors, #footer-total-visitors-desktop') : []),
+    ...(typeof document !== 'undefined' ? document.querySelectorAll('.footer-total-visitors-val, #footer-total-visitors, #footer-total-visitors-desktop') : [])
+  ];
+  const uniqueElements = Array.from(new Set(elements));
+  uniqueElements.forEach((el) => {
+    el.textContent = formatted;
+  });
 }

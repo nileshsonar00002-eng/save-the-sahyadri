@@ -9,7 +9,7 @@ import { renderInteractiveMap } from '../src/components/InteractiveMap.js';
 import { renderIssueSection } from '../src/components/IssueSection.js';
 import { renderStorySection } from '../src/components/StorySection.js';
 import { renderHowItWorks } from '../src/components/HowItWorks.js';
-import { renderFooter } from '../src/components/Footer.js';
+import { renderFooter, updateFooterVisitorCount } from '../src/components/Footer.js';
 import { openPrivacyModal, closeInfoModal } from '../src/components/InfoModals.js';
 
 // Mock minimal DOM element
@@ -185,12 +185,25 @@ assert.ok(footerEl.innerHTML.includes('SAVE THE SAHYADRI'), 'Footer must contain
 assert.ok(footerEl.innerHTML.includes('Official Campaign Disclaimer'), 'Footer must contain disclaimer');
 assert.ok(footerEl.innerHTML.includes('Privacy Policy'), 'Footer must have Privacy link');
 assert.ok(footerEl.innerHTML.includes('TOTAL VISITORS:'), 'Footer must contain TOTAL VISITORS label');
-assert.ok(footerEl.innerHTML.includes('footer-total-visitors'), 'Footer must contain footer-total-visitors element');
+assert.ok(footerEl.innerHTML.includes('footer-total-visitors-desktop'), 'Footer must contain desktop footer-total-visitors element');
+assert.ok(footerEl.innerHTML.includes('footer-total-visitors'), 'Footer must contain mobile footer-total-visitors element');
+assert.ok(footerEl.innerHTML.includes('opacity-65'), 'Total visitors card must have faint/subtle opacity');
+assert.ok(footerEl.innerHTML.includes('bg-emerald-950/25'), 'Total visitors card must have muted background');
 assert.ok(!footerEl.innerHTML.includes('Terms of Use'), 'Footer must not have Terms link');
 assert.ok(!footerEl.innerHTML.includes('Sources & Corrections'), 'Footer must not have Sources link');
 assert.ok(!footerEl.innerHTML.includes('Moderation Portal'), 'Footer must not have Moderation portal link');
 assert.ok(!footerEl.innerHTML.includes('Data Correction / Removal'), 'Footer must not have Data Removal link');
-console.log('✓ Footer component rendered properly with streamlined links');
+
+// Test updateFooterVisitorCount with mock elements
+const mockDesktop = { textContent: '' };
+const mockMobile = { textContent: '' };
+const mockContainer = {
+  querySelectorAll: () => [mockDesktop, mockMobile]
+};
+updateFooterVisitorCount(mockContainer, 5420);
+assert.strictEqual(mockDesktop.textContent, '5,420', 'Desktop visitor count should update');
+assert.strictEqual(mockMobile.textContent, '5,420', 'Mobile visitor count should update');
+console.log('✓ Footer component rendered properly with faint total visitors card above copyright line on desktop and preserved on mobile');
 
 // 9. Privacy Policy Modal
 openPrivacyModal();
