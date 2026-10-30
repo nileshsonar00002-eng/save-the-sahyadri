@@ -122,10 +122,10 @@ export function openShareCardModal(supporter = {}) {
 
   let currentFormat = 'square'; // 'square' (1080x1080) or 'story' (1080x1920)
 
-  // Preload official logo image for the canvas card
-  const logoImage = new Image();
-  logoImage.src = '/images/logo.png';
-  logoImage.onload = () => {
+  // Preload transparent mountain peaks emblem for the canvas card
+  const mountainImage = new Image();
+  mountainImage.src = '/images/mountain-peaks.png';
+  mountainImage.onload = () => {
     renderCard();
   };
 
@@ -184,38 +184,31 @@ export function openShareCardModal(supporter = {}) {
     // Corner decorative markers
     drawCornerBrackets(ctx, 40, 40, width - 80, height - 80);
 
-    // 5. Header Branding
-    // Official Mountain Logo Emblem (Enlarged & border removed per user request)
-    const logoSize = isSquare ? 135 : 160;
-    const logoCenterY = isSquare ? 120 : 190;
-    if (logoImage.complete && logoImage.naturalWidth > 0) {
+    // 5. Header Branding — Pure Mountain Peaks Silhouette (Circle removed)
+    const mountainW = isSquare ? 190 : 230;
+    const mountainH = Math.round(mountainW * (420 / 780)); // maintain exact aspect ratio
+    const mountainX = (width - mountainW) / 2;
+    const mountainY = isSquare ? 90 : 145;
+
+    if (mountainImage.complete && mountainImage.naturalWidth > 0) {
       ctx.save();
-      ctx.beginPath();
-      ctx.arc(width / 2, logoCenterY, logoSize / 2, 0, Math.PI * 2);
-      ctx.closePath();
-      ctx.clip();
-      ctx.drawImage(logoImage, width / 2 - logoSize / 2, logoCenterY - logoSize / 2, logoSize, logoSize);
+      ctx.drawImage(mountainImage, mountainX, mountainY, mountainW, mountainH);
       ctx.restore();
     } else {
       ctx.font = '72px sans-serif';
-      ctx.fillText('⛰️', width / 2, logoCenterY + 20);
+      ctx.fillText('⛰️', width / 2, mountainY + mountainH / 2 + 10);
     }
 
-    // Brand Name
-    const brandNameY = isSquare ? 222 : 316;
+    // Subtitle Line (Only "MAHARASHTRA WESTERN GHATS", "SAVE THE SAHYADRI" and "INITIATIVE" removed per request)
+    const subheadY = isSquare ? 228 : 318;
     ctx.textAlign = 'center';
-    ctx.font = 'bold 36px Outfit, Inter, sans-serif';
+    ctx.font = isSquare ? '600 21px Inter, sans-serif' : '600 25px Inter, sans-serif';
     ctx.fillStyle = '#6EE7B7';
-    ctx.letterSpacing = '4px';
-    ctx.fillText('SAVE THE SAHYADRI', width / 2, brandNameY);
-
-    ctx.font = '500 20px Inter, sans-serif';
-    ctx.fillStyle = '#94A3B8';
-    ctx.letterSpacing = '2px';
-    ctx.fillText('MAHARASHTRA WESTERN GHATS INITIATIVE', width / 2, brandNameY + 36);
+    ctx.letterSpacing = isSquare ? '3px' : '4px';
+    ctx.fillText('MAHARASHTRA WESTERN GHATS', width / 2, subheadY);
 
     // 6. Main Bold Headline
-    const headlineY = isSquare ? 342 : 496;
+    const headlineY = isSquare ? 336 : 486;
     ctx.font = '900 66px Outfit, Inter, sans-serif';
     ctx.fillStyle = '#FFFFFF';
     ctx.letterSpacing = '-1px';
