@@ -8,29 +8,67 @@ export function openPrivacyModal() {
     tag: 'PRIVACY & DATA PROTECTION',
     title: 'Privacy Policy',
     contentHtml: `
-      <div class="space-y-4 text-xs sm:text-sm text-slate-300 leading-relaxed">
+      <div class="space-y-4 text-xs sm:text-sm text-slate-300 leading-relaxed font-sans">
+        <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-950/70 text-emerald-400 text-[11px] font-mono border border-emerald-500/20">
+          <span>Last Updated:</span>
+          <span class="text-white font-semibold">30 October 2026</span>
+        </div>
+
         <p>
-          The <strong>Save the Sahyadri</strong> initiative is committed to the highest standards of citizen privacy. We operate as an awareness campaign and collect only minimal information necessary to reflect public solidarity.
+          <strong>SAVE THE SAHYADRI</strong> (accessible via <a href="https://www.savesahyadri.online" target="_blank" rel="noopener noreferrer" class="text-emerald-400 hover:text-emerald-300 underline font-medium">www.savesahyadri.online</a>) is a public, independent environmental awareness initiative focused on protecting the forests, wildlife, ecosystems, and ancient canopy of the Sahyadri (Western Ghats) region.
         </p>
 
-        <h4 class="font-heading font-bold text-base text-white pt-2">1. Information We Collect</h4>
-        <ul class="list-disc pl-5 space-y-1 text-slate-400">
-          <li><strong>Display Name:</strong> A chosen first name, alias, or initials provided by you.</li>
-          <li><strong>City & State:</strong> Manually entered or chosen from suggestions to represent your region.</li>
-          <li><strong>Optional Email:</strong> Collected only if you explicitly choose to provide it for verified milestone updates.</li>
-        </ul>
-
-        <h4 class="font-heading font-bold text-base text-white pt-2">2. What We NEVER Collect or Publish</h4>
-        <ul class="list-disc pl-5 space-y-1 text-slate-400">
-          <li>We <strong>never</strong> collect or store your precise GPS home coordinates. All map markers use generalized city centroids.</li>
-          <li>We <strong>never</strong> publish email addresses or private identifiers.</li>
-          <li>We do <strong>not</strong> use invasive third-party ad trackers, cookies, or fingerprinting scripts.</li>
-        </ul>
-
-        <h4 class="font-heading font-bold text-base text-white pt-2">3. Data Retention & Your Right to Removal</h4>
         <p>
-          You have the unconditional right to request the correction or immediate deletion of your participation record at any time. Use our self-service <button id="btn-switch-to-removal" class="text-emerald-400 underline font-semibold cursor-pointer">Data Correction & Removal Request</button> tool.
+          We are committed to a strict, privacy-first architecture. Our platform does not collect personal contact identifiers, email addresses, or manual location entries. Participation is focused entirely on voluntary, generalized geographic mapping to display nationwide community solidarity.
         </p>
+
+        <h4 class="font-heading font-bold text-sm sm:text-base text-white pt-2 text-emerald-400">1. Independent Civic Initiative:</h4>
+        <p>
+          This platform (<a href="https://www.savesahyadri.online" target="_blank" rel="noopener noreferrer" class="text-emerald-400 hover:text-emerald-300 underline font-medium">www.savesahyadri.online</a>) is entirely an independent, non-governmental, and non-political civic awareness project. We are not affiliated with, authorized by, sponsored by, or in any way officially connected to any political party, government body, or state forest department.
+        </p>
+
+        <h4 class="font-heading font-bold text-sm sm:text-base text-white pt-2 text-emerald-400">2. Information We Process and Handle:</h4>
+        <p>
+          To protect user anonymity while maintaining an interactive movement map, we handle only the following information:
+        </p>
+        <ul class="list-disc pl-5 space-y-1.5 text-slate-300">
+          <li><strong class="text-white">Anonymous Member Count:</strong> When you interact with the platform, a unique session identifier or non-personal incremental counter updates your presence on the map. We do not link this counter to your physical identity.</li>
+          <li><strong class="text-white">GPS-Based Regional Coordinates:</strong> If you choose to join the movement by granting browser/device location permission, we process your temporary GPS coordinates.</li>
+          <li><strong class="text-white">What We Do NOT Collect:</strong> We strictly do not collect, request, or store your email address, phone number, name, or any manual address inputs.</li>
+        </ul>
+
+        <h4 class="font-heading font-bold text-sm sm:text-base text-white pt-2 text-emerald-400">3. How Your GPS Data is Handled and Protected:</h4>
+        <p>
+          We apply strict technical safeguards to your geographic data to ensure your private spaces remain completely protected:
+        </p>
+        <ul class="list-disc pl-5 space-y-1.5 text-slate-300">
+          <li><strong class="text-white">Immediate Generalization:</strong> Your precise home, street, or building coordinates are never displayed publicly on the live map.</li>
+          <li><strong class="text-white">City-Level Clustering:</strong> Your GPS input is instantly converted into generalized regional or city-center coordinates. The map only draws animated pulse lines connecting your broad metropolitan or rural district region to the Sahyadri connection hub.</li>
+          <li><strong class="text-white">Optional Consent:</strong> Providing GPS location is entirely optional. You can explore the interactive map without sharing your device's location.</li>
+        </ul>
+
+        <h4 class="font-heading font-bold text-sm sm:text-base text-white pt-2 text-emerald-400">4. Third-Party Infrastructure:</h4>
+        <p>
+          We utilize trusted, standard cloud infrastructure service providers to host our open-access platform:
+        </p>
+        <ul class="list-disc pl-5 space-y-1.5 text-slate-300">
+          <li><strong class="text-white">Hosting and Database:</strong> We use secure cloud database solutions (such as Firebase/Vercel environments) to store the total aggregated member count and generalized regional node coordinates.</li>
+          <li><strong class="text-white">Google Maps API Integration:</strong> Interactive maps and geographic rendering are powered entirely via Google Maps Platform services. When you allow location access, your browser communicates with Google Maps APIs to safely load vector maps and display generalized geographic representations. These operations are conducted in strict alignment with Google’s official privacy guidelines and industry web security rules.</li>
+        </ul>
+
+        <h4 class="font-heading font-bold text-sm sm:text-base text-white pt-2 text-emerald-400">5. Shareable Digital Cards (WhatsApp Status):</h4>
+        <p>
+          When you choose to generate a digital member card to share on WhatsApp or other social networks, the card image is assembled entirely on your local device client-side (using html2canvas and the native Web Share API). No personal data or generated images are uploaded back to our servers during this process.
+        </p>
+
+        <h4 class="font-heading font-bold text-sm sm:text-base text-white pt-2 text-emerald-400">6. Your Choices and Contact Details:</h4>
+        <p>
+          Since we do not store emails or precise identities, we have no personal data profiles to modify or sell. If you wish to withdraw your generalized node from the map counter or have questions about our structural encryption setup, you may reach out to our privacy management team (or submit an online <button id="btn-switch-to-removal" class="text-emerald-400 underline font-semibold hover:text-emerald-300 cursor-pointer">Removal Request</button>):
+        </p>
+        <div class="p-3.5 rounded-xl bg-emerald-950/40 border border-emerald-500/20 text-slate-300 space-y-1.5 font-sans text-xs">
+          <div><span class="text-slate-400">Website URL:</span> <a href="https://savesahyadri.online" target="_blank" rel="noopener noreferrer" class="text-emerald-400 hover:text-emerald-300 underline font-mono">savesahyadri.online</a></div>
+          <div><span class="text-slate-400">Privacy Technical Support:</span> <a href="mailto:inforoadtok@gmail.com" class="text-emerald-400 hover:text-emerald-300 underline font-mono">inforoadtok@gmail.com</a></div>
+        </div>
       </div>
     `
   });
@@ -205,13 +243,13 @@ function renderInfoModal({ tag, title, contentHtml }) {
   modal.innerHTML = `
     <div id="info-modal-backdrop" class="fixed inset-0 bg-black/85 backdrop-blur-md"></div>
     <div 
-      class="relative w-full max-w-lg rounded-2xl sm:rounded-3xl bg-[#06150E] border border-emerald-500/25 shadow-2xl p-4 sm:p-8 z-10 space-y-4 sm:space-y-6 my-auto text-left"
+      class="relative w-full max-w-xl rounded-2xl sm:rounded-3xl bg-[#06150E] border border-emerald-500/25 shadow-2xl p-4 sm:p-8 z-10 space-y-4 sm:space-y-6 my-auto text-left"
       role="dialog"
       aria-modal="true"
     >
       <button 
         id="info-modal-close-btn" 
-        class="absolute top-5 right-5 p-2 rounded-xl text-slate-400 hover:text-white bg-emerald-950/50 hover:bg-emerald-900/60 border border-emerald-500/20"
+        class="absolute top-5 right-5 p-2 rounded-xl text-slate-400 hover:text-white bg-emerald-950/50 hover:bg-emerald-900/60 border border-emerald-500/20 cursor-pointer transition-colors"
       >
         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -226,7 +264,7 @@ function renderInfoModal({ tag, title, contentHtml }) {
         <h2 class="font-heading font-black text-2xl text-white">${title}</h2>
       </div>
 
-      <div class="max-h-[60vh] overflow-y-auto pr-2 space-y-4">
+      <div class="max-h-[65vh] sm:max-h-[70vh] overflow-y-auto pr-2 space-y-4">
         ${contentHtml}
       </div>
 
@@ -245,9 +283,9 @@ function renderInfoModal({ tag, title, contentHtml }) {
   const doneBtn = modal.querySelector('#info-modal-done-btn');
   const backdrop = modal.querySelector('#info-modal-backdrop');
 
-  closeBtn.addEventListener('click', closeInfoModal);
-  doneBtn.addEventListener('click', closeInfoModal);
-  backdrop.addEventListener('click', closeInfoModal);
+  if (closeBtn) closeBtn.addEventListener('click', closeInfoModal);
+  if (doneBtn) doneBtn.addEventListener('click', closeInfoModal);
+  if (backdrop) backdrop.addEventListener('click', closeInfoModal);
 
   const onKeyDown = (e) => {
     if (e.key === 'Escape') closeInfoModal();

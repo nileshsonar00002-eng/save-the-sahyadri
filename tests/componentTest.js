@@ -10,6 +10,7 @@ import { renderIssueSection } from '../src/components/IssueSection.js';
 import { renderStorySection } from '../src/components/StorySection.js';
 import { renderHowItWorks } from '../src/components/HowItWorks.js';
 import { renderFooter } from '../src/components/Footer.js';
+import { openPrivacyModal, closeInfoModal } from '../src/components/InfoModals.js';
 
 // Mock minimal DOM element
 function createMockElement(id = 'container') {
@@ -185,5 +186,20 @@ assert.ok(!footerEl.innerHTML.includes('Sources & Corrections'), 'Footer must no
 assert.ok(!footerEl.innerHTML.includes('Moderation Portal'), 'Footer must not have Moderation portal link');
 assert.ok(!footerEl.innerHTML.includes('Data Correction / Removal'), 'Footer must not have Data Removal link');
 console.log('✓ Footer component rendered properly with streamlined links');
+
+// 9. Privacy Policy Modal
+openPrivacyModal();
+assert.ok(appendedOverlay, 'Privacy Policy modal must be mounted');
+assert.ok(appendedOverlay.innerHTML.includes('30 October 2026'), 'Privacy Policy must have Last Updated date');
+assert.ok(appendedOverlay.innerHTML.includes('www.savesahyadri.online'), 'Privacy Policy must contain domain reference');
+assert.ok(appendedOverlay.innerHTML.includes('1. Independent Civic Initiative:'), 'Privacy Policy must have section 1');
+assert.ok(appendedOverlay.innerHTML.includes('2. Information We Process and Handle:'), 'Privacy Policy must have section 2');
+assert.ok(appendedOverlay.innerHTML.includes('3. How Your GPS Data is Handled and Protected:'), 'Privacy Policy must have section 3');
+assert.ok(appendedOverlay.innerHTML.includes('4. Third-Party Infrastructure:'), 'Privacy Policy must have section 4');
+assert.ok(appendedOverlay.innerHTML.includes('5. Shareable Digital Cards (WhatsApp Status):'), 'Privacy Policy must have section 5');
+assert.ok(appendedOverlay.innerHTML.includes('6. Your Choices and Contact Details:'), 'Privacy Policy must have section 6');
+assert.ok(appendedOverlay.innerHTML.includes('inforoadtok@gmail.com'), 'Privacy Policy must have support email');
+closeInfoModal();
+console.log('✓ Privacy Policy modal rendered and verified with all 6 policy sections');
 
 console.log('\n🎉 ALL COMPONENT SMOKE TESTS PASSED!');
