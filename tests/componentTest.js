@@ -35,7 +35,7 @@ console.log('🧪 Running Component HTML Generation Tests...');
 // 1. Header
 const headerEl = createMockElement('header-mount');
 renderHeader(headerEl, () => {});
-assert.ok(headerEl.innerHTML.includes('SAVE THE SAHYADRI'), 'Header must contain brand title');
+assert.ok(headerEl.innerHTML.includes('SAVE SAHYADRI'), 'Header must contain brand title');
 assert.ok(headerEl.innerHTML.includes('The Issue in Karjat'), 'Header must contain The Issue in Karjat navigation link');
 assert.ok(headerEl.innerHTML.includes('I STAND WITH SAHYADRI'), 'Header must contain primary CTA');
 console.log('✓ Header component rendered properly');

@@ -53,7 +53,7 @@ ${siteUrl}
           </div>
           <div class="flex items-center gap-2">
             <span class="font-heading font-black text-xs sm:text-base tracking-tight text-white group-hover:text-emerald-300 transition-colors whitespace-nowrap">
-              SAVE THE SAHYADRI
+              SAVE SAHYADRI
             </span>
             <span class="hidden md:inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-bold tracking-wider uppercase bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
               Movement
