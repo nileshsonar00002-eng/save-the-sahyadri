@@ -78,9 +78,17 @@ export function renderFooter(container, onJoinClick) {
           </p>
         </div>
 
-        <!-- Bottom Copyright & Credit -->
-        <div class="pt-6 border-t border-emerald-500/15 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+        <!-- Bottom Copyright, Live Total Visitors & Credit -->
+        <div class="pt-6 border-t border-emerald-500/15 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <p>© ${new Date().getFullYear()} Save the Sahyadri • Dedicated to the living forests of the Western Ghats.</p>
+
+          <!-- Live Dynamic Total Visitors Counter -->
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#06150E] border border-emerald-500/30 text-xs shadow-sm hover:border-emerald-400/50 transition-colors">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span class="text-slate-400 font-heading font-bold text-[10px] tracking-wider uppercase">TOTAL VISITORS:</span>
+            <strong id="footer-total-visitors" class="text-emerald-400 font-mono font-bold text-xs">...</strong>
+          </div>
+
           <p class="text-emerald-500/70 font-mono text-[11px]">Earth • Forests • Water • Future</p>
         </div>
 
@@ -106,4 +114,15 @@ export function renderFooter(container, onJoinClick) {
   };
   if (footerIssueLink) footerIssueLink.addEventListener('click', handleFooterNewsClick);
   if (footerNewsLink) footerNewsLink.addEventListener('click', handleFooterNewsClick);
+}
+
+/**
+ * Dynamically updates the Total Visitors counter in the footer
+ */
+export function updateFooterVisitorCount(container, count) {
+  if (!container) return;
+  const el = container.querySelector('#footer-total-visitors') || (typeof document !== 'undefined' ? document.getElementById('footer-total-visitors') : null);
+  if (el) {
+    el.textContent = typeof count === 'number' ? count.toLocaleString('en-IN') : String(count);
+  }
 }

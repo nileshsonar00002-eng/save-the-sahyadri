@@ -184,6 +184,8 @@ renderFooter(footerEl, () => {});
 assert.ok(footerEl.innerHTML.includes('SAVE THE SAHYADRI'), 'Footer must contain brand');
 assert.ok(footerEl.innerHTML.includes('Official Campaign Disclaimer'), 'Footer must contain disclaimer');
 assert.ok(footerEl.innerHTML.includes('Privacy Policy'), 'Footer must have Privacy link');
+assert.ok(footerEl.innerHTML.includes('TOTAL VISITORS:'), 'Footer must contain TOTAL VISITORS label');
+assert.ok(footerEl.innerHTML.includes('footer-total-visitors'), 'Footer must contain footer-total-visitors element');
 assert.ok(!footerEl.innerHTML.includes('Terms of Use'), 'Footer must not have Terms link');
 assert.ok(!footerEl.innerHTML.includes('Sources & Corrections'), 'Footer must not have Sources link');
 assert.ok(!footerEl.innerHTML.includes('Moderation Portal'), 'Footer must not have Moderation portal link');

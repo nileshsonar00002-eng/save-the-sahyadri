@@ -6,10 +6,11 @@ import { renderHero, updateHeroMapSupporters } from './components/Hero';
 import { renderMovementCounter, updateCounterValues } from './components/MovementCounter';
 import { renderIssueSection, openNewsSection, closeNewsSection, toggleNewsSection } from './components/IssueSection';
 import { renderStorySection } from './components/StorySection';
-import { renderFooter } from './components/Footer';
+import { renderFooter, updateFooterVisitorCount } from './components/Footer';
 import { openJoinModal } from './components/JoinModal';
 import { openShareCardModal } from './components/ShareCardModal';
 import { subscribeToSupporters } from './services/supporterService';
+import { trackVisitor, subscribeToVisitorCount } from './services/visitorService';
 import { initNatureAnimations } from './utils/natureAnimations';
 
 class SahyadriApp {
@@ -22,6 +23,7 @@ class SahyadriApp {
       isLive: false
     };
     this.unsubscribeSupporters = null;
+    this.unsubscribeVisitors = null;
     this.activeAdminApp = null;
   }
 
@@ -62,6 +64,10 @@ class SahyadriApp {
     if (this.unsubscribeSupporters) {
       try { this.unsubscribeSupporters(); } catch (_) {}
       this.unsubscribeSupporters = null;
+    }
+    if (this.unsubscribeVisitors) {
+      try { this.unsubscribeVisitors(); } catch (_) {}
+      this.unsubscribeVisitors = null;
     }
     this.appEl.innerHTML = '';
   }
@@ -127,6 +133,14 @@ class SahyadriApp {
 
     // Initialize subtle nature animations & scroll reveals
     initNatureAnimations();
+
+    // Track unique session visitor in Firebase Firestore
+    trackVisitor();
+
+    // Subscribe to real-time live visitor counter
+    this.unsubscribeVisitors = subscribeToVisitorCount((count) => {
+      updateFooterVisitorCount(mounts.footer, count);
+    });
 
     // Subscribe to real-time Firestore database
     this.unsubscribeSupporters = subscribeToSupporters(
