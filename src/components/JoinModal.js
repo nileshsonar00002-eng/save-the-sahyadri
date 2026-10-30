@@ -56,17 +56,29 @@ export function openJoinModal(onSuccessCallback) {
 
     <!-- Modal Box (Compact on Mobile, Spacious on Desktop) -->
     <div 
-      class="relative w-full max-w-md rounded-2xl sm:rounded-3xl bg-[#06150E] border border-emerald-500/25 shadow-2xl p-4 sm:p-7 z-10 space-y-3.5 sm:space-y-5 my-auto text-center transform transition-all"
+      class="relative w-full max-w-md rounded-2xl sm:rounded-3xl bg-[#06150E] border border-emerald-500/30 shadow-2xl p-4 sm:p-7 z-10 my-auto text-center transform transition-all overflow-hidden"
       role="dialog" 
       aria-modal="true" 
       aria-labelledby="join-modal-title"
     >
+      <!-- Premium Tree Background Layer with Deep Forest Vignette -->
+      <div class="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden">
+        <img 
+          src="/images/sahyadri-tree-hero.jpg" 
+          alt="" 
+          class="w-full h-full object-cover object-center opacity-30 transform scale-105 filter brightness-95 contrast-125" 
+          loading="eager"
+        />
+        <div class="absolute inset-0 bg-gradient-to-b from-[#06150E]/85 via-[#06150E]/90 to-[#06150E]/98"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(16,185,129,0.15)_0%,transparent_70%)]"></div>
+        <div class="absolute inset-0 ring-1 ring-inset ring-emerald-500/20 rounded-2xl sm:rounded-3xl pointer-events-none"></div>
+      </div>
       
       <!-- Close Button -->
       <button 
         id="join-modal-close-btn" 
         aria-label="Close modal" 
-        class="absolute top-3.5 right-3.5 sm:top-5 sm:right-5 p-1.5 sm:p-2 rounded-lg sm:rounded-xl text-slate-400 hover:text-white bg-emerald-950/50 hover:bg-emerald-900/60 border border-emerald-500/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 cursor-pointer"
+        class="absolute top-3.5 right-3.5 sm:top-5 sm:right-5 p-1.5 sm:p-2 rounded-lg sm:rounded-xl text-slate-400 hover:text-white bg-emerald-950/60 hover:bg-emerald-900/80 border border-emerald-500/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 cursor-pointer z-20 transition-colors"
       >
         <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -74,7 +86,7 @@ export function openJoinModal(onSuccessCallback) {
       </button>
 
       <!-- Content Container -->
-      <div id="join-modal-dynamic-content">
+      <div id="join-modal-dynamic-content" class="relative z-10 space-y-3.5 sm:space-y-5">
         
         <!-- Modal Header -->
         <div class="space-y-1.5 text-center flex flex-col items-center justify-center px-4">
@@ -452,21 +464,36 @@ function showAlreadyJoinedModal(onSuccessCallback) {
 
     <!-- Modal Box -->
     <div 
-      class="relative w-full max-w-md rounded-2xl sm:rounded-3xl bg-[#06150E] border border-emerald-500/25 shadow-2xl p-4 sm:p-7 z-10 space-y-4 sm:space-y-5 my-auto text-center transform transition-all"
+      class="relative w-full max-w-md rounded-2xl sm:rounded-3xl bg-[#06150E] border border-emerald-500/30 shadow-2xl p-4 sm:p-7 z-10 my-auto text-center transform transition-all overflow-hidden"
       role="dialog" 
       aria-modal="true" 
       aria-labelledby="already-joined-title"
     >
+      <!-- Premium Tree Background Layer with Deep Forest Vignette -->
+      <div class="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden">
+        <img 
+          src="/images/sahyadri-tree-hero.jpg" 
+          alt="" 
+          class="w-full h-full object-cover object-center opacity-30 transform scale-105 filter brightness-95 contrast-125" 
+          loading="eager"
+        />
+        <div class="absolute inset-0 bg-gradient-to-b from-[#06150E]/85 via-[#06150E]/90 to-[#06150E]/98"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(16,185,129,0.15)_0%,transparent_70%)]"></div>
+        <div class="absolute inset-0 ring-1 ring-inset ring-emerald-500/20 rounded-2xl sm:rounded-3xl pointer-events-none"></div>
+      </div>
+
       <!-- Close Button -->
       <button 
         id="join-modal-close-btn" 
         aria-label="Close modal" 
-        class="absolute top-3.5 right-3.5 sm:top-5 sm:right-5 p-1.5 sm:p-2 rounded-lg sm:rounded-xl text-slate-400 hover:text-white bg-emerald-950/50 hover:bg-emerald-900/60 border border-emerald-500/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 cursor-pointer"
+        class="absolute top-3.5 right-3.5 sm:top-5 sm:right-5 p-1.5 sm:p-2 rounded-lg sm:rounded-xl text-slate-400 hover:text-white bg-emerald-950/60 hover:bg-emerald-900/80 border border-emerald-500/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 cursor-pointer z-20 transition-colors"
       >
         <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>
+
+      <div class="relative z-10 space-y-4 sm:space-y-5">
 
       <!-- Animated Green Verified Badge -->
       <div class="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full bg-emerald-500/20 border-2 border-emerald-400 flex items-center justify-center text-emerald-400 shadow-emerald-glow">
@@ -522,6 +549,8 @@ function showAlreadyJoinedModal(onSuccessCallback) {
         >
           Close
         </button>
+      </div>
+
       </div>
 
     </div>
