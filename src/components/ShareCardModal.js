@@ -55,22 +55,6 @@ export function openShareCardModal(supporter = {}) {
         </p>
       </div>
 
-      <!-- Format Switcher: 1:1 Square vs 9:16 Story -->
-      <div class="flex items-center gap-2 p-1 bg-[#030805] rounded-xl border border-emerald-500/20 max-w-xs text-xs">
-        <button 
-          id="btn-format-square" 
-          class="flex-1 py-1.5 px-3 rounded-lg font-bold bg-emerald-500 text-black shadow-sm transition-all"
-        >
-          1:1 Square (Feed)
-        </button>
-        <button 
-          id="btn-format-story" 
-          class="flex-1 py-1.5 px-3 rounded-lg font-bold text-slate-400 hover:text-white transition-all"
-        >
-          9:16 Story
-        </button>
-      </div>
-
       <!-- Canvas Preview Wrapper -->
       <div class="relative w-full max-h-[380px] flex items-center justify-center p-3 rounded-2xl bg-[#030905] border border-emerald-500/20 overflow-hidden shadow-inner">
         <canvas id="support-card-canvas" class="max-h-[350px] w-auto h-auto rounded-xl shadow-2xl"></canvas>
@@ -115,12 +99,10 @@ export function openShareCardModal(supporter = {}) {
   const closeBtn = modalContainer.querySelector('#share-modal-close-btn');
   const backdrop = modalContainer.querySelector('#share-modal-backdrop');
   const canvas = modalContainer.querySelector('#support-card-canvas');
-  const btnSquare = modalContainer.querySelector('#btn-format-square');
-  const btnStory = modalContainer.querySelector('#btn-format-story');
   const btnDownload = modalContainer.querySelector('#btn-download-card');
   const btnWhatsApp = modalContainer.querySelector('#btn-whatsapp-share');
 
-  let currentFormat = 'square'; // 'square' (1080x1080) or 'story' (1080x1920)
+  const currentFormat = 'square'; // Always default square 1:1 format
 
   // Preload transparent mountain peaks emblem for the canvas card
   const mountainImage = new Image();
@@ -369,21 +351,6 @@ export function openShareCardModal(supporter = {}) {
     ctx.letterSpacing = '0.5px';
     ctx.fillText('Independent Citizen Public Awareness Movement • Non-commercial', width / 2, footerY + 36);
   }
-
-  // Format Switchers
-  btnSquare.addEventListener('click', () => {
-    currentFormat = 'square';
-    btnSquare.className = 'flex-1 py-1.5 px-3 rounded-lg font-bold bg-emerald-500 text-black shadow-sm transition-all';
-    btnStory.className = 'flex-1 py-1.5 px-3 rounded-lg font-bold text-slate-400 hover:text-white transition-all';
-    renderCard();
-  });
-
-  btnStory.addEventListener('click', () => {
-    currentFormat = 'story';
-    btnStory.className = 'flex-1 py-1.5 px-3 rounded-lg font-bold bg-emerald-500 text-black shadow-sm transition-all';
-    btnSquare.className = 'flex-1 py-1.5 px-3 rounded-lg font-bold text-slate-400 hover:text-white transition-all';
-    renderCard();
-  });
 
   // Download Handler
   btnDownload.addEventListener('click', () => {
