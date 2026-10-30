@@ -158,10 +158,10 @@ export function renderHero(container, onJoinClick, supportersData = {}) {
 
           <!-- Right Column on Desktop / Directly Below Headline on Mobile (lg:col-span-7 lg:order-2 order-1) -->
           <div class="w-full lg:col-span-7 lg:order-2 order-1 relative">
-            <div class="relative w-full rounded-2xl sm:rounded-3xl bg-[#06150E] border border-emerald-500/20 p-2.5 sm:p-4 shadow-xl overflow-hidden group">
+            <div class="relative w-full rounded-2xl sm:rounded-3xl bg-[#06150E] border border-emerald-500/20 p-1.5 sm:p-2.5 shadow-xl overflow-hidden group">
               
               <!-- Map Viewport (Default: Authentic Satellite View) -->
-              <div class="relative w-full h-[320px] sm:h-[400px] md:h-[460px] flex items-center justify-center overflow-hidden rounded-xl sm:rounded-2xl bg-[#071318] border border-emerald-500/15 map-3d-viewport">
+              <div class="relative w-full h-[280px] sm:h-[350px] md:h-[410px] flex items-center justify-center overflow-hidden rounded-xl sm:rounded-2xl bg-[#071318] border border-emerald-500/15 map-3d-viewport">
                 
                 <!-- 3D Horizon Atmosphere Gradient -->
                 <div id="hero-map-3d-horizon" class="map-3d-horizon"></div>
