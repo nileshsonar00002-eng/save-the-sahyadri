@@ -96,7 +96,7 @@ export function renderHero(container, onJoinClick, supportersData = {}) {
           <div class="w-full lg:col-span-5 lg:order-1 order-2 text-center lg:text-left flex flex-col items-center lg:items-start gap-5 sm:gap-6">
             
             <!-- Desktop Eyebrow Badge & Main Headline (Hidden on mobile because mobile headline is at the top) -->
-            <div class="hidden lg:block space-y-4 lg:order-1 w-full">
+            <div class="hidden lg:block space-y-4 w-full">
               <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-emerald-300 text-xs sm:text-sm font-semibold tracking-wider uppercase shadow-emerald-glow-sm">
                 <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                 <span>A MOVEMENT FOR OUR NATURAL HERITAGE</span>
@@ -108,33 +108,13 @@ export function renderHero(container, onJoinClick, supportersData = {}) {
               </h1>
             </div>
 
-            <!-- Real Movement Summary Badges (Shifted on mobile: directly below map & Join Movement button; Order-3 on desktop) -->
-            <div class="order-1 lg:order-3 hover-lift inline-flex flex-wrap items-center justify-center lg:justify-start gap-2 sm:gap-3 p-3 rounded-2xl bg-[#06150E] border border-emerald-500/20 text-xs text-slate-300 backdrop-blur-md">
-              <div class="flex items-center gap-1.5">
-                <svg class="w-3.5 h-3.5 text-emerald-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
-                  <circle cx="12" cy="10" r="3"/>
-                </svg>
-                <span class="font-semibold text-white">Karjat & Western Ghats</span>
-              </div>
-              <span class="hidden sm:inline text-emerald-500/40">•</span>
-              <div class="flex items-center gap-1.5">
-                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-                <span>Supporters: <strong id="hero-supporter-count" class="text-emerald-400 font-bold">${totalCount.toLocaleString('en-IN')}</strong></span>
-              </div>
-              <span class="hidden sm:inline text-emerald-500/40">•</span>
-              <div>
-                <span>Cities: <strong id="hero-cities-count" class="text-white font-bold">${uniqueCities}</strong></span>
-              </div>
-            </div>
-
-            <!-- Supporting Text (Order-2 on both mobile and desktop) -->
-            <p class="order-2 lg:order-2 text-base sm:text-lg lg:text-xl text-slate-300 font-normal leading-relaxed max-w-xl mx-auto lg:mx-0">
+            <!-- Supporting Text -->
+            <p class="text-base sm:text-lg lg:text-xl text-slate-300 font-normal leading-relaxed max-w-xl mx-auto lg:mx-0">
               “From every corner of India, we can stand together for the future of our forests.”
             </p>
 
-            <!-- Action CTAs (Order-3 on mobile, Order-4 on desktop) -->
-            <div class="order-3 lg:order-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-1 w-full sm:w-auto">
+            <!-- Action CTAs -->
+            <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-1 w-full sm:w-auto">
               <button 
                 id="hero-primary-cta" 
                 class="btn-nature-cta w-full sm:w-auto px-8 py-3.5 rounded-full font-heading font-extrabold text-base tracking-wide text-black bg-gradient-to-r from-emerald-400 via-emerald-300 to-emerald-400 hover:from-emerald-300 hover:to-emerald-200 shadow-emerald-glow hover:shadow-emerald-glow-lg transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer flex items-center justify-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
@@ -146,8 +126,8 @@ export function renderHero(container, onJoinClick, supportersData = {}) {
               </button>
             </div>
 
-            <!-- Trust Note (Order-4 on mobile, Order-5 on desktop) -->
-            <div class="order-4 lg:order-5 flex items-center justify-center lg:justify-start gap-2 text-xs text-slate-400 pt-1">
+            <!-- Trust Note -->
+            <div class="flex items-center justify-center lg:justify-start gap-2 text-xs text-slate-400 pt-1">
               <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
               </svg>
@@ -177,6 +157,22 @@ export function renderHero(container, onJoinClick, supportersData = {}) {
                   <div class="w-10 h-10 border-3 border-emerald-500/30 border-t-emerald-400 rounded-full animate-spin mb-3"></div>
                   <p class="text-xs font-heading font-bold text-emerald-400">Loading Satellite Movement Map...</p>
                   <p class="text-[10px] text-slate-400 mt-0.5 font-mono">Authentic natural colors & neon arcs</p>
+                </div>
+
+                <!-- Floating Centered Movement Supporters Counter Card (Cities removed, shifted to center of map) -->
+                <div class="absolute top-2.5 sm:top-3.5 left-1/2 -translate-x-1/2 z-20 pointer-events-auto inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-[#06150E]/90 hover:bg-[#06150E] border border-emerald-500/35 text-[11px] sm:text-xs text-slate-300 backdrop-blur-md shadow-lg shadow-emerald-950/40 whitespace-nowrap max-w-[92%] transition-all">
+                  <div class="flex items-center gap-1.5">
+                    <svg class="w-3.5 h-3.5 text-emerald-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+                      <circle cx="12" cy="10" r="3"/>
+                    </svg>
+                    <span class="font-semibold text-white">Karjat & Western Ghats</span>
+                  </div>
+                  <span class="text-emerald-500/40">•</span>
+                  <div class="flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span>Supporters: <strong id="hero-supporter-count" class="text-emerald-400 font-bold">${totalCount.toLocaleString('en-IN')}</strong></span>
+                  </div>
                 </div>
 
                 <!-- Floating Compact Map Controls (Right Side Corner) -->

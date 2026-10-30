@@ -50,10 +50,10 @@ assert.ok(heroEl.innerHTML.includes('NEEDS US.'), 'Hero must contain highlight h
 assert.ok(heroEl.innerHTML.includes('From every corner of India, we can stand together for the future of our forests.'), 'Hero must contain exact supporting text');
 assert.ok(heroEl.innerHTML.includes('hero-google-map-target'), 'Hero must contain google map target container');
 assert.ok(heroEl.innerHTML.includes('hero-map-fullscreen-btn'), 'Hero must contain fullscreen map button');
-assert.ok(heroEl.innerHTML.includes('order-1 lg:order-3'), 'Supporters & Cities badge must be order-1 on mobile and order-3 on desktop');
-assert.ok(heroEl.innerHTML.includes('order-2 lg:order-2'), 'Supporting text quote must be order-2 on mobile and desktop');
+assert.ok(heroEl.innerHTML.includes('hero-supporter-count'), 'Hero must contain hero-supporter-count element');
+assert.ok(!heroEl.innerHTML.includes('hero-cities-count'), 'Cities count must be removed from hero counter card');
 assert.ok(!heroEl.innerHTML.includes('PEOPLE UNITED FOR SAHYADRI'), 'Hero embedded map must NOT feature live counter card (removed to keep map 100% visible)');
-console.log('✓ Hero component rendered properly with clean map and mobile-shifted supporters/cities card');
+console.log('✓ Hero component rendered properly with centered supporters counter on map');
 
 // 2b. Fullscreen Map Live Counter Card Verification
 let appendedOverlay = null;
