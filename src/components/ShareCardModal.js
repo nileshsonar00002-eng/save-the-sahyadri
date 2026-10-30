@@ -204,7 +204,7 @@ export function openShareCardModal(supporter = {}) {
       ctx.restore();
     } else {
       ctx.font = '64px sans-serif';
-      ctx.fillText('🌿', width / 2, headerY - 30);
+      ctx.fillText('⛰️', width / 2, headerY - 30);
     }
 
     // Brand Name

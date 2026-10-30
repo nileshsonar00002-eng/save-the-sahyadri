@@ -54,7 +54,7 @@ class SahyadriApp {
       this.activeAdminApp = null;
     }
 
-    document.title = 'SAVE THE SAHYADRI 🌿 • Protect Maharashtra\'s Natural Heritage';
+    document.title = 'SAVE THE SAHYADRI • Protect Maharashtra\'s Natural Heritage';
     this.renderWebsiteLayout();
   }
 
