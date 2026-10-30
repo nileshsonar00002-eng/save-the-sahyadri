@@ -87,6 +87,9 @@ assert.ok(appendedOverlay.innerHTML.includes('32,490 TREES AT RISK?'), 'Fullscre
 assert.ok(appendedOverlay.innerHTML.includes('INDIA CONNECTS TO SAVE SAHYADRI.'), 'Fullscreen map must feature INDIA CONNECTS TO SAVE SAHYADRI. headline');
 assert.ok(appendedOverlay.innerHTML.includes('map-headline-left'), 'Line 1 must have map-headline-left class for left entrance');
 assert.ok(appendedOverlay.innerHTML.includes('map-headline-right'), 'Line 2 must have map-headline-right class for right entrance');
+assert.ok(appendedOverlay.innerHTML.includes('SAVE SAHYADRI'), 'Fullscreen map header must display SAVE SAHYADRI');
+assert.ok(!appendedOverlay.innerHTML.includes('MAHARASHTRA & SAHYADRI LIVE MAP'), 'MAHARASHTRA & SAHYADRI LIVE MAP must be removed');
+assert.ok(!appendedOverlay.innerHTML.includes('Karjat & Western Ghats Spine'), 'Karjat & Western Ghats Spine must be removed');
 closeMaharashtraFullView();
 console.log('✓ Fullscreen Map view properly displays the live counter card and campaign headline in the upper black horizon');
 

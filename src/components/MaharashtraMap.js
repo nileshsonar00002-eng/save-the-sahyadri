@@ -733,26 +733,19 @@ export function openMaharashtraFullView(supporters = []) {
     <!-- Top Navigation Header -->
     <header class="h-14 sm:h-16 px-3 sm:px-6 border-b border-emerald-500/20 bg-[#040E07]/95 backdrop-blur-md flex items-center justify-between z-30 shrink-0">
       
-      <!-- Left Brand & Status (Hidden on Mobile, Visible on Desktop sm:flex) -->
-      <div class="hidden sm:flex items-center gap-3">
-        <span class="w-9 h-9 rounded-xl overflow-hidden bg-[#05392e] border border-emerald-500/40 flex items-center justify-center shrink-0 shadow-emerald-glow-sm">
+      <!-- Left Brand: Pure SAVE SAHYADRI next to Logo -->
+      <div class="flex items-center gap-2.5 sm:gap-3">
+        <span class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl overflow-hidden bg-[#05392e] border border-emerald-500/40 flex items-center justify-center shrink-0 shadow-emerald-glow-sm">
           <img src="/images/logo.png" alt="Save the Sahyadri Logo" class="w-full h-full object-cover" />
         </span>
-        <div>
-          <h2 class="font-heading font-black text-sm sm:text-base text-white tracking-tight flex items-center gap-2">
-            <span>MAHARASHTRA & SAHYADRI LIVE MAP</span>
-            <span id="fullview-provider-badge" class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-cyan-500/15 text-cyan-300 border border-cyan-500/30">
-              Satellite View
-            </span>
-          </h2>
-          <p class="text-[11px] text-slate-400 font-mono">
-            Karjat & Western Ghats Spine
-          </p>
-        </div>
+        <span class="font-heading font-black text-sm sm:text-base text-white tracking-tight">
+          SAVE SAHYADRI
+        </span>
+        <span id="fullview-provider-badge" class="hidden"></span>
       </div>
 
       <!-- Header Controls: Pledge & Exit Buttons -->
-      <div class="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2 sm:gap-3">
+      <div class="flex items-center justify-end gap-2 sm:gap-3 shrink-0">
 
         <!-- Pledge Action Button (Always Visible) -->
         <button 
