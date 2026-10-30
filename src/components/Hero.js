@@ -137,11 +137,11 @@ export function renderHero(container, onJoinClick, supportersData = {}) {
             <div class="order-3 lg:order-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-1 w-full sm:w-auto">
               <button 
                 id="hero-primary-cta" 
-                class="btn-nature-cta w-full sm:w-auto px-8 py-3.5 rounded-full font-heading font-extrabold text-base tracking-wide text-black bg-gradient-to-r from-emerald-400 via-emerald-300 to-emerald-400 hover:from-emerald-300 hover:to-emerald-200 shadow-emerald-glow hover:shadow-emerald-glow-lg transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer flex items-center justify-center gap-2.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
+                class="btn-nature-cta w-full sm:w-auto px-8 py-3.5 rounded-full font-heading font-extrabold text-base tracking-wide text-black bg-gradient-to-r from-emerald-400 via-emerald-300 to-emerald-400 hover:from-emerald-300 hover:to-emerald-200 shadow-emerald-glow hover:shadow-emerald-glow-lg transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer flex items-center justify-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
               >
-                <div class="w-5 h-5 rounded-full overflow-hidden bg-[#05392e] border border-black/20 flex items-center justify-center shrink-0 shadow-sm">
-                  <img src="/images/logo.png" alt="Save the Sahyadri Logo" class="w-full h-full object-cover" />
-                </div>
+                <svg class="w-4 h-4 text-black shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 5v14M5 12h14" />
+                </svg>
                 <span>I STAND WITH SAHYADRI</span>
               </button>
             </div>
