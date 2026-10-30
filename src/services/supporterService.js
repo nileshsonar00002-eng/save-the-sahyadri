@@ -22,7 +22,7 @@ import { sanitizeInput, countUniqueCities } from '../utils/sanitize.js';
 
 export { sanitizeInput, countUniqueCities };
 
-const COLLECTION_NAME = 'sahyadri_supporters';
+const COLLECTION_NAME = import.meta.env.VITE_FIREBASE_COLLECTION_NAME || 'savesahyadri_supporters';
 const LOCAL_STORAGE_KEY = 'sahyadri_pledged_data';
 const DEDUP_CACHE_KEY = 'sahyadri_pledge_token';
 const DEVICE_ID_KEY = 'sahyadri_device_id';
