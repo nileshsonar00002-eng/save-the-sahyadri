@@ -60,10 +60,9 @@ export function renderInteractiveMap(container, supporters = [], onJoinClick) {
                 id="map-focus-sahyadri" 
                 class="px-3 py-1.5 rounded-lg bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-500/30 text-emerald-300 font-semibold transition-colors flex items-center gap-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
               >
-                <svg class="w-3.5 h-3.5 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
-                  <path d="m4.14 15 .86-1 2 2 4-4 2 2 3-3 2.14 4" />
-                </svg>
+                <div class="w-4 h-4 rounded-full overflow-hidden bg-[#05392e] border border-emerald-500/40 flex items-center justify-center shrink-0">
+                  <img src="/images/logo.png" alt="" class="w-full h-full object-cover" />
+                </div>
                 <span>Focus Sahyadri & Karjat</span>
               </button>
             </div>
@@ -289,9 +288,9 @@ function initLeafletMap(container, supporters) {
     corridorPolyline.bindPopup(`
       <div class="p-2 space-y-1">
         <h4 class="font-bold text-emerald-400 text-sm flex items-center gap-1.5">
-          <svg class="w-4 h-4 text-emerald-400 inline shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
-          </svg>
+          <div class="w-4 h-4 rounded-full overflow-hidden bg-[#05392e] border border-emerald-500/40 inline-flex items-center justify-center shrink-0">
+            <img src="/images/logo.png" alt="" class="w-full h-full object-cover" />
+          </div>
           <span>Sahyadri Western Ghats Ridge</span>
         </h4>
         <p class="text-xs text-slate-300">Continuous mountainous biodiversity corridor stretching across Maharashtra.</p>

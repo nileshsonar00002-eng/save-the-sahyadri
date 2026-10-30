@@ -38,12 +38,11 @@ export function renderStorySection(container, onJoinClick) {
         </svg>
       `;
     } else {
-      // Lucide Mountain line icon
+      // Official Sahyadri Mountain emblem
       iconSvg = `
-        <svg class="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
-          <path d="m4.14 15 .86-1 2 2 4-4 2 2 3-3 2.14 4" />
-        </svg>
+        <div class="w-4 h-4 sm:w-5 sm:h-5 rounded-full overflow-hidden bg-[#05392e] border border-emerald-500/40 flex items-center justify-center shrink-0 shadow-sm">
+          <img src="/images/logo.png" alt="" class="w-full h-full object-cover" />
+        </div>
       `;
     }
 

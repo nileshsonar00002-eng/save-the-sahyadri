@@ -759,9 +759,9 @@ export function openMaharashtraFullView(supporters = []) {
           id="fullview-join-btn"
           class="btn-nature-cta inline-flex items-center gap-1.5 px-4 sm:px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-400 hover:from-emerald-400 hover:to-emerald-300 text-black font-heading font-extrabold text-xs tracking-wider uppercase shadow-emerald-glow-sm transition-all cursor-pointer active:scale-95"
         >
-          <svg class="w-3.5 h-3.5 text-black shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
-          </svg>
+          <div class="w-4 h-4 rounded-full overflow-hidden bg-[#05392e] border border-black/20 flex items-center justify-center shrink-0 shadow-sm">
+            <img src="/images/logo.png" alt="Save the Sahyadri Logo" class="w-full h-full object-cover" />
+          </div>
           <span>PLEDGE</span>
           <span>→</span>
         </button>

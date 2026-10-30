@@ -139,10 +139,9 @@ export function renderHero(container, onJoinClick, supportersData = {}) {
                 id="hero-primary-cta" 
                 class="btn-nature-cta w-full sm:w-auto px-8 py-3.5 rounded-full font-heading font-extrabold text-base tracking-wide text-black bg-gradient-to-r from-emerald-400 via-emerald-300 to-emerald-400 hover:from-emerald-300 hover:to-emerald-200 shadow-emerald-glow hover:shadow-emerald-glow-lg transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer flex items-center justify-center gap-2.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
               >
-                <svg class="w-4 h-4 text-black shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
-                  <path d="m4.14 15 .86-1 2 2 4-4 2 2 3-3 2.14 4" />
-                </svg>
+                <div class="w-5 h-5 rounded-full overflow-hidden bg-[#05392e] border border-black/20 flex items-center justify-center shrink-0 shadow-sm">
+                  <img src="/images/logo.png" alt="Save the Sahyadri Logo" class="w-full h-full object-cover" />
+                </div>
                 <span>I STAND WITH SAHYADRI</span>
               </button>
             </div>
@@ -220,10 +219,9 @@ export function renderHero(container, onJoinClick, supportersData = {}) {
                     id="hero-map-join-cta"
                     class="hero-map-join-cta btn-nature-cta px-6 sm:px-8 py-2.5 sm:py-3 rounded-full bg-[#09221B]/95 hover:bg-[#0E342A] border-2 border-[#00FF87] hover:border-emerald-300 text-white font-heading font-extrabold text-xs sm:text-sm tracking-wider uppercase shadow-emerald-glow hover:shadow-emerald-glow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 cursor-pointer flex items-center justify-center gap-2 whitespace-nowrap"
                   >
-                    <svg class="w-4 h-4 text-[#00FF87] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
-                      <path d="m4.14 15 .86-1 2 2 4-4 2 2 3-3 2.14 4" />
-                    </svg>
+                    <div class="w-5 h-5 rounded-full overflow-hidden bg-[#05392e] border border-emerald-500/40 flex items-center justify-center shrink-0 shadow-sm">
+                      <img src="/images/logo.png" alt="Save the Sahyadri Logo" class="w-full h-full object-cover" />
+                    </div>
                     <span>JOIN THE MOVEMENT</span>
                   </button>
                 </div>
@@ -236,10 +234,9 @@ export function renderHero(container, onJoinClick, supportersData = {}) {
                   id="hero-map-join-cta-mobile"
                   class="hero-map-join-cta btn-nature-cta w-full min-h-[44px] py-3 rounded-xl bg-[#09221B]/95 hover:bg-[#0E342A] border-2 border-[#00FF87] hover:border-emerald-300 text-white font-heading font-extrabold text-xs tracking-wider uppercase shadow-emerald-glow hover:shadow-emerald-glow-lg transition-all duration-300 active:scale-[0.98] cursor-pointer flex items-center justify-center gap-2"
                 >
-                  <svg class="w-4 h-4 text-[#00FF87] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
-                    <path d="m4.14 15 .86-1 2 2 4-4 2 2 3-3 2.14 4" />
-                  </svg>
+                  <div class="w-4 h-4 rounded-full overflow-hidden bg-[#05392e] border border-emerald-500/40 flex items-center justify-center shrink-0 shadow-sm">
+                    <img src="/images/logo.png" alt="Save the Sahyadri Logo" class="w-full h-full object-cover" />
+                  </div>
                   <span>JOIN THE MOVEMENT</span>
                 </button>
               </div>
