@@ -1,3 +1,4 @@
+import fs from 'node:fs';
 // Component Smoke Test Suite
 
 import assert from 'node:assert/strict';
@@ -242,5 +243,11 @@ assert.ok(!appendedOverlay.innerHTML.includes('fast-preview-num'), 'Photo corner
 assert.ok(!appendedOverlay.innerHTML.includes('PHOTO <span'), 'PHOTO badge must be removed');
 closeFastPreviewModal();
 console.log('✓ Fast Preview Modal (32,490 TREES AT RISK) verified with sharp corners (rounded-none), no gradient, and solid green RISK');
+
+// 11. Share Link Meta Verification (No photo with share link)
+const indexHtmlContent = fs.readFileSync('index.html', 'utf8');
+assert.ok(!indexHtmlContent.includes('og:image'), 'Must have no photo (og:image) with share link');
+assert.ok(!indexHtmlContent.includes('twitter:image'), 'Must have no photo (twitter:image) with share link');
+console.log('✓ Share link verified with no attached photo');
 
 console.log('\n🎉 ALL COMPONENT SMOKE TESTS PASSED!');
