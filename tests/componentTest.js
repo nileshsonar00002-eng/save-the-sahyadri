@@ -11,6 +11,7 @@ import { renderStorySection } from '../src/components/StorySection.js';
 import { renderHowItWorks } from '../src/components/HowItWorks.js';
 import { renderFooter, updateFooterVisitorCount } from '../src/components/Footer.js';
 import { openPrivacyModal, closeInfoModal } from '../src/components/InfoModals.js';
+import { openFastPreviewModal, closeFastPreviewModal, AT_RISK_IMAGES } from '../src/components/FastPreviewModal.js';
 
 // Mock minimal DOM element
 function createMockElement(id = 'container') {
@@ -220,5 +221,16 @@ assert.ok(!appendedOverlay.innerHTML.includes('Removal Request'), 'Privacy Polic
 assert.ok(appendedOverlay.innerHTML.includes('inforoadtok@gmail.com'), 'Privacy Policy must have support email');
 closeInfoModal();
 console.log('✓ Privacy Policy modal rendered and verified with all 6 policy sections');
+
+// 10. Fast Preview Modal (32,490 TREES AT RISK)
+assert.strictEqual(AT_RISK_IMAGES.length, 12, 'Must have exactly 12 photos');
+openFastPreviewModal();
+assert.ok(appendedOverlay, 'Fast preview modal must be mounted');
+assert.ok(appendedOverlay.innerHTML.includes('32,490 TREES'), 'Modal must contain 32,490 TREES heading');
+assert.ok(appendedOverlay.innerHTML.includes('AT RISK'), 'Modal must contain AT RISK heading');
+assert.ok(appendedOverlay.innerHTML.includes('aspect-square'), 'Modal must use square mode');
+assert.ok(appendedOverlay.innerHTML.includes('10s'), 'Modal must indicate 10-second fast preview');
+closeFastPreviewModal();
+console.log('✓ Fast Preview Modal (32,490 TREES AT RISK) verified with 12 square photos and 10s auto-finish');
 
 console.log('\n🎉 ALL COMPONENT SMOKE TESTS PASSED!');

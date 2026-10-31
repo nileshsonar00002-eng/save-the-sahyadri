@@ -9,6 +9,7 @@ import { renderStorySection } from './components/StorySection';
 import { renderFooter, updateFooterVisitorCount } from './components/Footer';
 import { openJoinModal } from './components/JoinModal';
 import { openShareCardModal } from './components/ShareCardModal';
+import { openFastPreviewModal, preloadAtRiskImages } from './components/FastPreviewModal';
 import { subscribeToSupporters } from './services/supporterService';
 import { trackVisitor, subscribeToVisitorCount } from './services/visitorService';
 import { initNatureAnimations } from './utils/natureAnimations';
@@ -122,6 +123,7 @@ class SahyadriApp {
     window.__sahyadriOpenNewsSection = openNewsSection;
     window.__sahyadriCloseNewsSection = closeNewsSection;
     window.__sahyadriToggleNewsSection = toggleNewsSection;
+    window.__sahyadriOpenFastPreview = () => openFastPreviewModal(handleOpenJoin);
 
     // Render static and initial components
     renderHeader(mounts.header, handleOpenJoin);
@@ -133,6 +135,12 @@ class SahyadriApp {
 
     // Initialize subtle nature animations & scroll reveals
     initNatureAnimations();
+
+    // Preload at-risk ground evidence photos & show 10-second fast square preview on arrival
+    preloadAtRiskImages();
+    setTimeout(() => {
+      openFastPreviewModal(handleOpenJoin);
+    }, 600);
 
     // Track unique session visitor in Firebase Firestore
     trackVisitor();
