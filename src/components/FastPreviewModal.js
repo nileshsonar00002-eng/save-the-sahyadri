@@ -92,8 +92,8 @@ export function openFastPreviewModal(onPledgeClick) {
 
   // Generate 12 top story-segment progress bars
   const storyBarsHtml = AT_RISK_IMAGES.map((_, i) => `
-    <div class="flex-1 h-1 sm:h-1.5 rounded-full bg-white/20 overflow-hidden">
-      <div id="fast-bar-${i}" class="h-full bg-gradient-to-r from-emerald-400 to-[#00FF87] transition-all duration-300" style="width: ${i === 0 ? '100%' : '0%'}"></div>
+    <div class="flex-1 h-1 sm:h-1.5 rounded-none bg-white/20 overflow-hidden">
+      <div id="fast-bar-${i}" class="h-full bg-emerald-400 transition-all duration-300" style="width: ${i === 0 ? '100%' : '0%'}"></div>
     </div>
   `).join('');
 
@@ -101,8 +101,8 @@ export function openFastPreviewModal(onPledgeClick) {
     <!-- Dark Backdrop -->
     <div id="fast-preview-backdrop" class="fixed inset-0 bg-black/90 backdrop-blur-md transition-opacity"></div>
 
-    <!-- Modal Card (Square Format Focus) -->
-    <div class="relative w-full max-w-[360px] sm:max-w-[420px] rounded-2xl sm:rounded-3xl bg-[#05130A] border border-emerald-500/35 shadow-2xl shadow-emerald-950/60 p-3.5 sm:p-5 z-10 flex flex-col items-center text-center overflow-hidden">
+    <!-- Modal Card (Sharp Corners, No Curve) -->
+    <div class="relative w-full max-w-[360px] sm:max-w-[420px] rounded-none bg-[#05130A] border border-emerald-500/35 shadow-2xl shadow-emerald-950/60 p-3.5 sm:p-5 z-10 flex flex-col items-center text-center overflow-hidden">
       
       <!-- Top Story-Style Segment Bars (10s overall tracking) -->
       <div class="w-full flex items-center gap-1 sm:gap-1.5 mb-2 sm:mb-2.5">
@@ -115,24 +115,24 @@ export function openFastPreviewModal(onPledgeClick) {
           id="fast-preview-close-btn"
           aria-label="Close fast preview" 
           title="Close (Esc)"
-          class="w-7 h-7 rounded-full bg-emerald-950/90 hover:bg-emerald-900 border border-emerald-500/40 text-slate-300 hover:text-white flex items-center justify-center text-xs font-bold transition-all cursor-pointer shadow-sm active:scale-95"
+          class="w-7 h-7 rounded-none bg-emerald-950/90 hover:bg-emerald-900 border border-emerald-500/40 text-slate-300 hover:text-white flex items-center justify-center text-xs font-bold transition-all cursor-pointer shadow-sm active:scale-95"
         >
           ✕
         </button>
       </div>
 
-      <!-- Main Heading: 32,490 TREES AT RISK -->
+      <!-- Main Heading: 32,490 TREES AT RISK (No gradient, only RISK in solid green) -->
       <div class="mb-2 sm:mb-2.5">
         <h2 class="font-heading font-black text-xl sm:text-2xl text-white tracking-tight uppercase leading-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
-          32,490 TREES <span class="text-gradient-emerald">AT RISK</span>
+          32,490 TREES AT <span class="text-[#00FF87]">RISK</span>
         </h2>
         <p class="text-[11px] sm:text-xs text-slate-400 font-mono mt-0.5">
           Karjat Biodiversity Corridor • Western Ghats
         </p>
       </div>
 
-      <!-- SQUARE PHOTO CONTAINER (1:1 Aspect Ratio) -->
-      <div class="relative w-full aspect-square rounded-xl sm:rounded-2xl overflow-hidden bg-black/90 border border-emerald-500/30 shadow-inner flex items-center justify-center my-1 group">
+      <!-- SQUARE PHOTO CONTAINER (1:1 Aspect Ratio, Sharp Corners) -->
+      <div class="relative w-full aspect-square rounded-none overflow-hidden bg-black/90 border border-emerald-500/30 shadow-inner flex items-center justify-center my-1 group">
         
         <!-- Ambient Blurred Background of current photo -->
         <img 
@@ -150,8 +150,8 @@ export function openFastPreviewModal(onPledgeClick) {
           class="relative z-10 w-full h-full object-cover select-none transition-opacity duration-200"
         />
 
-        <!-- Floating Image Counter Badge (Top Left inside Square) -->
-        <div class="absolute top-2.5 left-2.5 z-20 px-2 py-0.5 rounded-md bg-black/75 backdrop-blur-md border border-emerald-500/35 text-[10px] sm:text-[11px] font-mono text-emerald-300 font-bold">
+        <!-- Floating Image Counter Badge (Top Left inside Square, Sharp Corners) -->
+        <div class="absolute top-2.5 left-2.5 z-20 px-2 py-0.5 rounded-none bg-black/75 backdrop-blur-md border border-emerald-500/35 text-[10px] sm:text-[11px] font-mono text-emerald-300 font-bold">
           PHOTO <span id="fast-preview-num" class="text-white font-extrabold">1</span> / ${totalImages}
         </div>
 
@@ -164,18 +164,18 @@ export function openFastPreviewModal(onPledgeClick) {
         </div>
       </div>
 
-      <!-- Bottom Actions -->
+      <!-- Bottom Actions (Sharp Corners) -->
       <div class="w-full mt-3 flex items-center justify-between gap-2.5">
         <button 
           id="fast-preview-skip-btn"
-          class="px-3.5 py-1.5 rounded-xl bg-emerald-950/70 hover:bg-emerald-900 border border-emerald-500/25 text-slate-400 hover:text-slate-200 text-xs font-mono transition-all cursor-pointer"
+          class="px-3.5 py-1.5 rounded-none bg-emerald-950/70 hover:bg-emerald-900 border border-emerald-500/25 text-slate-400 hover:text-slate-200 text-xs font-mono transition-all cursor-pointer"
         >
           Skip (Esc)
         </button>
 
         <button 
           id="fast-preview-pledge-btn"
-          class="btn-nature-cta flex-1 inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-400 hover:from-emerald-400 hover:to-emerald-300 text-black font-heading font-extrabold text-xs tracking-wider uppercase shadow-emerald-glow-sm transition-all cursor-pointer active:scale-95"
+          class="btn-nature-cta flex-1 inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-none bg-gradient-to-r from-emerald-500 to-emerald-400 hover:from-emerald-400 hover:to-emerald-300 text-black font-heading font-extrabold text-xs tracking-wider uppercase shadow-emerald-glow-sm transition-all cursor-pointer active:scale-95"
         >
           <span>I STAND WITH SAHYADRI</span>
           <span>→</span>

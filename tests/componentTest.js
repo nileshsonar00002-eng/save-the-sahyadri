@@ -226,13 +226,18 @@ console.log('✓ Privacy Policy modal rendered and verified with all 6 policy se
 assert.strictEqual(AT_RISK_IMAGES.length, 12, 'Must have exactly 12 photos');
 openFastPreviewModal();
 assert.ok(appendedOverlay, 'Fast preview modal must be mounted');
-assert.ok(appendedOverlay.innerHTML.includes('32,490 TREES'), 'Modal must contain 32,490 TREES heading');
-assert.ok(appendedOverlay.innerHTML.includes('AT RISK'), 'Modal must contain AT RISK heading');
+assert.ok(appendedOverlay.innerHTML.includes('32,490 TREES AT'), 'Modal must contain 32,490 TREES AT in heading');
+assert.ok(appendedOverlay.innerHTML.includes('>RISK</span>'), 'Only the word RISK must be wrapped in green span');
+assert.ok(appendedOverlay.innerHTML.includes('text-[#00FF87]'), 'Word RISK must be styled with pure green #00FF87');
+assert.ok(!appendedOverlay.innerHTML.includes('text-gradient-emerald'), 'Heading in fast preview must not use color gradient');
+assert.ok(appendedOverlay.innerHTML.includes('rounded-none'), 'Modal frame must have sharp corners with rounded-none');
+assert.ok(!appendedOverlay.innerHTML.includes('rounded-2xl'), 'Modal frame must not have rounded-2xl curves');
+assert.ok(!appendedOverlay.innerHTML.includes('rounded-3xl'), 'Modal frame must not have rounded-3xl curves');
 assert.ok(appendedOverlay.innerHTML.includes('aspect-square'), 'Modal must use square mode');
 assert.ok(!appendedOverlay.innerHTML.includes('CLOSING IN'), 'CLOSING IN label must be removed');
 assert.ok(!appendedOverlay.innerHTML.includes('GROUND EVIDENCE'), 'GROUND EVIDENCE label must be removed');
 assert.ok(!appendedOverlay.innerHTML.includes('10S FAST VIEW'), '10S FAST VIEW badge must be removed');
 closeFastPreviewModal();
-console.log('✓ Fast Preview Modal (32,490 TREES AT RISK) verified with clean frame (removed closing in, ground evidence, 10s fast view)');
+console.log('✓ Fast Preview Modal (32,490 TREES AT RISK) verified with sharp corners (rounded-none), no gradient, and solid green RISK');
 
 console.log('\n🎉 ALL COMPONENT SMOKE TESTS PASSED!');
