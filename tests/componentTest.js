@@ -194,6 +194,7 @@ assert.ok(!footerEl.innerHTML.includes('Terms of Use'), 'Footer must not have Te
 assert.ok(!footerEl.innerHTML.includes('Sources & Corrections'), 'Footer must not have Sources link');
 assert.ok(!footerEl.innerHTML.includes('Moderation Portal'), 'Footer must not have Moderation portal link');
 assert.ok(!footerEl.innerHTML.includes('Data Correction / Removal'), 'Footer must not have Data Removal link');
+assert.ok(!footerEl.innerHTML.includes('News & Sources'), 'Footer must not have News & Sources link');
 
 // Test updateFooterVisitorCount with mock elements
 const mockDesktop = { textContent: '' };

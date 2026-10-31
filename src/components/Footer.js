@@ -52,7 +52,6 @@ export function renderFooter(container, onJoinClick) {
               <li><a href="#hero" class="hover:text-emerald-300 transition-colors">Home Overview</a></li>
               <li><a href="#issue" id="footer-issue-link" class="hover:text-emerald-300 transition-colors cursor-pointer">The Issue in Karjat</a></li>
               <li><a href="#story" class="hover:text-emerald-300 transition-colors">Why Sahyadri Matters</a></li>
-              <li><a href="#news" id="footer-news-link" class="hover:text-emerald-300 transition-colors cursor-pointer">News & Sources</a></li>
             </ul>
           </div>
 
@@ -114,7 +113,6 @@ export function renderFooter(container, onJoinClick) {
 
   // Wire footer links to open news section if clicked
   const footerIssueLink = container.querySelector('#footer-issue-link');
-  const footerNewsLink = container.querySelector('#footer-news-link');
   const handleFooterNewsClick = (e) => {
     e.preventDefault();
     if (window.__sahyadriOpenNewsSection) {
@@ -122,7 +120,6 @@ export function renderFooter(container, onJoinClick) {
     }
   };
   if (footerIssueLink) footerIssueLink.addEventListener('click', handleFooterNewsClick);
-  if (footerNewsLink) footerNewsLink.addEventListener('click', handleFooterNewsClick);
 }
 
 /**
