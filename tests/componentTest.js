@@ -142,6 +142,7 @@ assert.ok(issueEl.innerHTML.includes('WHAT WE PROTECT TODAY, TOMORROW WILL INHER
 assert.ok(issueEl.innerHTML.includes('Reported figure. The current on-ground status and the age of affected trees require independent confirmation.'), 'Must contain factual disclaimer');
 assert.ok(!issueEl.innerHTML.includes('STAGE 01'), 'Technical stage cards must be completely removed');
 assert.ok(!issueEl.innerHTML.includes('FELLING STATUS'), 'Felling status card must be completely removed');
+assert.ok(!issueEl.innerHTML.includes('issue-fast-preview-btn'), '10s fast preview button under 32,490 trees headline must be removed');
 console.log('✓ Issue & Fact Card component rendered properly with emotional tree-age editorial layout');
 
 // 6. Story Section

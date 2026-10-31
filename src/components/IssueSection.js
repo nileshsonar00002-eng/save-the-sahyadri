@@ -21,15 +21,6 @@ export function renderIssueSection(container) {
             A reported 32,490 trees were authorised for removal for the Saidongar-I Karjat pumped-storage project.
           </p>
 
-          <div class="pt-1">
-            <button 
-              id="issue-fast-preview-btn" 
-              class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-emerald-950/70 hover:bg-emerald-900 border border-emerald-500/35 text-[11px] font-mono text-emerald-300 hover:text-white transition-all cursor-pointer shadow-sm active:scale-95"
-            >
-              <span class="w-2 h-2 rounded-full bg-red-400 animate-pulse"></span>
-              <span>⚡ 10s Fast Evidence Preview (12 Photos)</span>
-            </button>
-          </div>
         </div>
 
         <!-- Cohesive Editorial-Style Panel -->
@@ -121,14 +112,6 @@ export function renderIssueSection(container) {
     </section>
   `;
 
-  const fastPreviewBtn = container.querySelector('#issue-fast-preview-btn');
-  if (fastPreviewBtn) {
-    fastPreviewBtn.addEventListener('click', () => {
-      if (window.__sahyadriOpenFastPreview) {
-        window.__sahyadriOpenFastPreview();
-      }
-    });
-  }
 }
 
 export function openNewsSection() {
