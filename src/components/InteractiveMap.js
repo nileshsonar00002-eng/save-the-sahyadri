@@ -423,28 +423,10 @@ function plotCityMarkers(L, supporters) {
 
     const marker = L.marker([group.lat, group.lng], { icon: markerIcon });
     
-    // Popup content with sanitized display names
-    const namesList = group.members.slice(0, 5).map(m => `<li>• ${escapeHtml(m.displayName)}</li>`).join('');
-    const extraCount = count > 5 ? `<div class="text-[10px] text-emerald-400 font-semibold pt-1">+ ${count - 5} more citizens</div>` : '';
-
+    // Popup content - strictly only city name
     marker.bindPopup(`
-      <div class="p-2 space-y-2 min-w-[180px]">
-        <div class="border-b border-emerald-500/20 pb-1">
-          <h4 class="font-bold text-white text-sm">${escapeHtml(group.cityName)}</h4>
-          <p class="text-[11px] text-slate-400">${escapeHtml(group.stateName || 'India')}</p>
-        </div>
-        <div>
-          <div class="text-xs font-semibold text-emerald-300 mb-1">
-            ${count} Confirmed Supporter${count > 1 ? 's' : ''}
-          </div>
-          <ul class="text-[11px] text-slate-300 space-y-0.5">
-            ${namesList}
-          </ul>
-          ${extraCount}
-        </div>
-        <div class="text-[10px] text-slate-500 pt-1 border-t border-emerald-500/15">
-          Connected to Sahyadri Movement
-        </div>
+      <div class="p-1 min-w-[120px]">
+        <h4 class="font-bold text-white text-sm leading-tight">${escapeHtml(group.cityName)}</h4>
       </div>
     `);
 

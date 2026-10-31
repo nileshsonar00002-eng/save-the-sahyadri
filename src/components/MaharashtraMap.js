@@ -322,51 +322,17 @@ function showReportDetailsCard(container, city, strokeColor) {
   const existing = container.querySelector('.sahyadri-report-details-card');
   if (existing) existing.remove();
 
-  const count = city.count || 1;
   const isBlue = strokeColor === '#00E5FF';
 
-  let supportersHtml = '';
-  if (Array.isArray(city.supporters) && city.supporters.length > 0) {
-    const items = city.supporters.slice(0, 4).map(s => `<li class="truncate">• ${escapeHtml(s.displayName || 'Verified Citizen')}</li>`).join('');
-    const extra = city.supporters.length > 4 ? `<div class="text-[10px] text-emerald-400 font-mono pt-0.5">+ ${city.supporters.length - 4} more citizens</div>` : '';
-    supportersHtml = `
-      <div class="border-t border-emerald-500/15 pt-2 mt-2">
-        <div class="text-[10px] uppercase tracking-wider text-slate-400 mb-1 font-bold">Recent Pledges:</div>
-        <ul class="text-[11px] text-slate-300 space-y-0.5">${items}</ul>
-        ${extra}
-      </div>
-    `;
-  }
-
   const card = document.createElement('div');
-  card.className = 'sahyadri-report-details-card absolute bottom-4 left-4 right-4 sm:left-auto sm:right-4 sm:w-72 bg-[#04120A]/95 backdrop-blur-xl border border-emerald-500/35 rounded-2xl p-3.5 shadow-2xl z-30 text-white animate-fadeIn select-none';
+  card.className = 'sahyadri-report-details-card absolute bottom-4 left-4 right-4 sm:left-auto sm:right-4 sm:w-auto sm:min-w-[150px] max-w-[260px] bg-[#04120A]/95 backdrop-blur-xl border border-emerald-500/35 rounded-2xl px-3.5 py-2.5 shadow-2xl z-30 text-white animate-fadeIn select-none';
   card.innerHTML = `
-    <div class="flex items-start justify-between gap-2 border-b border-emerald-500/20 pb-2">
-      <div class="flex items-center gap-2">
-        <div class="w-2.5 h-2.5 rounded-full ${isBlue ? 'bg-cyan-400 shadow-[0_0_8px_#00E5FF]' : 'bg-emerald-400 shadow-[0_0_8px_#00FF87]'} animate-pulse"></div>
-        <div>
-          <h4 class="font-bold text-sm text-white leading-tight">${escapeHtml(city.name)}</h4>
-          <span class="text-[10px] text-slate-400 font-mono">${escapeHtml(city.state || 'India')}</span>
-        </div>
+    <div class="flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2 min-w-0">
+        <div class="w-2.5 h-2.5 rounded-full ${isBlue ? 'bg-cyan-400 shadow-[0_0_8px_#00E5FF]' : 'bg-emerald-400 shadow-[0_0_8px_#00FF87]'} animate-pulse shrink-0"></div>
+        <h4 class="font-bold text-sm text-white leading-tight truncate">${escapeHtml(city.name)}</h4>
       </div>
-      <button class="report-card-close text-slate-400 hover:text-white p-1 rounded-lg hover:bg-emerald-950/60 transition-colors cursor-pointer text-xs font-bold leading-none" title="Close" aria-label="Close report details">✕</button>
-    </div>
-    <div class="py-2 space-y-1">
-      <div class="flex items-center justify-between text-xs">
-        <span class="text-slate-400">Citizen Reports:</span>
-        <span class="font-bold ${isBlue ? 'text-cyan-300' : 'text-emerald-400'} font-mono">${count.toLocaleString('en-IN')}</span>
-      </div>
-      <div class="flex items-center justify-between text-xs">
-        <span class="text-slate-400">Node Status:</span>
-        <span class="inline-flex items-center gap-1 text-[10px] text-emerald-400 font-semibold uppercase tracking-wider font-mono">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Connected
-        </span>
-      </div>
-      ${supportersHtml}
-    </div>
-    <div class="pt-2 border-t border-emerald-500/15 flex items-center justify-between text-[10px] text-slate-500 font-mono">
-      <span>Connected to Sahyadri Hub</span>
-      <span class="text-emerald-400/90 font-semibold">18.9183° N</span>
+      <button class="report-card-close text-slate-400 hover:text-white p-1 rounded-lg hover:bg-emerald-950/60 transition-colors cursor-pointer text-xs font-bold leading-none shrink-0" title="Close" aria-label="Close report details">✕</button>
     </div>
   `;
 
