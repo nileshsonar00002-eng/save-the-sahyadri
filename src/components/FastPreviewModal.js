@@ -105,22 +105,12 @@ export function openFastPreviewModal(onPledgeClick) {
     <div class="relative w-full max-w-[360px] sm:max-w-[420px] rounded-2xl sm:rounded-3xl bg-[#05130A] border border-emerald-500/35 shadow-2xl shadow-emerald-950/60 p-3.5 sm:p-5 z-10 flex flex-col items-center text-center overflow-hidden">
       
       <!-- Top Story-Style Segment Bars (10s overall tracking) -->
-      <div class="w-full flex items-center gap-1 sm:gap-1.5 mb-2.5 sm:mb-3">
+      <div class="w-full flex items-center gap-1 sm:gap-1.5 mb-2 sm:mb-2.5">
         ${storyBarsHtml}
       </div>
 
-      <!-- Top Header & Timer Row -->
-      <div class="w-full flex items-center justify-between gap-2 mb-2">
-        <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-red-950/70 border border-red-500/40 text-[10px] sm:text-[11px] font-mono text-red-400 font-bold uppercase tracking-wider">
-          <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
-          <span>GROUND EVIDENCE</span>
-        </div>
-
-        <div class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-950/80 border border-emerald-500/30 text-[10px] sm:text-[11px] font-mono text-emerald-400 font-semibold">
-          <span>CLOSING IN</span>
-          <strong id="fast-preview-countdown" class="font-bold text-white text-xs">10s</strong>
-        </div>
-
+      <!-- Top Action Row (Clean Close Button) -->
+      <div class="w-full flex items-center justify-end mb-1">
         <button 
           id="fast-preview-close-btn"
           aria-label="Close fast preview" 
@@ -163,11 +153,6 @@ export function openFastPreviewModal(onPledgeClick) {
         <!-- Floating Image Counter Badge (Top Left inside Square) -->
         <div class="absolute top-2.5 left-2.5 z-20 px-2 py-0.5 rounded-md bg-black/75 backdrop-blur-md border border-emerald-500/35 text-[10px] sm:text-[11px] font-mono text-emerald-300 font-bold">
           PHOTO <span id="fast-preview-num" class="text-white font-extrabold">1</span> / ${totalImages}
-        </div>
-
-        <!-- Rapid 10s Badge (Top Right inside Square) -->
-        <div class="absolute top-2.5 right-2.5 z-20 px-2 py-0.5 rounded-md bg-black/75 backdrop-blur-md border border-emerald-500/35 text-[9px] font-mono text-slate-300 uppercase">
-          10S FAST VIEW
         </div>
 
         <!-- Bottom Description Bar inside Square -->

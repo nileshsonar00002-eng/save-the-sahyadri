@@ -229,8 +229,10 @@ assert.ok(appendedOverlay, 'Fast preview modal must be mounted');
 assert.ok(appendedOverlay.innerHTML.includes('32,490 TREES'), 'Modal must contain 32,490 TREES heading');
 assert.ok(appendedOverlay.innerHTML.includes('AT RISK'), 'Modal must contain AT RISK heading');
 assert.ok(appendedOverlay.innerHTML.includes('aspect-square'), 'Modal must use square mode');
-assert.ok(appendedOverlay.innerHTML.includes('10s'), 'Modal must indicate 10-second fast preview');
+assert.ok(!appendedOverlay.innerHTML.includes('CLOSING IN'), 'CLOSING IN label must be removed');
+assert.ok(!appendedOverlay.innerHTML.includes('GROUND EVIDENCE'), 'GROUND EVIDENCE label must be removed');
+assert.ok(!appendedOverlay.innerHTML.includes('10S FAST VIEW'), '10S FAST VIEW badge must be removed');
 closeFastPreviewModal();
-console.log('✓ Fast Preview Modal (32,490 TREES AT RISK) verified with 12 square photos and 10s auto-finish');
+console.log('✓ Fast Preview Modal (32,490 TREES AT RISK) verified with clean frame (removed closing in, ground evidence, 10s fast view)');
 
 console.log('\n🎉 ALL COMPONENT SMOKE TESTS PASSED!');
