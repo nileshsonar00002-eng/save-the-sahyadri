@@ -237,6 +237,8 @@ assert.ok(appendedOverlay.innerHTML.includes('aspect-square'), 'Modal must use s
 assert.ok(!appendedOverlay.innerHTML.includes('CLOSING IN'), 'CLOSING IN label must be removed');
 assert.ok(!appendedOverlay.innerHTML.includes('GROUND EVIDENCE'), 'GROUND EVIDENCE label must be removed');
 assert.ok(!appendedOverlay.innerHTML.includes('10S FAST VIEW'), '10S FAST VIEW badge must be removed');
+assert.ok(!appendedOverlay.innerHTML.includes('fast-preview-num'), 'Photo corner number counter (PHOTO 9 / 12) must be removed');
+assert.ok(!appendedOverlay.innerHTML.includes('PHOTO <span'), 'PHOTO badge must be removed');
 closeFastPreviewModal();
 console.log('✓ Fast Preview Modal (32,490 TREES AT RISK) verified with sharp corners (rounded-none), no gradient, and solid green RISK');
 

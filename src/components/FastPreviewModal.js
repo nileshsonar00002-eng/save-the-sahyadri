@@ -150,10 +150,6 @@ export function openFastPreviewModal(onPledgeClick) {
           class="relative z-10 w-full h-full object-cover select-none transition-opacity duration-200"
         />
 
-        <!-- Floating Image Counter Badge (Top Left inside Square, Sharp Corners) -->
-        <div class="absolute top-2.5 left-2.5 z-20 px-2 py-0.5 rounded-none bg-black/75 backdrop-blur-md border border-emerald-500/35 text-[10px] sm:text-[11px] font-mono text-emerald-300 font-bold">
-          PHOTO <span id="fast-preview-num" class="text-white font-extrabold">1</span> / ${totalImages}
-        </div>
 
         <!-- Bottom Description Bar inside Square -->
         <div class="absolute bottom-0 inset-x-0 p-2.5 sm:p-3 bg-gradient-to-t from-black/95 via-black/70 to-transparent z-20 text-left">
