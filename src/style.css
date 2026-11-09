@@ -7,6 +7,7 @@
 }
 
 html {
+  overflow-x: clip;
   scroll-behavior: smooth;
 }
 
@@ -355,7 +356,7 @@ html {
   background: linear-gradient(135deg, rgba(254, 240, 138, 0.045) 0%, rgba(52, 211, 153, 0.035) 35%, transparent 70%);
   mix-blend-mode: screen;
   animation: sunShimmer 14s ease-in-out infinite alternate;
-  will-change: opacity, transform;
+  /* GPU-composited automatically without forcing persistent extra VRAM layers */
 }
 
 @keyframes sunShimmer {
@@ -461,7 +462,7 @@ html {
   transform: translateY(16px);
   transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
               transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
+  /* GPU-composited automatically without forcing persistent extra VRAM layers */
 }
 
 .reveal-on-scroll.is-revealed {

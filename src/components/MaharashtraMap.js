@@ -181,8 +181,23 @@ export const DARK_FOREST_MAP_STYLES = [
 let googleMapsScriptPromise = null;
 let heroGMapInstance = null;
 let heroAnimInterval = null;
+let heroMapObserver = null;
+let heroResizeListener = null;
+let heroScrollTouchPauseCleanup = null;
 let heroPolylines = [];
 let heroMarkers = [];
+
+/**
+ * Determine Google Maps gestureHandling so mobile/touch users can scroll
+ * vertically over the embedded hero map with one finger while desktop &
+ * fullscreen map interactions remain unchanged.
+ */
+export function getHeroMapGestureHandling() {
+  if (typeof window === 'undefined') return 'greedy';
+  const isCoarsePointer = typeof window.matchMedia === 'function' && window.matchMedia('(pointer: coarse)').matches;
+  const isMobileOrTabletWidth = typeof window.innerWidth === 'number' && window.innerWidth < 1024;
+  return (isCoarsePointer || isMobileOrTabletWidth) ? 'cooperative' : 'greedy';
+}
 
 /**
  * Load Google Maps JavaScript API dynamically
@@ -470,15 +485,29 @@ export function renderHeroMaharashtraMap(container, supporters = [], onFullViewC
       // Prevent native context menu & browser image magnification gesture triggers on map
       gmapDiv.addEventListener('contextmenu', (e) => e.preventDefault(), { capture: true });
 
-      // Clear any previous interval and polylines
+      // Clear any previous interval, observers, listeners, and polylines
       if (heroAnimInterval) {
         clearInterval(heroAnimInterval);
         heroAnimInterval = null;
+      }
+      if (heroMapObserver) {
+        try { heroMapObserver.disconnect(); } catch (_) {}
+        heroMapObserver = null;
+      }
+      if (heroResizeListener) {
+        window.removeEventListener('resize', heroResizeListener);
+        heroResizeListener = null;
+      }
+      if (heroScrollTouchPauseCleanup) {
+        try { heroScrollTouchPauseCleanup(); } catch (_) {}
+        heroScrollTouchPauseCleanup = null;
       }
       heroPolylines.forEach(p => p.setMap(null));
       heroMarkers.forEach(m => m.setMap(null));
       heroPolylines = [];
       heroMarkers = [];
+
+      const initialGestureMode = getHeroMapGestureHandling();
 
       // Create Google Map Instance with Authentic Natural Satellite View (Zero commercial POIs/shops/resorts)
       heroGMapInstance = new maps.Map(gmapDiv, {
@@ -495,12 +524,26 @@ export function renderHeroMaharashtraMap(container, supporters = [], onFullViewC
         fullscreenControl: false,
         rotateControl: true,
         clickableIcons: false, // Strictly prevents all POI place preview popups
-        gestureHandling: 'greedy', // Prevents "Use ctrl + scroll" overlay preview box
-        scrollwheel: true,
+        gestureHandling: initialGestureMode, // Allows smooth 1-finger vertical page scroll on mobile while preventing desktop scroll trap
+        scrollwheel: initialGestureMode === 'greedy',
         tilt: 45, // 3D Camera tilt
         heading: 20, // 3D Camera azimuth
         backgroundColor: '#07130C'
       });
+
+      let currentGestureMode = initialGestureMode;
+      heroResizeListener = () => {
+        if (!heroGMapInstance) return;
+        const nextMode = getHeroMapGestureHandling();
+        if (nextMode !== currentGestureMode) {
+          currentGestureMode = nextMode;
+          heroGMapInstance.setOptions({
+            gestureHandling: nextMode,
+            scrollwheel: nextMode === 'greedy'
+          });
+        }
+      };
+      window.addEventListener('resize', heroResizeListener, { passive: true });
 
       // Sahyadri / Karjat Target Coordinate (Focal Tree Hub)
       const karjatPos = { lat: 18.9183, lng: 73.4370 };
@@ -641,18 +684,72 @@ export function renderHeroMaharashtraMap(container, supporters = [], onFullViewC
       });
 
       // Animate Traveling Light Pulses along the curves
-      let animTick = 0;
+      // Pause animation when Hero map is off-screen, hidden, covered by fullscreen overlay,
+      // or during active touch scrolling so mobile page scrolling remains completely stutter-free.
+      let isHeroVisible = true;
+      let lastScrollOrTouchAt = 0;
+
+      if (typeof IntersectionObserver !== 'undefined') {
+        heroMapObserver = new IntersectionObserver(
+          (entries) => {
+            if (entries[0]) {
+              isHeroVisible = entries[0].isIntersecting;
+            }
+          },
+          { threshold: 0.01 }
+        );
+        heroMapObserver.observe(gmapDiv);
+      }
+
+      const markUserScrolling = () => {
+        lastScrollOrTouchAt = Date.now();
+      };
+      window.addEventListener('scroll', markUserScrolling, { passive: true });
+      window.addEventListener('touchstart', markUserScrolling, { passive: true });
+      window.addEventListener('touchmove', markUserScrolling, { passive: true });
+      heroScrollTouchPauseCleanup = () => {
+        window.removeEventListener('scroll', markUserScrolling);
+        window.removeEventListener('touchstart', markUserScrolling);
+        window.removeEventListener('touchmove', markUserScrolling);
+      };
+
+      const isMobilePace = getHeroMapGestureHandling() === 'cooperative';
+      const tickMs = isMobilePace ? 60 : 35;
+      const tickStep = isMobilePace ? (1.4 * (60 / 35)) : 1.4;
+      let animProgress = 0;
+
       heroAnimInterval = setInterval(() => {
-        animTick = (animTick + 1) % 100;
+        if (gmapDiv.isConnected === false) {
+          clearInterval(heroAnimInterval);
+          heroAnimInterval = null;
+          if (heroMapObserver) {
+            try { heroMapObserver.disconnect(); } catch (_) {}
+            heroMapObserver = null;
+          }
+          if (heroResizeListener) {
+            window.removeEventListener('resize', heroResizeListener);
+            heroResizeListener = null;
+          }
+          if (heroScrollTouchPauseCleanup) {
+            try { heroScrollTouchPauseCleanup(); } catch (_) {}
+            heroScrollTouchPauseCleanup = null;
+          }
+          return;
+        }
+        if (document.hidden || !isHeroVisible) return;
+        if (typeof document.getElementById === 'function' && document.getElementById('maharashtra-fullscreen-overlay')) return;
+        if (Date.now() - lastScrollOrTouchAt < 140) return;
+
+        animProgress = (animProgress + tickStep) % 100;
         heroPolylines.forEach((poly, i) => {
           const icons = poly.get('icons');
           if (icons && icons[0]) {
-            const offset = (animTick * 1.4 + (i * 12)) % 100;
+            const offset = (animProgress + (i * 12)) % 100;
             icons[0].offset = `${offset}%`;
             poly.set('icons', icons);
           }
         });
-      }, 35);
+      }, tickMs);
 
       // Permanent 3D Perspective Mode Default
       const heroHorizon = container.querySelector('#hero-map-3d-horizon');
@@ -1058,6 +1155,10 @@ export function openMaharashtraFullView(supporters = []) {
       // Animate Traveling Light Pulses
       let tick = 0;
       fvInterval = setInterval(() => {
+        if (overlay.isConnected === false) {
+          clearInterval(fvInterval);
+          return;
+        }
         tick = (tick + 1) % 100;
         fvPolylines.forEach((poly, i) => {
           const icons = poly.get('icons');
@@ -1068,6 +1169,7 @@ export function openMaharashtraFullView(supporters = []) {
           }
         });
       }, 35);
+      overlay._fvInterval = fvInterval;
 
       // Wire Full View 3D / 2D Perspective Toggle
       // Permanent Full View 3D Perspective Mode Default
@@ -1111,7 +1213,6 @@ export function openMaharashtraFullView(supporters = []) {
   };
   window.addEventListener('keydown', onKeyDown);
   overlay._escListener = onKeyDown;
-  overlay._fvInterval = fvInterval;
 }
 
 export function closeMaharashtraFullView() {

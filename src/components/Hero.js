@@ -22,7 +22,7 @@ export function renderHero(container, onJoinClick, supportersData = {}) {
   currentSupportersList = supportersData.supporters || (Array.isArray(supportersData) ? supportersData : []);
 
   container.innerHTML = `
-    <section id="hero" class="relative min-h-[85vh] sm:min-h-[90vh] flex items-center justify-center pt-8 pb-10 sm:py-16 overflow-hidden bg-[#030805]">
+    <section id="hero" class="relative min-h-[85vh] sm:min-h-[90vh] flex items-center justify-center pt-8 pb-10 sm:py-16 overflow-x-clip bg-[#030805]">
       
       <!-- High-Resolution Ancient Sahyadri Heritage Tree Background -->
       <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none">

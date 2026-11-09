@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import assert from 'node:assert/strict';
 import { renderHeader } from '../src/components/Header.js';
 import { renderHero } from '../src/components/Hero.js';
-import { openMaharashtraFullView, closeMaharashtraFullView, showReportDetailsCard } from '../src/components/MaharashtraMap.js';
+import { openMaharashtraFullView, closeMaharashtraFullView, showReportDetailsCard, getHeroMapGestureHandling } from '../src/components/MaharashtraMap.js';
 import { renderMovementCounter } from '../src/components/MovementCounter.js';
 import { renderInteractiveMap } from '../src/components/InteractiveMap.js';
 import { renderIssueSection } from '../src/components/IssueSection.js';
@@ -341,5 +341,58 @@ assert.ok(appendedOverlay.innerHTML.includes('English'), 'Startup modal must inc
 closeStartupLanguageModal();
 assert.strictEqual(callbackInvoked, false, 'Programmatic close must clean up without auto-triggering preview');
 console.log('✓ Startup Language Selection Modal & slower Fast Preview timing verified');
+
+// 14. Mobile Scroll Smoothness Safeguards
+const prevWindow = global.window;
+try {
+  global.window = {
+    ...prevWindow,
+    innerWidth: 390,
+    matchMedia: (q) => ({ matches: q === '(pointer: coarse)' })
+  };
+  assert.strictEqual(
+    getHeroMapGestureHandling(),
+    'cooperative',
+    'Mobile/coarse pointer viewports must use cooperative gestureHandling so 1-finger page scroll works smoothly over hero map'
+  );
+
+  global.window = {
+    ...prevWindow,
+    innerWidth: 1280,
+    matchMedia: () => ({ matches: false })
+  };
+  assert.strictEqual(
+    getHeroMapGestureHandling(),
+    'greedy',
+    'Desktop fine-pointer viewports must preserve greedy hero map gestureHandling'
+  );
+} finally {
+  global.window = prevWindow;
+}
+
+assert.ok(heroEl.innerHTML.includes('<section id="hero"') && heroEl.innerHTML.includes('overflow-x-clip'), 'Hero section must use overflow-x-clip to avoid vertical scroll locking');
+assert.ok(counterEl.innerHTML.includes('overflow-x-clip'), 'Counter section must use overflow-x-clip to avoid vertical scroll locking');
+assert.ok(storyEl.innerHTML.includes('<section id="story"') && storyEl.innerHTML.includes('overflow-x-clip'), 'Story section must use overflow-x-clip to avoid vertical scroll locking');
+
+// Verify closeFastPreviewModal immediately unlocks body scroll synchronously without 300ms delay
+const prevBodyClassList = global.document.body.classList;
+let immediateOverflowRemoved = false;
+try {
+  global.document.body.classList = {
+    add: () => {},
+    remove: (cls) => {
+      if (cls === 'overflow-hidden') immediateOverflowRemoved = true;
+    }
+  };
+  openFastPreviewModal();
+  const fadingOverlay = appendedOverlay;
+  closeFastPreviewModal();
+  assert.strictEqual(immediateOverflowRemoved, true, 'closeFastPreviewModal must synchronously remove body overflow-hidden on dismiss');
+  assert.strictEqual(fadingOverlay.id, 'sahyadri-fast-preview-modal-closing', 'Dismissed overlay must immediately switch away from active modal id');
+} finally {
+  global.document.body.classList = prevBodyClassList;
+  appendedOverlay = null;
+}
+console.log('✓ Mobile scroll smoothness safeguards verified (cooperative touch map, overflow-x-clip sections, immediate modal scroll unlock)');
 
 console.log('\n🎉 ALL COMPONENT SMOKE TESTS PASSED!');

@@ -159,7 +159,7 @@ export function renderStorySection(container, onJoinClick) {
   }).join('');
 
   container.innerHTML = `
-    <section id="story" class="relative py-12 sm:py-16 lg:py-20 bg-[#030805] overflow-hidden">
+    <section id="story" class="relative py-12 sm:py-16 lg:py-20 bg-[#030805] overflow-x-clip">
       
       <!-- Subtle Western Ghats Forest & Mountain Background Accent with Dark Overlay -->
       <div class="absolute inset-0 pointer-events-none overflow-hidden select-none">
@@ -405,11 +405,11 @@ function initStoryMobileCarousel(container) {
     const deltaY = touch.clientY - startY;
 
     if (!isSwiping) {
-      if (Math.abs(deltaY) > 7 && Math.abs(deltaY) >= Math.abs(deltaX)) {
+      if (Math.abs(deltaY) > 6 && Math.abs(deltaY) >= Math.abs(deltaX)) {
         isVerticalScroll = true;
         return;
       }
-      if (Math.abs(deltaX) > 7 && Math.abs(deltaX) > Math.abs(deltaY)) {
+      if (Math.abs(deltaX) > 10 && Math.abs(deltaX) > Math.abs(deltaY) * 1.25) {
         isSwiping = true;
       }
     }

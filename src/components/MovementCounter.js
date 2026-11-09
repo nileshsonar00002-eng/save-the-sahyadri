@@ -29,7 +29,7 @@ export function renderMovementCounter(container, stats = {}) {
   }
 
   container.innerHTML = `
-    <section class="relative py-12 sm:py-16 lg:py-20 bg-[#040C07] border-b border-emerald-500/15 overflow-hidden">
+    <section class="relative py-12 sm:py-16 lg:py-20 bg-[#040C07] border-b border-emerald-500/15 overflow-x-clip">
       
       <!-- Subtle Ambient Forest Lighting -->
       <div class="absolute inset-0 bg-radial-gradient pointer-events-none">
@@ -383,12 +383,12 @@ function initMobileCarousel(container) {
     // Check gesture direction lock
     if (!isSwiping) {
       // If user is scrolling vertically, let the page scroll naturally!
-      if (Math.abs(deltaY) > 7 && Math.abs(deltaY) >= Math.abs(deltaX)) {
+      if (Math.abs(deltaY) > 6 && Math.abs(deltaY) >= Math.abs(deltaX)) {
         isVerticalScroll = true;
         return;
       }
       // If user is intentionally swiping horizontally, take control
-      if (Math.abs(deltaX) > 7 && Math.abs(deltaX) > Math.abs(deltaY)) {
+      if (Math.abs(deltaX) > 10 && Math.abs(deltaX) > Math.abs(deltaY) * 1.25) {
         isSwiping = true;
       }
     }

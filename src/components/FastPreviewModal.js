@@ -66,12 +66,29 @@ export function closeFastPreviewModal() {
     keydownHandler = null;
   }
 
+  const hasAnotherOpenOverlay = () => {
+    if (typeof document.getElementById !== 'function') return false;
+    return Boolean(
+      document.getElementById('sahyadri-join-modal-root') ||
+      document.getElementById('sahyadri-share-modal-root') ||
+      document.getElementById('sahyadri-info-modal-root') ||
+      document.getElementById('maharashtra-fullscreen-overlay')
+    );
+  };
+
+  if (!hasAnotherOpenOverlay()) {
+    document.body.classList.remove('overflow-hidden');
+  }
+
   const existing = document.getElementById('sahyadri-fast-preview-modal-root');
   if (existing) {
-    existing.classList.add('opacity-0', 'transition-opacity', 'duration-300');
+    existing.id = 'sahyadri-fast-preview-modal-closing';
+    existing.classList.add('opacity-0', 'transition-opacity', 'duration-300', 'pointer-events-none');
     setTimeout(() => {
       if (existing.parentNode) existing.parentNode.removeChild(existing);
-      document.body.classList.remove('overflow-hidden');
+      if (!hasAnotherOpenOverlay() && !document.getElementById('sahyadri-fast-preview-modal-root')) {
+        document.body.classList.remove('overflow-hidden');
+      }
     }, 300);
   }
 }
