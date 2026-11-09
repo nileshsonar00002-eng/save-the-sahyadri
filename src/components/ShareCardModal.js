@@ -6,10 +6,103 @@
 
 import { t, getLanguage } from '../utils/i18n.js';
 
+/**
+ * Decode basic HTML entities introduced by sanitizeInput so plain canvas text renders naturally.
+ */
+function decodeBasicEntities(text) {
+  return String(text || '')
+    .replace(/&#39;/g, "'")
+    .replace(/&quot;/g, '"')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&amp;/g, '&');
+}
+
+/**
+ * Resolve the supporter's display name for certificate personalization.
+ */
+export function resolveSupporterDisplayName(supporter = {}) {
+  let rawName = supporter && typeof supporter.displayName === 'string' ? supporter.displayName.trim() : '';
+
+  if (!rawName && typeof localStorage !== 'undefined') {
+    try {
+      const savedRaw = localStorage.getItem('sahyadri_pledged_supporter');
+      const saved = savedRaw ? JSON.parse(savedRaw) : null;
+      if (saved && typeof saved.displayName === 'string' && saved.displayName.trim()) {
+        rawName = saved.displayName.trim();
+      }
+    } catch (_) {}
+  }
+
+  const cleaned = decodeBasicEntities(rawName).replace(/\s+/g, ' ').trim();
+  return cleaned || 'Citizen Supporter';
+}
+
+/**
+ * Render the supporter's personalized name cleanly in the certificate centerpiece slot
+ * above the green leaf swoosh, auto-scaling typography to fit any name length.
+ */
+export function drawSupporterNameOnCanvas(ctx, displayName, width = 1024) {
+  if (!ctx) return;
+  const nameText = resolveSupporterDisplayName({ displayName });
+  if (!nameText) return;
+
+  ctx.save();
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+
+  const hasDevanagari = /[\u0900-\u097F]/.test(nameText);
+  const maxWidth = 570;
+  const minFontSize = 26;
+  let fontSize = hasDevanagari
+    ? (nameText.length > 16 ? 40 : 46)
+    : (nameText.length > 16 ? 52 : 58);
+
+  const buildFont = (size) => (
+    hasDevanagari
+      ? `700 ${size}px "Noto Sans Devanagari", "Kohinoor Devanagari", Georgia, serif`
+      : `italic 700 ${size}px Georgia, "Times New Roman", "Noto Serif", serif`
+  );
+
+  while (fontSize > minFontSize) {
+    ctx.font = buildFont(fontSize);
+    if (!ctx.measureText || ctx.measureText(nameText).width <= maxWidth) {
+      break;
+    }
+    fontSize -= 2;
+  }
+
+  ctx.font = buildFont(fontSize);
+
+  const measuredWidth = ctx.measureText ? ctx.measureText(nameText).width : 0;
+  const centerX = width / 2;
+  const centerY = hasDevanagari
+    ? 480
+    : (measuredWidth > 280 ? 471 : 476);
+
+  if (typeof ctx.createLinearGradient === 'function') {
+    const grad = ctx.createLinearGradient(0, centerY - fontSize * 0.55, 0, centerY + fontSize * 0.55);
+    grad.addColorStop(0, '#0D4A1B');
+    grad.addColorStop(0.55, '#073812');
+    grad.addColorStop(1, '#04260B');
+    ctx.fillStyle = grad;
+  } else {
+    ctx.fillStyle = '#073812';
+  }
+
+  ctx.shadowColor = 'rgba(255, 250, 224, 0.85)';
+  ctx.shadowBlur = 0;
+  ctx.shadowOffsetX = 0;
+  ctx.shadowOffsetY = 2;
+
+  ctx.fillText(nameText, centerX, centerY, maxWidth);
+  ctx.restore();
+}
+
 export function openShareCardModal(supporter = {}) {
   closeShareCardModal();
 
-  const displayName = supporter.displayName || 'Citizen Supporter';
+  const displayName = resolveSupporterDisplayName(supporter);
   const city = supporter.city || 'India';
   const state = supporter.state || 'Maharashtra';
 
@@ -142,6 +235,7 @@ export function openShareCardModal(supporter = {}) {
 
     if (certImage.complete && certImage.naturalWidth > 0) {
       ctx.drawImage(certImage, 0, 0, width, height);
+      drawSupporterNameOnCanvas(ctx, displayName, width);
       if (loadingOverlay) loadingOverlay.classList.add('hidden');
     } else {
       ctx.fillStyle = '#06150E';

@@ -13,7 +13,7 @@ import { renderHowItWorks } from '../src/components/HowItWorks.js';
 import { renderFooter, updateFooterVisitorCount } from '../src/components/Footer.js';
 import { openPrivacyModal, closeInfoModal } from '../src/components/InfoModals.js';
 import { openFastPreviewModal, closeFastPreviewModal, AT_RISK_IMAGES } from '../src/components/FastPreviewModal.js';
-import { openShareCardModal, closeShareCardModal } from '../src/components/ShareCardModal.js';
+import { openShareCardModal, closeShareCardModal, resolveSupporterDisplayName, drawSupporterNameOnCanvas } from '../src/components/ShareCardModal.js';
 
 // Mock minimal DOM element
 function createMockElement(id = 'container') {
@@ -294,7 +294,7 @@ assert.ok(!indexHtmlContent.includes('og:image'), 'Must have no photo (og:image)
 assert.ok(!indexHtmlContent.includes('twitter:image'), 'Must have no photo (twitter:image) with share link');
 console.log('✓ Share link verified with no attached photo');
 
-// 12. Support Certificate Modal
+// 12. Support Certificate Modal & Dynamic Supporter Name Rendering
 openShareCardModal({ displayName: 'Citizen Supporter' });
 assert.ok(appendedOverlay, 'Share Certificate modal must be mounted');
 assert.ok(appendedOverlay.innerHTML.includes('Certificate of'), 'Modal must contain Certificate of heading');
@@ -303,6 +303,25 @@ assert.ok(appendedOverlay.innerHTML.includes('support-card-canvas'), 'Modal must
 assert.ok(appendedOverlay.innerHTML.includes('btn-download-card'), 'Modal must contain download certificate button');
 assert.ok(appendedOverlay.innerHTML.includes('btn-whatsapp-share'), 'Modal must contain whatsapp share button');
 closeShareCardModal();
-console.log('✓ Support Certificate modal rendered and verified with certificate-of-support.jpg');
+
+assert.equal(resolveSupporterDisplayName({ displayName: '  Aditya   Patil ' }), 'Aditya Patil', 'Must normalize whitespace in supporter name');
+assert.equal(resolveSupporterDisplayName({ displayName: 'Rohan D&#39;Souza &amp; Co' }), "Rohan D'Souza & Co", 'Must decode sanitized HTML entities for canvas rendering');
+
+const drawnCalls = [];
+const mockCtx = {
+  save: () => {},
+  restore: () => {},
+  drawImage: () => {},
+  fillRect: () => {},
+  createLinearGradient: () => ({ addColorStop: () => {} }),
+  measureText: (txt) => ({ width: txt.length * 24 }),
+  fillText: (text, x, y, maxW) => drawnCalls.push({ text, x, y, maxW })
+};
+drawSupporterNameOnCanvas(mockCtx, 'Nilesh Sonar', 1024);
+assert.equal(drawnCalls.length, 1, 'Must draw supporter name onto certificate canvas');
+assert.equal(drawnCalls[0].text, 'Nilesh Sonar', 'Certificate canvas must render actual supporter name instead of You');
+assert.equal(drawnCalls[0].x, 512, 'Supporter name must be horizontally centered on 1024px certificate');
+assert.ok(drawnCalls[0].y >= 460 && drawnCalls[0].y <= 485, 'Supporter name must sit neatly in centerpiece banner above leaf swoosh');
+console.log('✓ Support Certificate modal rendered and verified with dynamic supporter name on certificate-of-support.jpg');
 
 console.log('\n🎉 ALL COMPONENT SMOKE TESTS PASSED!');
