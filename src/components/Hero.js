@@ -29,26 +29,26 @@ export function renderHero(container, onJoinClick, supportersData = {}) {
         <img 
           src="/images/sahyadri-tree-hero.jpg" 
           alt="Majestic Sahyadri Forest Heritage Tree" 
-          class="w-full h-full object-cover object-center lg:object-[50%_35%] select-none scale-100"
+          class="w-full h-full object-cover object-center lg:object-[50%_35%] select-none scale-100 brightness-[1.15] contrast-105 saturate-110"
           loading="eager"
           decoding="async"
         />
 
-        <!-- Forest Green Atmosphere & Contrast Overlays: ensures readable text while the majestic tree is clearly visible behind 'THE SAHYADRI NEEDS US' -->
-        <!-- 1. Ambient forest tint unifying photo with dark theme without obscuring foliage -->
-        <div class="absolute inset-0 bg-[#031309]/30 mix-blend-multiply"></div>
+        <!-- Forest Green Atmosphere & Contrast Overlays: ensures readable text while keeping the majestic tree prominently visible behind 'THE SAHYADRI NEEDS US' -->
+        <!-- 1. Subtle ambient forest tint unifying photo with dark theme without darkening the canopy -->
+        <div class="absolute inset-0 bg-[#031309]/10"></div>
 
-        <!-- 2. Desktop directional gradient: deeper behind text on left, soft and transparent across the tree in center/right -->
-        <div class="hidden lg:block absolute inset-0 bg-gradient-to-r from-[#030805]/85 via-[#030805]/45 to-[#030805]/15"></div>
+        <!-- 2. Desktop directional gradient: gentle contrast behind text on left, open and clear across the tree in center/right -->
+        <div class="hidden lg:block absolute inset-0 bg-gradient-to-r from-[#030805]/65 via-[#030805]/25 to-transparent"></div>
 
-        <!-- 3. Mobile directional gradient: darker top/bottom for text contrast, open in center for tree visibility -->
-        <div class="lg:hidden absolute inset-0 bg-gradient-to-b from-[#030805]/80 via-[#030805]/35 to-[#030805]/85"></div>
+        <!-- 3. Mobile directional gradient: subtle top/bottom edge framing for text contrast, clear across tree canopy and trunk -->
+        <div class="lg:hidden absolute inset-0 bg-gradient-to-b from-[#030805]/45 via-[#030805]/10 to-[#030805]/60"></div>
 
         <!-- 4. Seamless bottom fade into page background (#030805) -->
-        <div class="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#030805] via-[#030805]/75 to-transparent"></div>
+        <div class="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#030805] via-[#030805]/50 to-transparent"></div>
 
         <!-- 5. Seamless top fade from navigation bar -->
-        <div class="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#030805]/80 to-transparent"></div>
+        <div class="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-[#030805]/55 to-transparent"></div>
         
         <!-- Living Forest Subtle Atmospheric Shimmer & Mist -->
         <div class="absolute inset-0 pointer-events-none">
@@ -77,7 +77,7 @@ export function renderHero(container, onJoinClick, supportersData = {}) {
         
         <!-- Mobile Main Headline (Visible ONLY in mobile view, right below menu bar) -->
         <div class="lg:hidden text-center space-y-1 mb-5">
-          <h1 class="font-heading font-black text-3xl sm:text-4xl tracking-tight leading-[1.08] text-white">
+          <h1 class="font-heading font-black text-3xl sm:text-4xl tracking-tight leading-[1.08] text-white drop-shadow-[0_2px_12px_rgba(3,8,5,0.85)]">
             <span class="hero-line-left block">${t('hero.headlineLine1')}</span>
             <span class="hero-line-right block">${t('hero.headlineLine2Prefix')} <span class="text-[#00FF87]">${t('hero.headlineLine2Highlight')}</span></span>
           </h1>
@@ -95,14 +95,14 @@ export function renderHero(container, onJoinClick, supportersData = {}) {
                 <span>${t('hero.eyebrow')}</span>
               </div>
 
-              <h1 class="font-heading font-black text-4xl sm:text-5xl xl:text-6xl tracking-tight leading-[1.08] text-white">
+              <h1 class="font-heading font-black text-4xl sm:text-5xl xl:text-6xl tracking-tight leading-[1.08] text-white drop-shadow-[0_2px_14px_rgba(3,8,5,0.85)]">
                 <span class="hero-line-left block">${t('hero.headlineLine1')}</span>
                 <span class="hero-line-right block">${t('hero.headlineLine2Prefix')} <span class="text-[#00FF87]">${t('hero.headlineLine2Highlight')}</span></span>
               </h1>
             </div>
 
             <!-- Supporting Text -->
-            <p class="text-base sm:text-lg lg:text-xl text-slate-300 font-normal leading-relaxed max-w-xl mx-auto lg:mx-0">
+            <p class="text-base sm:text-lg lg:text-xl text-slate-100 font-normal leading-relaxed max-w-xl mx-auto lg:mx-0 [text-shadow:0_2px_12px_rgba(3,8,5,0.95)]">
               ${t('hero.supportingQuote')}
             </p>
 
@@ -120,7 +120,7 @@ export function renderHero(container, onJoinClick, supportersData = {}) {
             </div>
 
             <!-- Trust Note -->
-            <div class="flex items-center justify-center lg:justify-start gap-2 text-xs text-slate-400 pt-1">
+            <div class="flex items-center justify-center lg:justify-start gap-2 text-xs text-slate-200 [text-shadow:0_1px_10px_rgba(3,8,5,0.95)] pt-1">
               <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
               </svg>
