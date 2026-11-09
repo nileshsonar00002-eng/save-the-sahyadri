@@ -107,7 +107,23 @@ assert.ok(appendedOverlay.innerHTML.includes('SAVE SAHYADRI'), 'Fullscreen map h
 assert.ok(!appendedOverlay.innerHTML.includes('MAHARASHTRA & SAHYADRI LIVE MAP'), 'MAHARASHTRA & SAHYADRI LIVE MAP must be removed');
 assert.ok(!appendedOverlay.innerHTML.includes('Karjat & Western Ghats Spine'), 'Karjat & Western Ghats Spine must be removed');
 closeMaharashtraFullView();
-console.log('✓ Fullscreen Map view properly displays the live counter card and campaign headline in the upper black horizon');
+
+// 2c. Fullscreen Map selects chronologically latest LAST JOINED city even from unsorted Firestore list
+openMaharashtraFullView([
+  { id: 'doc_a', city: 'Pimpri-Chinchwad', state: 'Maharashtra', joinedAt: '2026-10-31T15:01:14.122Z' },
+  { id: 'doc_z', city: 'Mumbai Suburban District', state: 'Maharashtra', joinedAt: '2026-11-07T18:25:09.718Z' },
+  { id: 'doc_m', city: 'Pune', state: 'Maharashtra', joinedAt: '2026-11-07T08:49:23.794Z' }
+]);
+assert.ok(
+  appendedOverlay.innerHTML.includes('MUMBAI SUBURBAN DISTRICT, MAHARASHTRA'),
+  'Fullscreen LAST JOINED label must show chronologically latest city (Mumbai Suburban District)'
+);
+assert.ok(
+  !appendedOverlay.innerHTML.includes('PIMPRI-CHINCHWAD, MAHARASHTRA'),
+  'Fullscreen LAST JOINED label must not get stuck on older Pimpri-Chinchwad record'
+);
+closeMaharashtraFullView();
+console.log('✓ Fullscreen Map view properly displays the live counter card, latest joined city, and campaign headline in the upper black horizon');
 
 // 2b. Map Marker Report Details Card Centering & Placement
 const testMapContainer = createMockElement('test-map-container');

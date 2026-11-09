@@ -16,7 +16,10 @@ import {
 } from '../src/data/newsData.js';
 import {
   sanitizeInput,
-  countUniqueCities
+  countUniqueCities,
+  parseJoinedAtMs,
+  sortSupportersByLatest,
+  getLatestSupporter
 } from '../src/utils/sanitize.js';
 
 console.log('🧪 Starting SAVE THE SAHYADRI Test Suite...\n');
@@ -268,4 +271,47 @@ testCoords.forEach(tc => {
 });
 console.log('✓ Zoom-adaptive line styles and loop-free geometry verified\n');
 
-console.log('🎉 ALL 10 TEST SUITES PASSED FLAWLESSLY!');
+// 11. Supporter Chronological Sorting & Latest Joined Detection Tests
+console.log('Test 11: Supporter Chronological Sorting & Latest Joined Detection');
+const unsortedSupporters = [
+  { id: '2e4x6NO01nlhiTKks63G', city: 'Pimpri-Chinchwad', state: 'Maharashtra', joinedAt: '2026-10-31T15:01:14.122Z' },
+  { id: 'ECIIhlS5BVKTrBWtxbBm', city: 'Pune', state: 'Maharashtra', joinedAt: '2026-11-07T08:49:23.794Z' },
+  { id: 'JJKNQaag8kYotot9og3U', city: 'Mumbai Suburban District', state: 'Maharashtra', joinedAt: '2026-11-07T18:25:09.718Z' },
+  { id: 'legacy-no-ts', city: 'Nashik', state: 'Maharashtra', joinedAt: null }
+];
+
+const sortedSupporters = sortSupportersByLatest(unsortedSupporters);
+assert.equal(sortedSupporters[0].city, 'Mumbai Suburban District', 'Newest joiner must sort to index 0');
+assert.equal(sortedSupporters[1].city, 'Pune', 'Second newest joiner must sort to index 1');
+assert.equal(sortedSupporters[2].city, 'Pimpri-Chinchwad', 'Older joiner must sort after newer joiners');
+assert.equal(sortedSupporters[3].city, 'Nashik', 'Legacy record without joinedAt must not beat timestamped joiners');
+
+const pickedLatest = getLatestSupporter(unsortedSupporters);
+assert.equal(pickedLatest.city, 'Mumbai Suburban District', 'getLatestSupporter must pick chronologically latest city');
+
+// Verify Firestore Timestamp shapes & pending local write handling
+assert.equal(
+  parseJoinedAtMs({ toMillis: () => 1794075909718 }),
+  1794075909718,
+  'Must parse Firestore Timestamp.toMillis()'
+);
+assert.equal(
+  parseJoinedAtMs({ toDate: () => new Date('2026-11-07T18:25:09.718Z') }),
+  Date.parse('2026-11-07T18:25:09.718Z'),
+  'Must parse Firestore Timestamp.toDate()'
+);
+assert.equal(
+  parseJoinedAtMs({ seconds: 1794075909, nanoseconds: 718000000 }),
+  1794075909718,
+  'Must parse serialized { seconds, nanoseconds } timestamp'
+);
+assert.equal(parseJoinedAtMs(null, { hasPendingWrites: false }), 0, 'Missing non-pending timestamp must return 0');
+assert.ok(parseJoinedAtMs(null, { hasPendingWrites: true }) > 0, 'Pending local write without serverTimestamp yet must use current time');
+
+// Verify graceful fallback when mock entries lack joinedAt
+const mockNoTimestamps = [{ city: 'Pune', state: 'Maharashtra' }, { city: 'Nagpur', state: 'Maharashtra' }];
+assert.equal(getLatestSupporter(mockNoTimestamps).city, 'Pune', 'Fallback without timestamps preserves first valid entry');
+assert.equal(getLatestSupporter([]), null, 'Empty supporter list must return null');
+console.log('✓ Chronological sorting and latest joined detection verified\n');
+
+console.log('🎉 ALL 11 TEST SUITES PASSED FLAWLESSLY!');

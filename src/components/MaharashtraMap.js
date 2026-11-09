@@ -24,8 +24,10 @@ import {
   projectMaharashtraGeo
 } from '../data/maharashtraGeoData.js';
 import { SAHYADRI_CORRIDOR_COORDS } from '../data/sahyadriData.js';
-import { escapeHtml } from '../utils/sanitize.js';
+import { escapeHtml, getLatestSupporter } from '../utils/sanitize.js';
 import { t } from '../utils/i18n.js';
+
+export { getLatestSupporter };
 
 const SVG_WIDTH = 1000;
 const SVG_HEIGHT = 640;
@@ -431,6 +433,14 @@ export function renderHeroMaharashtraMap(container, supporters = [], onFullViewC
   // Update dynamic count on stats card
   updateStatsCard(container, supporters);
 
+  // Sync open fullscreen overlay HUD if real-time supporter updates arrive while fullscreen is active
+  if (typeof document !== 'undefined' && typeof document.getElementById === 'function') {
+    const openOverlay = document.getElementById('maharashtra-fullscreen-overlay');
+    if (openOverlay && openOverlay !== container) {
+      updateStatsCard(openOverlay, supporters);
+    }
+  }
+
   // Wire Hero Map Join Button
   const joinBtn = container.querySelector('#hero-map-join-cta');
   if (joinBtn) {
@@ -700,7 +710,7 @@ export function openMaharashtraFullView(supporters = []) {
   closeMaharashtraFullView();
 
   const totalCount = Array.isArray(supporters) ? supporters.length : 0;
-  const latestSupporter = (Array.isArray(supporters) && supporters.length > 0) ? supporters[0] : null;
+  const latestSupporter = getLatestSupporter(supporters);
   const lastJoinedText = latestSupporter
     ? `${latestSupporter.city || 'MUMBAI'}, ${latestSupporter.state || 'MAHARASHTRA'}`.toUpperCase()
     : 'MUMBAI, MAHARASHTRA';
@@ -1173,8 +1183,8 @@ function updateStatsCard(container, supporters = []) {
     el.textContent = displayCount;
   });
 
-  if (Array.isArray(supporters) && supporters.length > 0) {
-    const latest = supporters[0];
+  const latest = getLatestSupporter(supporters);
+  if (latest) {
     const loc = `${latest.city || 'MUMBAI'}, ${latest.state || 'MAHARASHTRA'}`.toUpperCase();
     statsCities.forEach((el) => {
       el.textContent = loc;

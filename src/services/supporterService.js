@@ -18,9 +18,15 @@ import {
 } from 'firebase/firestore';
 import { db } from './firebase';
 import { findCityGeo, SAHYADRI_HUB } from '../data/sahyadriData.js';
-import { sanitizeInput, countUniqueCities } from '../utils/sanitize.js';
+import {
+  sanitizeInput,
+  countUniqueCities,
+  parseJoinedAtMs,
+  sortSupportersByLatest,
+  getLatestSupporter
+} from '../utils/sanitize.js';
 
-export { sanitizeInput, countUniqueCities };
+export { sanitizeInput, countUniqueCities, parseJoinedAtMs, sortSupportersByLatest, getLatestSupporter };
 
 const COLLECTION_NAME = import.meta.env.VITE_FIREBASE_COLLECTION_NAME || 'savesahyadri_supporters';
 const LOCAL_STORAGE_KEY = 'sahyadri_pledged_data';
@@ -227,6 +233,8 @@ export function subscribeToSupporters(onUpdate, onError) {
         snapshot.forEach((docSnap) => {
           const data = docSnap.data();
           if (data && data.status !== 'removed') {
+            const hasPendingWrites = Boolean(docSnap.metadata && docSnap.metadata.hasPendingWrites);
+            const joinedAtMs = parseJoinedAtMs(data.joinedAt, { hasPendingWrites });
             // Only expose public fields (no emails, no exact home coordinates)
             list.push({
               id: docSnap.id,
@@ -236,26 +244,27 @@ export function subscribeToSupporters(onUpdate, onError) {
               lat: typeof data.lat === 'number' ? data.lat : SAHYADRI_HUB.lat,
               lng: typeof data.lng === 'number' ? data.lng : SAHYADRI_HUB.lng,
               deviceId: data.deviceId || null,
-              joinedAt: data.joinedAt?.toDate ? data.joinedAt.toDate().toISOString() : new Date().toISOString()
+              joinedAt: joinedAtMs > 0 ? new Date(joinedAtMs).toISOString() : null
             });
           }
         });
 
-        activeSupporters = list;
+        const sortedList = sortSupportersByLatest(list);
+        activeSupporters = sortedList;
 
         // Auto-check if current device already has a registered supporter
         const currentDevId = getDeviceId();
         if (currentDevId) {
-          const matchedPledge = list.find(s => s.deviceId === currentDevId);
+          const matchedPledge = sortedList.find(s => s.deviceId === currentDevId);
           if (matchedPledge) {
             markDeviceAsJoined(matchedPledge);
           }
         }
 
         onUpdate({
-          supporters: list,
-          total: list.length,
-          uniqueCities: countUniqueCities(list),
+          supporters: sortedList,
+          total: sortedList.length,
+          uniqueCities: countUniqueCities(sortedList),
           isLive: true
         });
       },
@@ -377,7 +386,8 @@ export async function registerSupporter({ displayName, city = 'Maharashtra', sta
       state: cleanState,
       lat,
       lng,
-      deviceId
+      deviceId,
+      joinedAt: new Date().toISOString()
     };
 
     // Mark device as joined across localStorage, sessionStorage, and cookie
@@ -455,7 +465,8 @@ export async function requestSupporterRemoval({ supporterId, name, reason }) {
 function loadLocalSupporters() {
   try {
     const raw = localStorage.getItem(LOCAL_STORAGE_KEY);
-    return raw ? JSON.parse(raw) : [];
+    const parsed = raw ? JSON.parse(raw) : [];
+    return sortSupportersByLatest(Array.isArray(parsed) ? parsed : []);
   } catch (_) {
     return [];
   }
