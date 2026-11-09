@@ -23,6 +23,9 @@ export const AT_RISK_IMAGES = [
   '/images/at-risk/12.PNG'
 ];
 
+export const FAST_PREVIEW_TOTAL_DURATION_MS = 15000; // 15 seconds (1.25s per photo, slightly slower pace)
+export const FAST_PREVIEW_SLIDE_DURATION_MS = FAST_PREVIEW_TOTAL_DURATION_MS / AT_RISK_IMAGES.length; // 1250ms per image
+
 import { t } from '../utils/i18n.js';
 
 let previewTimeout = null;
@@ -50,6 +53,7 @@ export function closeFastPreviewModal() {
     previewTimeout = null;
   }
   if (cycleInterval) {
+    clearTimeout(cycleInterval);
     clearInterval(cycleInterval);
     cycleInterval = null;
   }
@@ -79,11 +83,11 @@ export function openFastPreviewModal(onPledgeClick) {
   closeFastPreviewModal();
 
   const totalImages = AT_RISK_IMAGES.length;
-  const totalDurationMs = 10000; // Exactly 10 seconds
-  const slideDurationMs = totalDurationMs / totalImages; // ~833ms per image
+  const totalDurationMs = FAST_PREVIEW_TOTAL_DURATION_MS; // 15 seconds
+  const slideDurationMs = FAST_PREVIEW_SLIDE_DURATION_MS; // 1250ms per image
 
   let currentIndex = 0;
-  let remainingSec = 10;
+  let remainingSec = Math.ceil(totalDurationMs / 1000);
 
   const modalContainer = document.createElement('div');
   modalContainer.id = 'sahyadri-fast-preview-modal-root';
@@ -226,35 +230,40 @@ export function openFastPreviewModal(onPledgeClick) {
     }
   }, 1000);
 
-  // Fast image cycling (~833ms each, completing in 10s)
-  cycleInterval = setInterval(() => {
-    currentIndex += 1;
-    if (currentIndex >= totalImages) {
-      // Finished all 12 images
-      clearInterval(cycleInterval);
-      cycleInterval = null;
-      return;
-    }
+  // Smooth paced image cycling (~1250ms each, completing cleanly across 15s)
+  const scheduleNextSlide = () => {
+    cycleInterval = setTimeout(() => {
+      currentIndex += 1;
+      if (currentIndex >= totalImages) {
+        cycleInterval = null;
+        closeFastPreviewModal();
+        return;
+      }
 
-    // Update story segment bars
-    const bar = modalContainer.querySelector(`#fast-bar-${currentIndex}`);
-    if (bar) bar.style.width = '100%';
+      // Update story segment bars
+      const bar = modalContainer.querySelector(`#fast-bar-${currentIndex}`);
+      if (bar) bar.style.width = '100%';
 
-    // Update image
-    const nextSrc = AT_RISK_IMAGES[currentIndex];
-    if (imgEl) {
-      imgEl.src = nextSrc;
-    }
-    if (bgEl) {
-      bgEl.src = nextSrc;
-    }
-    if (numEl) {
-      numEl.textContent = String(currentIndex + 1);
-    }
-  }, slideDurationMs);
+      // Update image
+      const nextSrc = AT_RISK_IMAGES[currentIndex];
+      if (imgEl) {
+        imgEl.src = nextSrc;
+      }
+      if (bgEl) {
+        bgEl.src = nextSrc;
+      }
+      if (numEl) {
+        numEl.textContent = String(currentIndex + 1);
+      }
 
-  // Auto-finish and close modal at exactly 10 seconds
+      scheduleNextSlide();
+    }, slideDurationMs);
+  };
+
+  scheduleNextSlide();
+
+  // Safety ceiling timeout if timers throttle in background tabs
   previewTimeout = setTimeout(() => {
     closeFastPreviewModal();
-  }, totalDurationMs);
+  }, totalDurationMs + 1500);
 }

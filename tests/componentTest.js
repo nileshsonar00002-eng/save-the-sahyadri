@@ -12,7 +12,8 @@ import { renderStorySection } from '../src/components/StorySection.js';
 import { renderHowItWorks } from '../src/components/HowItWorks.js';
 import { renderFooter, updateFooterVisitorCount } from '../src/components/Footer.js';
 import { openPrivacyModal, closeInfoModal } from '../src/components/InfoModals.js';
-import { openFastPreviewModal, closeFastPreviewModal, AT_RISK_IMAGES } from '../src/components/FastPreviewModal.js';
+import { openFastPreviewModal, closeFastPreviewModal, AT_RISK_IMAGES, FAST_PREVIEW_TOTAL_DURATION_MS, FAST_PREVIEW_SLIDE_DURATION_MS } from '../src/components/FastPreviewModal.js';
+import { openStartupLanguageModal, closeStartupLanguageModal, STARTUP_LANGUAGE_OPTIONS } from '../src/components/StartupLanguageModal.js';
 import { openShareCardModal, closeShareCardModal, resolveSupporterDisplayName, drawSupporterNameOnCanvas } from '../src/components/ShareCardModal.js';
 
 // Mock minimal DOM element
@@ -323,5 +324,22 @@ assert.equal(drawnCalls[0].text, 'Nilesh Sonar', 'Certificate canvas must render
 assert.equal(drawnCalls[0].x, 512, 'Supporter name must be horizontally centered on 1024px certificate');
 assert.ok(drawnCalls[0].y >= 460 && drawnCalls[0].y <= 485, 'Supporter name must sit neatly in centerpiece banner above leaf swoosh');
 console.log('✓ Support Certificate modal rendered and verified with dynamic supporter name on certificate-of-support.jpg');
+
+// 13. Startup Language Modal & Slower Fast Preview Pacing
+assert.strictEqual(FAST_PREVIEW_TOTAL_DURATION_MS, 15000, 'Fast preview total duration must be slowed slightly to 15000ms (15s)');
+assert.strictEqual(FAST_PREVIEW_SLIDE_DURATION_MS, 1250, 'Each image frame must display for 1250ms instead of 833ms');
+assert.strictEqual(STARTUP_LANGUAGE_OPTIONS.length, 3, 'Startup language selector must provide Marathi, Hindi, and English');
+
+let callbackInvoked = false;
+openStartupLanguageModal(() => { callbackInvoked = true; });
+assert.ok(appendedOverlay, 'Startup language modal must be mounted');
+assert.strictEqual(appendedOverlay.id, 'sahyadri-startup-lang-dialog', 'Must mount native dialog container');
+assert.ok(appendedOverlay.innerHTML.includes('Select Your Language'), 'Startup modal must contain language selection title');
+assert.ok(appendedOverlay.innerHTML.includes('मराठी'), 'Startup modal must include Marathi option');
+assert.ok(appendedOverlay.innerHTML.includes('हिंदी'), 'Startup modal must include Hindi option');
+assert.ok(appendedOverlay.innerHTML.includes('English'), 'Startup modal must include English option');
+closeStartupLanguageModal();
+assert.strictEqual(callbackInvoked, false, 'Programmatic close must clean up without auto-triggering preview');
+console.log('✓ Startup Language Selection Modal & slower Fast Preview timing verified');
 
 console.log('\n🎉 ALL COMPONENT SMOKE TESTS PASSED!');

@@ -9,7 +9,8 @@ import { renderStorySection } from './components/StorySection';
 import { renderFooter, updateFooterVisitorCount } from './components/Footer';
 import { openJoinModal } from './components/JoinModal';
 import { openShareCardModal } from './components/ShareCardModal';
-import { openFastPreviewModal, preloadAtRiskImages } from './components/FastPreviewModal';
+import { openFastPreviewModal, closeFastPreviewModal, preloadAtRiskImages } from './components/FastPreviewModal';
+import { openStartupLanguageModal, closeStartupLanguageModal } from './components/StartupLanguageModal';
 import { renderLanguageSelector } from './components/LanguageSelector';
 import { onLanguageChange } from './utils/i18n';
 import { subscribeToSupporters } from './services/supporterService';
@@ -67,6 +68,8 @@ class SahyadriApp {
   }
 
   tearDownWebsite() {
+    closeStartupLanguageModal();
+    closeFastPreviewModal();
     if (this.unsubscribeSupporters) {
       try { this.unsubscribeSupporters(); } catch (_) {}
       this.unsubscribeSupporters = null;
@@ -183,11 +186,12 @@ class SahyadriApp {
     // Initialize subtle nature animations & scroll reveals
     initNatureAnimations();
 
-    // Preload at-risk ground evidence photos & show 10-second fast square preview on arrival
+    // Preload at-risk ground evidence photos while user chooses language on startup;
+    // site, map, and Firebase load smoothly in background before fast preview plays
     preloadAtRiskImages();
-    setTimeout(() => {
+    openStartupLanguageModal(() => {
       openFastPreviewModal(handleOpenJoin);
-    }, 600);
+    });
 
     // Track unique session visitor in Firebase Firestore
     trackVisitor();

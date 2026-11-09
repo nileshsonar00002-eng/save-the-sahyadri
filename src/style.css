@@ -647,3 +647,31 @@ button svg {
     align-self: flex-start;
   }
 }
+
+/* Native Modal Dialog Scroll Containment & Backdrop Styling */
+dialog:modal {
+  overscroll-behavior: contain;
+}
+
+dialog::backdrop {
+  overflow: hidden;
+  overscroll-behavior: contain;
+  background: rgba(3, 8, 5, 0.86);
+  backdrop-filter: blur(10px);
+}
+
+dialog.sahyadri-native-dialog {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: auto;
+  width: min(420px, calc(100vw - 1.5rem));
+  max-width: calc(100vw - 1.5rem);
+  max-height: calc(100dvh - 1.5rem);
+  color: inherit;
+  overflow-y: auto;
+}
+
+dialog.sahyadri-native-dialog[open] {
+  display: block;
+}
